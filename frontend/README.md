@@ -8,7 +8,7 @@ Este es el proyecto frontend de la aplicación, que utiliza React para construir
 
 1. Clona el repositorio:
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/No-Country-simulation/S18-23-n-java-react.git
    
 2. Navega a la carpeta del proyecto:
    ```bash
