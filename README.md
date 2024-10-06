@@ -158,7 +158,7 @@
                 </a>
               </td>
               <td>
-                <a href="#">
+                <a href="https://www.linkedin.com/in/angel-anez/">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
@@ -350,7 +350,7 @@
                 </a>
               </td>
               <td>
-                <a href="#">
+                <a href="https://www.linkedin.com/in/nestor-rubiano-b205a9270/">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
