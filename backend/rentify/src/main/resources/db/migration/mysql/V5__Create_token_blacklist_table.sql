@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS tokens_blacklist (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    expiration_date TIMESTAMP NOT NULL
+);

@@ -16,7 +16,7 @@ Este es el proyecto backend de la aplicación, que utiliza Spring Boot para cons
 
 2. Navega a la carpeta del backend:
    ```bash
-   cd backend
+   cd backend/rentify
    
 3. Instala las dependencias:
    ```bash

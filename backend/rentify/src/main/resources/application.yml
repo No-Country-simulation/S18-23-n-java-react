@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: rentify
+  datasource:
+    url: ${DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  flyway:
+    locations: classpath:db/migration/${DATABASE_TYPE:mysql}
+
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.web.access: DEBUG
+
+jwt:
+  time:
+    expiration: ${JWT_EXPIRATION:86400000} # 1 dia en milisegundos
+  secret:
+    key: ${JWT_SECRETKEY:OuqtXAJaOLVlcEmXSn6h5v2zL+FZgHSVl2ZjjXOXAqY=}
+
+token:
+  time:
+    expiration: ${TOKEN_PURPOSE:3600000} # 1 hora en milisegundos
+
+api:
+  base: api/v1
+
+frontend:
+  baseUrl: ${FRONT_BASE_URL:http://localhost:3000}
+  verifyEmailUrl: ${VERIFYEMAIL_URL:/auth/veryfy-email}
+  resetPasswordUrl: ${RESETPASSWORD_URL:/auth/reset-password}
+
+
