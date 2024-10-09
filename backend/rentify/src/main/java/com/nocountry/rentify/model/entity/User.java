@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 
 @Entity
@@ -54,6 +55,9 @@ public class User implements UserDetails {
 
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private UserProfile profile;
+
+  @OneToMany(mappedBy="ownerId", fetch = FetchType.LAZY)
+  private Set<Property> property;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

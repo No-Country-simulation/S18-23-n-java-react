@@ -19,7 +19,7 @@ public class PropertyRes {
   //private Antiquity antiquity;
   private int yearsOfAntiquity;
   private BigDecimal price;
-  private BigDecimal maintanceFees;
+  private BigDecimal maintenanceFees;
   private String title;
   private String description;
   private BigDecimal totalArea;
