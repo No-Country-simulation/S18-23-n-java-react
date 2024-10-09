@@ -4,6 +4,8 @@ import com.nocountry.rentify.dto.request.property.PropertyReq;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.service.interfaces.PropertyService;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +31,7 @@ public class PropertyController {
     return propertyService.getAllProperties();
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public PropertyRes getProperty(@PathVariable Long id) {
     return propertyService.getProperty(id);
@@ -37,13 +39,13 @@ public class PropertyController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public PropertyRes createProperty(@RequestBody PropertyReq propertyReq) {
+  public PropertyRes createProperty(@RequestBody @Valid PropertyReq propertyReq) {
     return propertyService.addProperty(propertyReq);
   }
 
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public PropertyRes updateProperty(@PathVariable Long id, @RequestBody PropertyReq propertyReq) {
+  public PropertyRes updateProperty(@PathVariable Long id, @RequestBody @Valid PropertyReq propertyReq) {
     return propertyService.updateProperty(id, propertyReq);
   }
 
@@ -52,6 +54,5 @@ public class PropertyController {
   public void deleteProperty(@PathVariable Long id) {
     propertyService.deleteProperty(id);
   }
-
 
 }

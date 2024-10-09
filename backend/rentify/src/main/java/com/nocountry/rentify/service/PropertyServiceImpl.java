@@ -1,14 +1,18 @@
 package com.nocountry.rentify.service;
 
+import com.nocountry.rentify.dto.mapper.PropertyMapper;
 import com.nocountry.rentify.dto.request.property.PropertyReq;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.service.interfaces.PropertyService;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+@RequiredArgsConstructor
 @Service
 public class PropertyServiceImpl implements PropertyService {
 
+  private final PropertyMapper mapper;
 
   @Override
   public List<PropertyRes> getAllProperties() {
