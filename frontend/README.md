@@ -1,4 +1,4 @@
-# Frontend Project
+# Frontend Rentify
 
 ## Descripción
 
@@ -12,8 +12,12 @@ Este es el proyecto frontend de la aplicación, que utiliza React para construir
    
 2. Navega a la carpeta del proyecto:
    ```bash
-   cd frontend
+   cd frontend/rentify
    
 3. Instala las dependencias:
    ```bash
    npm install
+
+4. Levantar el proyecto en modo de desarrollo:
+   ```bash
+   npm run dev
