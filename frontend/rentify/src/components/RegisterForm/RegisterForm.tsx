@@ -13,12 +13,16 @@ interface IFormInput {
 }
 
 export const Register = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<IFormInput>({
+  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<IFormInput>({
     mode: 'onChange',
+    defaultValues: {
+      termsAccepted: false,
+    },
   });
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState<'success' | 'error'>('success');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const password = watch("password");
 
@@ -37,6 +41,8 @@ export const Register = () => {
     }
     
     setOpen(true);
+    reset();
+    setTermsAccepted(false);
   };
 
   const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
@@ -144,6 +150,8 @@ export const Register = () => {
           control={
             <Checkbox
               {...register("termsAccepted", { required: "Debes aceptar los términos y condiciones" })}
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
             />
           }
           label={
