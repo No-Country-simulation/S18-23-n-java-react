@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { TextField, Button, Checkbox, FormControlLabel, Typography, Box, Link } from '@mui/material';
+import { Box, Typography, TextField, Button, FormControlLabel, Checkbox, Snackbar, Alert, Link, SnackbarCloseReason } from '@mui/material';
+
 
 interface IFormInput {
   firstName: string;
@@ -11,21 +13,46 @@ interface IFormInput {
 }
 
 export const Register = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<IFormInput>();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<IFormInput>({
+    mode: 'onChange',
+  });
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState<'success' | 'error'>('success');
+
+  const password = watch("password");
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     console.log(data);
+    
+    // Simulamos una lógica de registro
+    const isSuccess = Math.random() > 0.5;
+
+    if (isSuccess) {
+      setMessage('Registro exitoso');
+      setSeverity('success');
+    } else {
+      setMessage('Error en el registro');
+      setSeverity('error');
+    }
+    
+    setOpen(true);
   };
 
-  const password = watch("password");
+  const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center', // Centra horizontalmente
-        alignItems: 'center', // Centra verticalmente
-        minHeight: '100vh', // Altura mínima para ocupar toda la pantalla
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
       }}
     >
       <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ maxWidth: 400, margin: 'auto', padding: 2 }}>
@@ -120,13 +147,13 @@ export const Register = () => {
             />
           }
           label={
-            <Typography>
+            <Typography sx={{ fontSize: '12px' }}>
               Acepto los <Link href="#" target="_blank" rel="noopener noreferrer">términos y condiciones</Link> y las
               <Link href="#" target="_blank" rel="noopener noreferrer"> políticas de privacidad</Link>.
             </Typography>
           }
         />
-        {errors.termsAccepted && <Typography color="error">{errors.termsAccepted.message}</Typography>}
+        {errors.termsAccepted && <Typography sx={{ fontSize: '14px' }} color="error">{errors.termsAccepted.message}</Typography>}
 
         {/* Botón de envío */}
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
@@ -137,48 +164,20 @@ export const Register = () => {
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           ¿Ya tienes una cuenta? <Link href="#">Iniciar Sesión</Link>
         </Typography>
+
+        {/* Snackbar para mostrar mensajes */}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        key={'top' + 'right'}
+      >
+        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
       </Box>
     </Box>
   );
 };
-// import './registerFormStyles.css';
-
-// export const Register = () => {
-
-//     return(
-//     <form>
-//       <div className='second-div'>
-//         <div>
-//           <span>Crear cuenta</span>
-//         </div>  
-//         <div>
-//           <label htmlFor="firstName">Nombre:</label>
-//           <input type="text" id='firstName' name='firstName' pattern='[A-Za-z\s]+' placeholder='Ingresa tu nombre' required />
-//         </div>
-//         <div>
-//           <label htmlFor="lastName">Apellido:</label>
-//           <input type="text" id='lastName' name='lastName' pattern='[A-Za-z\s]+' placeholder='Ingresa tu apellido' required />
-//         </div>
-//         <div>
-//           <label htmlFor="email">Correo:</label>
-//           <input type="email" id='email' name='email' placeholder='mail@abc.com' required />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Contraseña:</label>
-//           <input type="password" id='password' name='password' placeholder='Ingresa tu contraseña' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{6,}" required />
-//         </div>
-//         <div>
-//           <label htmlFor="confirmPassword">Confirmar Contraseña:</label>
-//           <input type="password" id='confirmPassword' name='confirmPassword' placeholder='Confirma tu contraseña' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{6,}" required />
-//         </div>
-//       </div>
-//       <label className='checkbox'>
-//         <input type="checkbox" required />
-//         <p>Acepto los <a href="#" target="_blank" rel="noopener noreferrer">términos y condiciones</a> y las 
-//         <a href="#" target="_blank" rel="noopener noreferrer"> políticas de privacidad</a>.</p> 
-//       </label>
-//       <button type="submit">Registrarte</button>
-//       <p>¿Ya tienes una cuenta? <a href="#">Iniciar Sesión</a></p>  
-//     </form>
-//     );
-// };
