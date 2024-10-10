@@ -56,7 +56,7 @@ public class User implements UserDetails {
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private UserProfile profile;
 
-  @OneToMany(mappedBy="ownerId", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy="owner", fetch = FetchType.LAZY)
   private Set<Property> property;
 
   @Override

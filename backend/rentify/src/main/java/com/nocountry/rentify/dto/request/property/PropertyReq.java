@@ -1,5 +1,8 @@
 package com.nocountry.rentify.dto.request.property;
 
+import com.nocountry.rentify.model.enums.Antiquity;
+import com.nocountry.rentify.model.enums.PropertyType;
+import com.nocountry.rentify.model.enums.Status;
 import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,10 +27,13 @@ public class PropertyReq {
   private String streetName;
   @NotBlank(message = "streetNumber must not be empty")
   private String streetNumber;
+  @NotBlank(message = "propertyType must not be empty")
+  private PropertyType propertyType;
   @NotNull(message = "rooms must not be empty")
   @Positive(message = "rooms must be a positive number")
   private int rooms;
-  //private Antiquity antiquity;
+  @NotBlank(message = "antiquity must not be empty")
+  private Antiquity antiquity;
   @Positive(message = "yearsOfAntiquity must be a positive number")
   private int yearsOfAntiquity;
   @NotNull(message = "totalArea must not be null")
@@ -45,6 +51,7 @@ public class PropertyReq {
   private String title;
   @NotBlank(message = "description must not be empty")
   private String description;
-  //private Status status;
+  @NotBlank(message = "status must not be empty")
+  private Status status;
 
 }

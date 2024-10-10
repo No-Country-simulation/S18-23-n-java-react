@@ -1,0 +1,21 @@
+package com.nocountry.rentify.model.enums;
+
+public enum PropertyType {
+  HOUSE,
+  PH,
+  APARTMENT,
+  LAND,
+  COMMERCIAL_PREMISES,
+  FARM,
+  VACATION_HOME,
+  COMMERCIAL_OFFICE,
+  GARAGE,
+  WAREHOUSE,
+  HOTEL,
+  BUSINESS_ASSET,
+  BUILDING,
+  DOCTOR_OFFICE,
+  BOAT_BED,
+  VAULT_PLOT,
+  STORAGE
+}

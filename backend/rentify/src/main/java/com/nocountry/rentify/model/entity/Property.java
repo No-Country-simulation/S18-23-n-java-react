@@ -1,6 +1,7 @@
 package com.nocountry.rentify.model.entity;
 
 import com.nocountry.rentify.model.enums.Antiquity;
+import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +21,7 @@ public class Property {
 
     @ManyToOne
     @JoinColumn(name="owner_id", nullable=false)
-    private User ownerId;
+    private User owner;
 
     //@OneToMany(mappedBy="property")
     //private Set<PropertyMultimedia> propertyMultimedias;
@@ -36,6 +37,9 @@ public class Property {
     private String streetNumber;
 
     private int rooms;
+
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType;
 
     @Enumerated(EnumType.STRING)
     private Antiquity antiquity;
