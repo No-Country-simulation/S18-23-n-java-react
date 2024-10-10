@@ -186,7 +186,7 @@ function LoginForm() {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
           <Alert severity="success" variant="outlined" sx={{ width: "100%" }}>
-            ¡Usuario Registrado!
+            ¡Inicio de Sesión exitoso!
           </Alert>
         </Snackbar>
       </Paper>
