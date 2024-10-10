@@ -30,4 +30,5 @@ public interface UserService {
    */
   void changePassword(PasswordChangeReq request);
 
+  User findById(Long id);
 }

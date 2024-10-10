@@ -26,7 +26,7 @@ public class PropertyServiceImpl implements PropertyService {
 
   @Override
   public PropertyRes getProperty(Long id) {
-    return null;
+    return propertyRepository.findById(id).map(mapper::toRes).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
   }
 
   @Override
@@ -36,7 +36,11 @@ public class PropertyServiceImpl implements PropertyService {
 
   @Override
   public PropertyRes updateProperty(Long id, PropertyReq property) {
-    return null;
+    propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
+    var updatedProperty = mapper.toEntity(property);
+    updatedProperty.setId(id);
+    propertyRepository.save(updatedProperty);
+    return mapper.toRes(updatedProperty);
   }
 
   @Override
@@ -44,4 +48,6 @@ public class PropertyServiceImpl implements PropertyService {
     propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
     propertyRepository.deleteById(id);
   }
+
+
 }
