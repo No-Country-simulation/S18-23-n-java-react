@@ -61,3 +61,28 @@ INSERT INTO properties (
 
 
 ```
+
+## Data for the room table
+
+```sql
+    INSERT INTO `room` (`name`) 
+    VALUES 
+    ('Dormitorio'),
+    ('Baño'),
+    ('Cocina'),
+    ('Comedor'),
+    ('Sala de estar'),
+    ('Estudio'),
+    ('Lavadero'),
+    ('Vestidor'),
+    ('Oficina'),
+    ('Balcón'),
+    ('Terraza'),
+    ('Garaje'),
+    ('Sótano'),
+    ('Ático'),
+    ('Jardín'),
+    ('Cuarto de servicio'),
+    ('Patio');
+
+```
