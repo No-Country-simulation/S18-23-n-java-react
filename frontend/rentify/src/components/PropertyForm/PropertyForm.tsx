@@ -1,161 +1,178 @@
-import React, { useState } from 'react';
-
-type PropertyType = 'casa' | 'departamento';
-
-interface PropertyData {
-  nombre: string;
-  apellido: string;
-  tipoDePropiedad: PropertyType;
-  pais: string;
-  ciudad: string;
-  direccion: string;
-  fotos: File[];
-}
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  FormHelperText,
+  Paper,
+  Typography,
+} from "@mui/material";
+import React from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import FormInputText from "./FormComponents/FormInputText";
+import FormSelect from "./FormComponents/FormSelect";
 
 const PropertyForm: React.FC = () => {
-  const [formData, setFormData] = useState<PropertyData>({
-    nombre: '',
-    apellido: '',
-    tipoDePropiedad: 'casa',
-    pais: '',
-    ciudad: '',
-    direccion: '',
-    fotos: [],
+  const {
+    handleSubmit,
+    control,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      nombre: "",
+      apellido: "",
+      tipoDePropiedad: "casa",
+      pais: "",
+      ciudad: "",
+      direccion: "",
+      fotos: [],
+    },
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const watchPhotos = watch("fotos");
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setFormData({ ...formData, fotos: Array.from(event.target.files) });
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = (data: FieldValues) => {
+    data.fotos = Array.from(data.fotos);
+    console.log(data);
     // Aquí puedes manejar el envío del formulario, por ejemplo, enviar los datos a un servidor
-    console.log(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="nombre" className="block mb-2">
-            Nombre:
-          </label>
-          <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleInputChange}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="apellido" className="block mb-2">
-            Apellido:
-          </label>
-          <input
-            type="text"
-            id="apellido"
-            name="apellido"
-            value={formData.apellido}
-            onChange={handleInputChange}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <label htmlFor="tipoDePropiedad" className="block mb-2">
-          Tipo de Propiedad:
-        </label>
-        <select
-          id="tipoDePropiedad"
-          name="tipoDePropiedad"
-          value={formData.tipoDePropiedad}
-          onChange={handleInputChange}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
-        >
-          <option value="casa">Casa</option>
-          <option value="departamento">Departamento</option>
-        </select>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <div>
-          <label htmlFor="pais" className="block mb-2">
-            País:
-          </label>
-          <input
-            type="text"
-            id="pais"
-            name="pais"
-            value={formData.pais}
-            onChange={handleInputChange}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="ciudad" className="block mb-2">
-            Ciudad:
-          </label>
-          <input
-            type="text"
-            id="ciudad"
-            name="ciudad"
-            value={formData.ciudad}
-            onChange={handleInputChange}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <label htmlFor="direccion" className="block mb-2">
-          Dirección:
-        </label>
-        <textarea
-          id="direccion"
-          name="direccion"
-          value={formData.direccion}
-          onChange={handleInputChange}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
-          required
-        />
-      </div>
-
-      <div className="mt-4">
-        <label htmlFor="fotos" className="block mb-2">
-          Fotos (máximo 12):
-        </label>
-        <input
-          type="file"
-          id="fotos"
-          name="fotos"
-          multiple
-          accept="image/*"
-          onChange={handleFileChange}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+    <Container
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        marginY: { xs: 2, sm: 1, md: 0 },
+      }}
+    >
+      <Paper
+        sx={{
+          margin: "0 auto",
+          boxShadow: 10,
+          padding: 4,
+          borderRadius: 2,
+          width: "100%",
+          maxWidth: "400px",
+        }}
       >
-        Registrar Propiedad
-      </button>
-    </form>
+        <Typography
+          sx={{
+            fontSize: "clamp(1.8rem, 8vw, 2rem)",
+            marginBottom: { xs: 3, sm: 4 },
+          }}
+        >
+          Registrar Propiedad
+        </Typography>
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ display: "flex", flexDirection: "column", gap: 4 }}
+        >
+          <FormControl>
+            <FormInputText name={"nombre"} control={control} label={"Nombre"} />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText
+              name={"apellido"}
+              control={control}
+              label={"Apellido"}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormSelect
+              name="tipoDePropiedad"
+              label="Tipo de Propiedad"
+              control={control}
+              options={[
+                { label: "Casa", value: "casa" },
+                { label: "Departamento", value: "departamento" },
+              ]}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"pais"} control={control} label={"País"} />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"ciudad"} control={control} label={"Ciudad"} />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText
+              name={"direccion"}
+              control={control}
+              label={"Dirección"}
+            />
+          </FormControl>
+          <FormControl>
+            <Box>
+              <Typography variant="body2" marginBottom={1}>
+                Fotos (máximo 12):
+              </Typography>
+              <Button
+                component={"label"}
+                variant="contained"
+                sx={{ alignSelf: "start" }}
+              >
+                <input
+                  type="file"
+                  style={{ visibility: "hidden", width: "1px" }}
+                  multiple
+                  {...register("fotos", {
+                    required: {
+                      value: true,
+                      message: "Este campo es requerido",
+                    },
+                  })}
+                />
+                Añadir Foto
+              </Button>
+              {errors.fotos && (
+                <FormHelperText sx={{ color: "error.main" }}>
+                  {errors.fotos.message as string}
+                </FormHelperText>
+              )}
+            </Box>
+
+            {watchPhotos?.length > 0 && (
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" },
+                  gap: 2,
+                  paddingTop: 4,
+                }}
+              >
+                {Array.from(watchPhotos).map((foto, index) => {
+                  return (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(foto as File)}
+                      style={{
+                        objectFit: "cover",
+                        width: "120px",
+                        height: "120px",
+                        margin: "0 auto",
+                      }}
+                    />
+                  );
+                })}
+              </Box>
+            )}
+          </FormControl>
+
+          <Button variant="contained" type="submit">
+            Registrar Propiedad
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 
