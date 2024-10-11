@@ -6,9 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PropertyRoomMapper {
-    PropertyRoomMapper mapper = Mappers.getMapper(PropertyRoomMapper.class);
 
     @Mapping(source = "room.name", target = "roomName")
     PropertyRoomDtoRes toDtoRes(PropertyRoom propertyRoom);
