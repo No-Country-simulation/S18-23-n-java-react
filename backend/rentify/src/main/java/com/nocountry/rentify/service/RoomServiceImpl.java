@@ -6,19 +6,17 @@ import com.nocountry.rentify.model.entity.Room;
 import com.nocountry.rentify.repository.RoomRepository;
 import com.nocountry.rentify.service.interfaces.RoomService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
-    @Autowired
-    private RoomRepository roomRepository;
-
-    @Autowired
-    private RoomMapper roomMapper;
+    private final RoomRepository roomRepository;
+    private final RoomMapper roomMapper;
 
     @Override
     public List<RoomDtoRes> getAllRooms() {

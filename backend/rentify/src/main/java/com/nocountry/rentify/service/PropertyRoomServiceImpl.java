@@ -5,20 +5,17 @@ import com.nocountry.rentify.dto.response.rooms.PropertyRoomDtoRes;
 import com.nocountry.rentify.model.entity.PropertyRoom;
 import com.nocountry.rentify.repository.PropertyRoomRepository;
 import com.nocountry.rentify.service.interfaces.PropertyRoomService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PropertyRoomServiceImpl implements PropertyRoomService {
-
-    @Autowired
-    private PropertyRoomRepository propertyRoomRepository;
-
-    @Autowired
-    private PropertyRoomMapper propertyRoomMapper;
+    private final PropertyRoomRepository propertyRoomRepository;
+    private final PropertyRoomMapper propertyRoomMapper;
 
     @Override
     public List<PropertyRoomDtoRes> findRoomsByPropertyId(Long propertyId) {
