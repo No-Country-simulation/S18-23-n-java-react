@@ -7,63 +7,55 @@ import {
   Link,
   Paper,
   Snackbar,
-  TextField,
   Typography,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import axios from "axios";
+import { FieldValues, useForm } from "react-hook-form";
+import FormInputText from "./FormComponents/FormInputText";
+
+interface AlertInfo {
+  type: "success" | "error";
+  message: string;
+}
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [errorEmail, setErrorEmail] = useState(false);
-  const [password, setPassword] = useState("");
-  const [errorPassword, setErrorPassword] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [alertInfo, setAlertInfo] = useState<AlertInfo>({
+    type: "error",
+    message: "",
+  });
 
-  const validateEmail = () => {
-    const emailValidator = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const { control, handleSubmit } = useForm<FieldValues>({
+    defaultValues: { email: "", password: "" },
+  });
 
-    if (!emailValidator.test(email)) {
-      setErrorEmail(true);
-      return false;
-    }
-    setErrorEmail(false);
-    return true;
-  };
+  const onSubmit = (data: FieldValues) => {
+    const { email, password } = data;
 
-  const validatePassword = () => {
-    if (password.length === 0) {
-      setErrorPassword(true);
-      return false;
-    }
-    setErrorPassword(false);
-    return true;
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (validateEmail() && validatePassword()) {
-      try {
-        // Ejemplo para probar una petición POST a una API
-        const response = await axios.post(
-          "https://jsonplaceholder.typicode.com/posts",
-          {
-            title: "",
-            body: password,
-            userId: 1,
-          }
-        );
-
-        console.log(response.data);
+    // Ejemplo para probar una petición POST a una API
+    axios
+      .post("https://s18-23-n-java-react.onrender.com/api/v1/auth/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data.data)
         setShowMessage(true);
-        setEmail("");
-        setPassword("");
-      } catch (error) {
-        console.log(error);
-      }
-    }
+        setAlertInfo({
+          type: "success",
+          message: "Inicio de sesión exitoso",
+        });
+      })
+      .catch((error) => {
+        setShowMessage(true);
+        setAlertInfo({
+          type: "error",
+          message: error.response.data.message,
+        });
+      });
   };
 
   const handleDialogClose = () => {
@@ -107,53 +99,23 @@ function LoginForm() {
         </Typography>
         <Box
           component={"form"}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{ display: "flex", flexDirection: "column", gap: 3 }}
         >
           <FormControl>
-            <TextField
-              id="email"
-              value={email}
+            <FormInputText
               name="email"
-              required
-              label="Correo Electrónico"
               type="email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (e.target.value === "") {
-                  setErrorEmail(true);
-                } else {
-                  setErrorEmail(false);
-                }
-              }}
-              error={errorEmail}
-              helperText={
-                errorEmail
-                  ? "Por favor, ingrese un correo electrónico válido"
-                  : ""
-              }
+              label="Correo electrónico"
+              control={control}
             />
           </FormControl>
           <FormControl>
-            <TextField
-              id="password"
-              value={password}
+            <FormInputText
               name="password"
-              required
-              label="Contraseña"
               type="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (e.target.value === "") {
-                  setErrorPassword(true);
-                } else {
-                  setErrorPassword(false);
-                }
-              }}
-              error={errorPassword}
-              helperText={
-                errorPassword ? "Por favor, ingrese una contraseña" : ""
-              }
+              label="Contraseña"
+              control={control}
             />
           </FormControl>
           <Typography
@@ -185,8 +147,12 @@ function LoginForm() {
           onClose={handleCloseMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
-          <Alert severity="success" variant="outlined" sx={{ width: "100%" }}>
-            ¡Inicio de Sesión exitoso!
+          <Alert
+            severity={alertInfo.type}
+            variant="outlined"
+            sx={{ width: "100%" }}
+          >
+            {alertInfo.message || "Ha ocurrido un error al iniciar sesión"}
           </Alert>
         </Snackbar>
       </Paper>
