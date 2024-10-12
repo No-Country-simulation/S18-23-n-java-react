@@ -32,7 +32,7 @@ public class PropertyReq {
   private PropertyType propertyType;
   @NotNull(message = "rooms must not be empty")
   @Positive(message = "rooms must be a positive number")
-  private int rooms;
+  private int numberOfRooms;
   @NotNull(message = "antiquity must not be null")
   private Antiquity antiquity;
   @PositiveOrZero(message = "yearsOfAntiquity must be a positive or zero")

@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Setter
@@ -36,7 +37,7 @@ public class Property {
     @Column(name = "street_number", nullable = false)
     private String streetNumber;
 
-    private int rooms;
+    private int numberOfRooms;
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -72,4 +73,15 @@ public class Property {
     //@ManyToMany(fetch = FetchType.LAZY)
     //@JoinTable(name = "property_feature", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
     //private Set<Feature> features;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "property_room",
+            joinColumns = @JoinColumn(name = "property_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id")
+    )
+    private List<Room> rooms;
+
+
 }

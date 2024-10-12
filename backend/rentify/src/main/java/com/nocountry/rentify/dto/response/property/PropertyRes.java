@@ -19,7 +19,7 @@ public class PropertyRes {
   private String city;
   private String streetName;
   private String streetNumber;
-  private int rooms;
+  private int numberOfRooms;
   private PropertyType propertyType;
   private Antiquity antiquity;
   private int yearsOfAntiquity;
