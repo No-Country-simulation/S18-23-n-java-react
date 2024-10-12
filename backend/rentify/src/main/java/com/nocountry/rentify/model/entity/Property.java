@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -23,8 +25,9 @@ public class Property {
     @JoinColumn(name="owner_id", nullable=false)
     private User owner;
 
-    //@OneToMany(mappedBy="property")
-    //private Set<PropertyMultimedia> propertyMultimedias;
+    @OneToMany(mappedBy="property", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PropertyMultimedia> propertyMultimedias = new HashSet<>();
+
 
     private String country;
 

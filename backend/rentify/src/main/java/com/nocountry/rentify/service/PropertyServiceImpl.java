@@ -1,9 +1,11 @@
 package com.nocountry.rentify.service;
 
 import com.nocountry.rentify.dto.mapper.PropertyMapper;
+import com.nocountry.rentify.dto.request.property.PropertyMultimediaReq;
 import com.nocountry.rentify.dto.request.property.PropertyReq;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Property;
+import com.nocountry.rentify.model.entity.PropertyMultimedia;
 import com.nocountry.rentify.repository.PropertyRepository;
 import com.nocountry.rentify.service.interfaces.PropertyService;
 import java.util.List;
@@ -30,17 +32,41 @@ public class PropertyServiceImpl implements PropertyService {
   }
 
   @Override
-  public PropertyRes addProperty(PropertyReq property) {
-    return mapper.toRes(propertyRepository.save(mapper.toEntity(property)));
-  }
+  public PropertyRes addProperty(PropertyReq propertyReq) {
+    Property property = mapper.toEntity(propertyReq);
 
-  @Override
-  public PropertyRes updateProperty(Long id, PropertyReq property) {
-    propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
-    var updatedProperty = mapper.toEntity(property);
+    if (propertyReq.getMultimedia() != null) {
+      for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
+        PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
+        multimedia.setProperty(property);
+        property.getPropertyMultimedias().add(multimedia);
+      }
+    }
+
+    Property savedProperty = propertyRepository.save(property);
+    return mapper.toRes(savedProperty);
+  }
+  public PropertyRes updateProperty(Long id, PropertyReq propertyReq) {
+    Property existingProperty = propertyRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
+
+    Property updatedProperty = mapper.toEntity(propertyReq);
     updatedProperty.setId(id);
-    propertyRepository.save(updatedProperty);
-    return mapper.toRes(updatedProperty);
+    updatedProperty.setOwner(existingProperty.getOwner());
+
+    updatedProperty.getPropertyMultimedias().clear();
+
+    if (propertyReq.getMultimedia() != null) {
+      for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
+        PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
+        multimedia.setProperty(updatedProperty);
+        updatedProperty.getPropertyMultimedias().add(multimedia);
+      }
+    }
+
+    Property savedProperty = propertyRepository.save(updatedProperty);
+
+    return mapper.toRes(savedProperty);
   }
 
   @Override

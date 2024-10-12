@@ -5,6 +5,7 @@ import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -54,5 +55,7 @@ public class PropertyReq {
   private String description;
   @NotNull(message = "status must not be null")
   private Status status;
+  @NotNull(message = "multimedia must not be null")
+  private List<PropertyMultimediaReq> multimedia;
 
 }
