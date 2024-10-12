@@ -35,13 +35,11 @@ public class PropertyServiceImpl implements PropertyService {
   public PropertyRes addProperty(PropertyReq propertyReq) {
     Property property = mapper.toEntity(propertyReq);
 
-    if (propertyReq.getMultimedia() != null) {
       for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
         PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
         multimedia.setProperty(property);
         property.getPropertyMultimedias().add(multimedia);
       }
-    }
 
     Property savedProperty = propertyRepository.save(property);
     return mapper.toRes(savedProperty);
@@ -56,13 +54,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     updatedProperty.getPropertyMultimedias().clear();
 
-    if (propertyReq.getMultimedia() != null) {
       for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
         PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
         multimedia.setProperty(updatedProperty);
         updatedProperty.getPropertyMultimedias().add(multimedia);
       }
-    }
 
     Property savedProperty = propertyRepository.save(updatedProperty);
 
