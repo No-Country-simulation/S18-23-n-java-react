@@ -1,4 +1,6 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import React from "react";
+import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface Property {
   id: number;
@@ -13,6 +15,12 @@ interface FeaturedPropertiesProps {
 }
 
 const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properties }) => {
+  const navigate = useNavigate(); // Cambiado de useHistory a useNavigate
+
+  const handleRegisterRedirect = () => {
+    navigate("/register"); // Cambia esto por la ruta a tu página de registro
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <Typography variant="h4" align="center" gutterBottom>
@@ -25,16 +33,24 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properties }) =
               component="img"
               height="140"
               image={property.image}
-              alt={property.name}
+              alt={property.title}
             />
             <CardContent>
-              <Typography variant="h6">{property.name}</Typography>
+              <Typography variant="h6">{property.title}</Typography>
               <Typography variant="body2" color="textSecondary">
                 {property.description}
               </Typography>
               <Typography variant="h5" color="primary">
                 ${property.price}
               </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleRegisterRedirect}
+                style={{ marginTop: '10px' }}
+              >
+                Alquilar
+              </Button>
             </CardContent>
           </Card>
         ))}
