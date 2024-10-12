@@ -8,6 +8,7 @@ import com.nocountry.rentify.service.interfaces.RoomService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ public class RoomServiceImpl implements RoomService {
     private final RoomMapper roomMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<RoomDtoRes> getAllRooms() {
         return this.roomRepository.findAll().stream().map(
                 roomMapper::toDtoRes
@@ -26,6 +28,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public RoomDtoRes getRoomById(Integer id) {
         Room room = this.roomRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Room with id " + id + " not found")

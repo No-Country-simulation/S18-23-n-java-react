@@ -7,6 +7,7 @@ import com.nocountry.rentify.repository.PropertyRoomRepository;
 import com.nocountry.rentify.service.interfaces.PropertyRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class PropertyRoomServiceImpl implements PropertyRoomService {
     private final PropertyRoomMapper propertyRoomMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<PropertyRoomDtoRes> findRoomsByPropertyId(Long propertyId) {
         List<PropertyRoom> propertyRoomList = this.propertyRoomRepository.findByPropertyId(propertyId);
 
