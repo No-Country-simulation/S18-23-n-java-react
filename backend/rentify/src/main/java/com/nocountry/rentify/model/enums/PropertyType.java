@@ -1,21 +1,28 @@
 package com.nocountry.rentify.model.enums;
 
-public enum PropertyType {
-  HOUSE,
-  PH,
-  APARTMENT,
-  LAND,
-  COMMERCIAL_PREMISES,
-  FARM,
-  VACATION_HOME,
-  COMMERCIAL_OFFICE,
-  GARAGE,
-  WAREHOUSE,
-  HOTEL,
-  BUSINESS_ASSET,
-  BUILDING,
-  DOCTOR_OFFICE,
-  BOAT_BED,
-  VAULT_PLOT,
-  STORAGE
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
+public enum PropertyType implements TranslatableEnum{
+  HOUSE("Casa"),
+  PH("PH"),
+  APARTMENT("Departamento"),
+  LAND("Terreno"),
+  COMMERCIAL_PREMISES("Local Comercial"),
+  FARM("Granja"),
+  VACATION_HOME("Casa de Vacaciones"),
+  COMMERCIAL_OFFICE("Oficina Comercial"),
+  GARAGE("Garaje"),
+  WAREHOUSE("Almacén"),
+  HOTEL("Hotel"),
+  BUSINESS_ASSET("Fondo de Comercio"),
+  BUILDING("Edificio"),
+  DOCTOR_OFFICE("Consultorio Médico"),
+  BOAT_BED("Amarre para Barco"),
+  VAULT_PLOT("Parcela de Panteón"),
+  STORAGE("Depósito");
+
+  private final String translatedName;
 }

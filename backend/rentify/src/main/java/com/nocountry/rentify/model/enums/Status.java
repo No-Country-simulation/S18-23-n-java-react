@@ -1,8 +1,15 @@
 package com.nocountry.rentify.model.enums;
 
-public enum Status {
-    AVAILABLE,
-    RENTED,
-    MAINTENANCE,
-    UNAVAILABLE,
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
+public enum Status implements TranslatableEnum {
+    AVAILABLE("Disponible"),
+    RENTED("Alquilado"),
+    MAINTENANCE("En mantenimiento"),
+    UNAVAILABLE("No disponible");
+
+    private final String translatedName;
 }
