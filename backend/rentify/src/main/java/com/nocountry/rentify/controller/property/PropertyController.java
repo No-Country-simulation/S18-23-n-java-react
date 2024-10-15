@@ -8,11 +8,9 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.kaczmarzyk.spring.data.jpa.domain.Between;
-import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.*;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -36,7 +34,10 @@ public class PropertyController {
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<PropertyRes> getProperties(
+      @Join(path = "rooms", alias = "pr")
+      @Join(path = "pr.room", alias = "r")
       @And({
+          @Spec(path = "r.name", params = "rooms", spec = In.class),
           @Spec(path = "country", params = "country", spec = Equal.class),
           @Spec(path = "province", params = "province", spec = Equal.class),
           @Spec(path = "rooms", params = "minRooms", spec = GreaterThanOrEqual.class),
