@@ -12,10 +12,8 @@ import org.mapstruct.Mappings;
 public interface PropertyMapper {
 
   @Mapping(target = "owner", source = "ownerId")
-  @Mappings({@Mapping(target = "rooms", ignore = true)})
+  @Mappings({@Mapping(target = "rooms", ignore = true),@Mapping(target = "id", ignore = true)})
   Property toEntity(PropertyReq propertyReq);
 
   PropertyRes toRes(Property property);
-
-
 }

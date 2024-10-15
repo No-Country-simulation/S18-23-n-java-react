@@ -8,5 +8,4 @@ import java.util.List;
 public interface RoomService {
     List<RoomRes> getAllRooms();
     RoomRes getRoomById(Integer id);
-    Room getById(Integer id);
 }

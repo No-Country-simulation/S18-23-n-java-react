@@ -19,6 +19,7 @@ public interface PropertyRoomMapper {
 
     @Mapping(source = "id", target = "room")
     PropertyRoom toEntity(PropertyRoomReq propertyRoomReq, @Context Property property);
+
     @AfterMapping
     default void afterMapping(PropertyRoomReq request, @MappingTarget PropertyRoom propertyRoom, @Context Property property) {
         propertyRoom.setProperty(property);

@@ -72,11 +72,11 @@ public class Property {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "property_amenity", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "amenity_id"))
-    private Set<Amenity> amenities;
+    private List<Amenity> amenities;
 
-    //@ManyToMany(fetch = FetchType.LAZY)
-    //@JoinTable(name = "property_feature", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
-    //private Set<Feature> features;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "property_feature", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
+    private List<Feature> features;
 
     @OneToMany(mappedBy = "property", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<PropertyRoom> rooms = new ArrayList<>();

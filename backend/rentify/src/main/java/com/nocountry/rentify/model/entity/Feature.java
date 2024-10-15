@@ -1,20 +1,18 @@
 package com.nocountry.rentify.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "amenities")
-public class Amenity {
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "features")
+public class Feature {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +20,6 @@ public class Amenity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "amenities")
+    @ManyToMany(mappedBy = "features")
     private List<Property> propertyList;
 }
