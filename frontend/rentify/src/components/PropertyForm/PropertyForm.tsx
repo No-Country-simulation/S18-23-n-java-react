@@ -27,6 +27,10 @@ const PropertyForm: React.FC = () => {
       pais: "",
       ciudad: "",
       direccion: "",
+      dormitorios:"",
+      baños: "",
+      mts2:"",
+      estacionamiento:"",
       fotos: [],
     },
   });
@@ -64,7 +68,7 @@ const PropertyForm: React.FC = () => {
             marginBottom: { xs: 3, sm: 4 },
           }}
         >
-          Registrar Propiedad
+          Datos de la Propiedad
         </Typography>
         <Box
           component={"form"}
@@ -168,7 +172,7 @@ const PropertyForm: React.FC = () => {
           </FormControl>
 
           <Button variant="contained" type="submit">
-            Registrar Propiedad
+            Guardar
           </Button>
         </Box>
       </Paper>
