@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +33,7 @@ public class PropertyServiceImpl implements PropertyService {
   }
 
   @Override
+  @Transactional
   public PropertyRes addProperty(PropertyReq propertyReq) {
     Property property = mapper.toEntity(propertyReq);
 
@@ -44,6 +46,8 @@ public class PropertyServiceImpl implements PropertyService {
     Property savedProperty = propertyRepository.save(property);
     return mapper.toRes(savedProperty);
   }
+  @Override
+  @Transactional
   public PropertyRes updateProperty(Long id, PropertyReq propertyReq) {
     Property existingProperty = propertyRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
@@ -66,6 +70,7 @@ public class PropertyServiceImpl implements PropertyService {
   }
 
   @Override
+  @Transactional
   public void deleteProperty(Long id) {
     propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
     propertyRepository.deleteById(id);
