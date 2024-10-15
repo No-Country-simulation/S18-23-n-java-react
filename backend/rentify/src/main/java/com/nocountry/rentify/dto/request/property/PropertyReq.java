@@ -1,14 +1,16 @@
 package com.nocountry.rentify.dto.request.property;
 
+import com.nocountry.rentify.dto.request.room.PropertyRoomReq;
 import com.nocountry.rentify.model.enums.Antiquity;
 import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
-import jakarta.validation.constraints.PositiveOrZero;
-import java.math.BigDecimal;
-
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -54,5 +56,6 @@ public class PropertyReq {
   private String description;
   @NotNull(message = "status must not be null")
   private Status status;
-
+  @Valid
+  private List<PropertyRoomReq> rooms;
 }

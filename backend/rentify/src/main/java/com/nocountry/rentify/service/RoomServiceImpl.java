@@ -33,4 +33,9 @@ public class RoomServiceImpl implements RoomService {
 
         return roomMapper.toDtoRes(room);
     }
+
+    @Override
+    public Room getById(Integer id) {
+        return roomRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Room with id " + id + " not found"));
+    }
 }

@@ -6,11 +6,13 @@ import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.service.interfaces.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring", uses = {UserService.class})
+@Mapper(componentModel = "spring", uses = {UserService.class, PropertyRoomMapper.class})
 public interface PropertyMapper {
 
   @Mapping(target = "owner", source = "ownerId")
+  @Mappings({@Mapping(target = "rooms", ignore = true)})
   Property toEntity(PropertyReq propertyReq);
 
   PropertyRes toRes(Property property);

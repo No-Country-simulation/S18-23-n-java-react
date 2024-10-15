@@ -5,6 +5,7 @@ import com.nocountry.rentify.dto.response.rooms.PropertyRoomDtoRes;
 import com.nocountry.rentify.model.entity.PropertyRoom;
 import com.nocountry.rentify.repository.PropertyRoomRepository;
 import com.nocountry.rentify.service.interfaces.PropertyRoomService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

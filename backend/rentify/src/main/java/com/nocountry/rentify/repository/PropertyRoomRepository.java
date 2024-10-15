@@ -15,4 +15,7 @@ public interface PropertyRoomRepository extends JpaRepository<PropertyRoom, Prop
 
     @Query("SELECT pr FROM PropertyRoom pr WHERE pr.property.id = :propertyId")
     List<PropertyRoom> findByPropertyId(@Param("propertyId") Long propertyId);
+
+//    @Query("SELECT pr FROM PropertyRoom pr WHERE pr.")
+//    PropertyRoom findByRoomId(@Param("roomId") Long roomId);
 }
