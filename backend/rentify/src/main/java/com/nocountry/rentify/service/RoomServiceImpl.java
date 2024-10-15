@@ -36,4 +36,14 @@ public class RoomServiceImpl implements RoomService {
 
         return roomMapper.toDtoRes(room);
     }
+
+    @Override
+    public RoomRes getRoomByName(String name) {
+        Room room = this.roomRepository.findOneByName(name);
+        if (room == null) {
+            throw new EntityNotFoundException("Room with name " + name + " not found");
+        }
+
+        return roomMapper.toDtoRes(room);
+    }
 }

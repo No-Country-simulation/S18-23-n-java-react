@@ -25,4 +25,10 @@ public class RoomController {
     public RoomRes getRoomById(@PathVariable Integer id) {
         return roomService.getRoomById(id);
     }
+
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public RoomRes getRoomByName(@RequestParam String name) {
+        return roomService.getRoomByName(name);
+    }
 }
