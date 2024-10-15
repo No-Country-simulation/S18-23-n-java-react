@@ -1,6 +1,6 @@
 package com.nocountry.rentify.controller.room;
 
-import com.nocountry.rentify.dto.response.rooms.RoomDtoRes;
+import com.nocountry.rentify.dto.response.rooms.RoomRes;
 import com.nocountry.rentify.service.interfaces.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping
-    public ResponseEntity<List<RoomDtoRes>> getAllRooms() {
+    public ResponseEntity<List<RoomRes>> getAllRooms() {
         return ResponseEntity.ok(roomService.getAllRooms());
     }
 
     @GetMapping("/{id-room}")
-    public ResponseEntity<RoomDtoRes> getRoomById(
+    public ResponseEntity<RoomRes> getRoomById(
             @PathVariable(value = "id-room") Integer idRoom
     ) {
         return ResponseEntity.ok(roomService.getRoomById(idRoom));

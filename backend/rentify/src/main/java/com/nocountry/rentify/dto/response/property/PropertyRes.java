@@ -1,13 +1,11 @@
 package com.nocountry.rentify.dto.response.property;
 
 import com.nocountry.rentify.dto.response.UserRes;
-import com.nocountry.rentify.dto.response.rooms.PropertyRoomDtoRes;
-import com.nocountry.rentify.model.entity.PropertyRoom;
+import com.nocountry.rentify.dto.response.rooms.PropertyRoomRes;
 import com.nocountry.rentify.model.enums.Antiquity;
 import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,5 +32,5 @@ public class PropertyRes {
   private BigDecimal totalArea;
   private BigDecimal builtArea;
   private Status status;
-  private List<PropertyRoomDtoRes> rooms;
+  private List<PropertyRoomRes> rooms;
 }

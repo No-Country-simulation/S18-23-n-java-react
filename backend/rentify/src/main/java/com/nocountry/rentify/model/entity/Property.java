@@ -70,7 +70,7 @@ public class Property {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "property_amenity", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "amenity_id"))
     private Set<Amenity> amenities;
 

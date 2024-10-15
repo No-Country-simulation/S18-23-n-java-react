@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDtoRes {
-    private Integer id;
-    private String name;
+public class PropertyRoomRes {
+    private String roomName;
+    private Integer quantity;
 }

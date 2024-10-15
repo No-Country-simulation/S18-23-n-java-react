@@ -8,6 +8,7 @@ import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.repository.AmenityRepository;
 import com.nocountry.rentify.service.interfaces.AmenityService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class AmenityServiceImpl implements AmenityService {
-    @Autowired
-    private AmenityRepository amenityRepository;
-    @Autowired
-    private AmenityMapper mapper;
+    private final AmenityRepository amenityRepository;
+    private final AmenityMapper mapper;
 
     @Override
     public List<AmenityRes> findAllAmenity() {
