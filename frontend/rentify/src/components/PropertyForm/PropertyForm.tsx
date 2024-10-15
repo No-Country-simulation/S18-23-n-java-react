@@ -115,6 +115,38 @@ const PropertyForm: React.FC = () => {
             />
           </FormControl>
           <FormControl>
+            <FormInputText
+              name={"dormitorios"}
+              control={control}
+              label={"Dormitorios"}
+            />
+          </FormControl>
+          <FormControl>
+            <FormInputText
+              name={"baños"}
+              control={control}
+              label={"Baños"}
+            />
+          </FormControl>
+          <FormControl>
+            <FormInputText
+              name={"estacionamientos"}
+              control={control}
+              label={"Estacionamientos"}
+            />
+          </FormControl>
+          <FormControl>
+            <textarea 
+              name={"descripcion"}
+              control={control}
+              label={"Descripción"}
+              maxLength={500}
+              rows={5}
+
+            />
+          </FormControl>
+          
+          <FormControl>
             <Box>
               <Typography variant="body2" marginBottom={1}>
                 Fotos (máximo 12):
