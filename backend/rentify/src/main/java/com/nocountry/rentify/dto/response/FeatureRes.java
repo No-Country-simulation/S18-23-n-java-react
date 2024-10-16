@@ -1,5 +1,5 @@
 
-package com.nocountry.rentify.dto;
+package com.nocountry.rentify.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeatureDTO {
+public class FeatureRes {
     private Long id;
     private String name;
 }
