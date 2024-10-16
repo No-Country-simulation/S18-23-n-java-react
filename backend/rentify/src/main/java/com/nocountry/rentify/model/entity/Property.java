@@ -5,6 +5,7 @@ import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -70,14 +71,14 @@ public class Property {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     @JoinTable(name = "property_amenity", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "amenity_id"))
-    private Set<Amenity> amenities;
+    private Set<Amenity> amenities =  new HashSet<>();
 
     //@ManyToMany(fetch = FetchType.LAZY)
     //@JoinTable(name = "property_feature", joinColumns = @JoinColumn(name = "property_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
     //private Set<Feature> features;
 
     @OneToMany(mappedBy = "property", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<PropertyRoom> rooms = new ArrayList<>();
+    private Set<PropertyRoom> rooms = new HashSet<>();
 }

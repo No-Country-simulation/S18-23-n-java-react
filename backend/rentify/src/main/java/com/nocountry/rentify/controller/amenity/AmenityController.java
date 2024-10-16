@@ -3,6 +3,7 @@ package com.nocountry.rentify.controller.amenity;
 import com.nocountry.rentify.dto.request.amenity.AmenityReq;
 import com.nocountry.rentify.dto.response.amenity.AmenityRes;
 import com.nocountry.rentify.service.AmenityServiceImpl;
+import com.nocountry.rentify.service.interfaces.AmenityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping(("${api.base}/amenities"))
 @RequiredArgsConstructor
 public class AmenityController {
-    private final AmenityServiceImpl amenityService;
+    private final AmenityService amenityService;
 
     @GetMapping
     public List<AmenityRes> findAll(){

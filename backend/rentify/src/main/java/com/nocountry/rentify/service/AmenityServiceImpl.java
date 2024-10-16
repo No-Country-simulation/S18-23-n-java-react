@@ -4,12 +4,10 @@ import com.nocountry.rentify.dto.mapper.AmenityMapper;
 import com.nocountry.rentify.dto.request.amenity.AmenityReq;
 import com.nocountry.rentify.dto.response.amenity.AmenityRes;
 import com.nocountry.rentify.model.entity.Amenity;
-import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.repository.AmenityRepository;
 import com.nocountry.rentify.service.interfaces.AmenityService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,14 +26,14 @@ public class AmenityServiceImpl implements AmenityService {
             throw new EntityNotFoundException("No amenities found");
         }
         return amenities.stream()
-                .map(mapper::toResp)
+                .map(mapper::toRes)
                 .collect(Collectors.toList());
     }
 
     @Override
     public AmenityRes findAmenityById(Long id) {
         return amenityRepository.findById(id)
-                .map(mapper::toResp)
+                .map(mapper::toRes)
                 .orElseThrow(() -> new EntityNotFoundException("Amenity not found with id: " + id));
     }
 
@@ -48,11 +46,11 @@ public class AmenityServiceImpl implements AmenityService {
        // properties.size();
 
 
-        return mapper.toResp(amenity);
+        return mapper.toRes(amenity);
     }
     @Override
     public AmenityRes saveAmenity(AmenityReq amenity) {
-        return mapper.toResp(amenityRepository.save(mapper.toEntity(amenity)));
+        return mapper.toRes(amenityRepository.save(mapper.toEntity(amenity)));
     }
 
     @Override
@@ -62,7 +60,7 @@ public class AmenityServiceImpl implements AmenityService {
         Amenity updatedAmenity = mapper.toEntity(amenity);
         updatedAmenity.setId(existingAmenity.getId());
         amenityRepository.save(updatedAmenity);
-        return mapper.toResp(updatedAmenity);
+        return mapper.toRes(updatedAmenity);
     }
 
     @Override
@@ -70,6 +68,11 @@ public class AmenityServiceImpl implements AmenityService {
         Amenity existingAmenity = amenityRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Amenity not found with id: " + id));
         amenityRepository.delete(existingAmenity);
+    }
+
+    @Override
+    public Amenity findById(Long id) {
+        return amenityRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Amenity not found with id: " + id));
     }
 
 

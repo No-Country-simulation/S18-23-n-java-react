@@ -11,8 +11,11 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring", uses = {UserService.class, PropertyRoomMapper.class})
 public interface PropertyMapper {
 
-  @Mapping(target = "owner", source = "ownerId")
-  @Mappings({@Mapping(target = "rooms", ignore = true)})
+  @Mappings({
+      @Mapping(target = "rooms", ignore = true),
+      @Mapping(target = "amenities", ignore = true),
+      @Mapping(target = "owner", source = "ownerId")
+  })
   Property toEntity(PropertyReq propertyReq);
 
   PropertyRes toRes(Property property);

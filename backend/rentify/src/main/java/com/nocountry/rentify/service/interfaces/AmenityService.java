@@ -14,4 +14,5 @@ public interface AmenityService {
     AmenityRes saveAmenity(AmenityReq amenity);
     AmenityRes updateAmenity(Long id, AmenityReq anemity);
     void deleteAmenityById(Long id);
+    Amenity findById(Long id);
 }
