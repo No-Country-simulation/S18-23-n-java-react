@@ -1,8 +1,6 @@
 package com.nocountry.rentify.dto.request.property;
 
-import com.nocountry.rentify.dto.request.amenity.AmenityReq;
 import com.nocountry.rentify.dto.request.room.PropertyRoomReq;
-import com.nocountry.rentify.dto.response.amenity.AmenityRes;
 import com.nocountry.rentify.model.enums.Antiquity;
 import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
@@ -63,6 +61,7 @@ public class PropertyReq {
   private Set<PropertyRoomReq> rooms;
   @Valid
   private Set<Long> amenities;
-
+  @Valid
+  private Set<Long> features;
 
 }

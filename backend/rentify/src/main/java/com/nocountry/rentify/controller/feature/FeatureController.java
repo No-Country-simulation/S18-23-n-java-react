@@ -1,7 +1,7 @@
-package com.nocountry.rentify.controller.amenity;
+package com.nocountry.rentify.controller.feature;
 
-import com.nocountry.rentify.dto.response.amenity.AmenityRes;
-import com.nocountry.rentify.service.interfaces.AmenityService;
+import com.nocountry.rentify.dto.response.feature.FeatureRes;
+import com.nocountry.rentify.service.interfaces.FeatureService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("${api.base}/amenities")
+@RequestMapping("${api.base}/features")
 @RequiredArgsConstructor
-public class AmenityController {
-    private final AmenityService amenityService;
+public class FeatureController {
+    private final FeatureService featureService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<AmenityRes> findAll(){
-        return amenityService.findAllAmenity();
+    public List<FeatureRes> getAllFeatures(){
+        return featureService.getAllFeatures();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AmenityRes findById(@PathVariable Long id){
-        return amenityService.findAmenityById(id);
+    public FeatureRes getFeature(@PathVariable("id") Long id){
+        return featureService.getFeatureById(id);
     }
 }

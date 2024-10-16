@@ -5,11 +5,10 @@ import com.nocountry.rentify.dto.response.rooms.PropertyRoomRes;
 import com.nocountry.rentify.model.entity.PropertyRoom;
 import com.nocountry.rentify.repository.PropertyRoomRepository;
 import com.nocountry.rentify.service.interfaces.PropertyRoomService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

@@ -14,6 +14,7 @@ public interface PropertyMapper {
   @Mappings({
       @Mapping(target = "rooms", ignore = true),
       @Mapping(target = "amenities", ignore = true),
+      @Mapping(target = "features", ignore = true),
       @Mapping(target = "owner", source = "ownerId")
   })
   Property toEntity(PropertyReq propertyReq);

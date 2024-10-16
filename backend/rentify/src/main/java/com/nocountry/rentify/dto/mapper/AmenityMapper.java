@@ -11,7 +11,6 @@ public interface AmenityMapper {
     Amenity toEntity(AmenityReq amenityReq);
 
     AmenityRes toRes(Amenity amenity);
-  //  List<PropertyRes> toPropertyResList(List<Property> properties);
 
 
 }

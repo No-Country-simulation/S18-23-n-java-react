@@ -2,11 +2,10 @@ package com.nocountry.rentify.repository;
 
 
 import com.nocountry.rentify.model.entity.UserProfile;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {

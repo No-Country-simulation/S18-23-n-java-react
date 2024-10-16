@@ -6,11 +6,10 @@ import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import com.nocountry.rentify.model.enums.TranslatableEnum;
 import com.nocountry.rentify.service.interfaces.EnumService;
-import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EnumServiceImpl implements EnumService {

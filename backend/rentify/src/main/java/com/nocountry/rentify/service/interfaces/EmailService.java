@@ -1,9 +1,7 @@
 package com.nocountry.rentify.service.interfaces;
 
 
-
 import com.nocountry.rentify.dto.request.EmailReq;
-
 import java.util.Map;
 
 public interface EmailService {

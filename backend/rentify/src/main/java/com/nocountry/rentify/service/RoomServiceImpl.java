@@ -21,14 +21,14 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<RoomRes> getAllRooms() {
         return this.roomRepository.findAll().stream().map(
-                roomMapper::toDtoRes
+            roomMapper::toDtoRes
         ).collect(Collectors.toList());
     }
 
     @Override
     public RoomRes getRoomById(Integer id) {
         Room room = this.roomRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Room with id " + id + " not found")
+            () -> new EntityNotFoundException("Room with id " + id + " not found")
         );
 
         return roomMapper.toDtoRes(room);
