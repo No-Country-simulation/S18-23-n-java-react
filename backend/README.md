@@ -24,10 +24,11 @@ Este es el proyecto backend de la aplicación, que utiliza Spring Boot para cons
 
 ## API Endpoints
 1. Obtener lista de features.
-   Método: **GET**
-   Endpoint: /feature
-   Descripción: Devuelve una lista de todas la features registradas en la base de datos.
-   Response:
+   **Método:** `GET`
+   **Endpoint:** `/feature`
+   **Descripción:** Devuelve una lista de todas las features registradas en la base de datos.
+   **Response:**
+   ```json
    [
       {
        "id": 1,
@@ -40,10 +41,11 @@ Este es el proyecto backend de la aplicación, que utiliza Spring Boot para cons
    ]
 
 2. Obtener una feature específica.
-   Método: **GET**
-   Endpoint: /feature/{id_feature]
-   Descripción: Devuelve una feature específica.
-   Response:
+   **Método:** `GET`
+   **Endpoint:** `/feature/{id_feature}`
+   **Descripción:** Devuelve una feature específica.
+   **Response:**
+   ```json
    {
        "id": 1,
        "name": "Full Kitchen"
