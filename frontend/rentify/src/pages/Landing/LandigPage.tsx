@@ -1,5 +1,8 @@
+import Banner from "../../components/Banner/Banner";
 import FeaturedProperties from "../../components/FeaturedProperty/FeaturedProperty";
+import Footer from "../../components/Footer/Footer";
 import PropertyList from "../../components/PropertyList/PropertyList";
+import Testimonials from "../../components/Testimonials/Testimonials";
 
 const properties = [
   {
@@ -121,8 +124,11 @@ function LandingPage() {
 
   return (
     <>
+      <Banner />
       <FeaturedProperties properties={featuredProperties} />
       <PropertyList properties={properties} />
+      <Testimonials />
+      <Footer />
     </>
   );
 }
