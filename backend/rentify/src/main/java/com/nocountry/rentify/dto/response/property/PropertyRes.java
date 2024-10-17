@@ -5,8 +5,7 @@ import com.nocountry.rentify.model.enums.Antiquity;
 import com.nocountry.rentify.model.enums.PropertyType;
 import com.nocountry.rentify.model.enums.Status;
 import java.math.BigDecimal;
-import java.util.List;
-
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -32,5 +31,5 @@ public class PropertyRes {
   private BigDecimal totalArea;
   private BigDecimal builtArea;
   private Status status;
-  private List<PropertyMultimediaRes> multimedia;
+  private Set<PropertyMultimediaRes> multimedia;
 }

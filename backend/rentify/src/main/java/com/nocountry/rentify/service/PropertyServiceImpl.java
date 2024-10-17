@@ -8,9 +8,8 @@ import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.model.entity.PropertyMultimedia;
 import com.nocountry.rentify.repository.PropertyRepository;
 import com.nocountry.rentify.service.interfaces.PropertyService;
-import java.util.List;
-
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

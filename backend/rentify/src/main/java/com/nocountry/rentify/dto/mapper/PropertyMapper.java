@@ -2,7 +2,7 @@ package com.nocountry.rentify.dto.mapper;
 
 import com.nocountry.rentify.dto.request.property.PropertyMultimediaReq;
 import com.nocountry.rentify.dto.request.property.PropertyReq;
-
+import com.nocountry.rentify.dto.response.property.PropertyMultimediaRes;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.model.entity.PropertyMultimedia;
@@ -20,5 +20,6 @@ public interface PropertyMapper {
   PropertyRes toRes(Property property);
 
   PropertyMultimedia toEntity(PropertyMultimediaReq propertyMultimediaReq);
+  PropertyMultimediaRes toRes(PropertyMultimedia propertyMultimedia);
 
 }

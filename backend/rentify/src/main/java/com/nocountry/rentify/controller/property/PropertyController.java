@@ -4,11 +4,9 @@ import com.nocountry.rentify.dto.request.property.PropertyReq;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.service.interfaces.PropertyService;
-import java.util.List;
-
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import net.kaczmarzyk.spring.data.jpa.domain.Between;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;

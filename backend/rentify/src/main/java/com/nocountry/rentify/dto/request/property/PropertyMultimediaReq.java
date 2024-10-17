@@ -8,7 +8,7 @@ import lombok.Data;
 public class PropertyMultimediaReq {
     @NotNull(message = "Type must not be null")
     private PropertyMultimediaType type;
-    @NotNull(message = "Type must not be null")
+    @NotNull(message = "url must not be null")
     private String url;
 }
 
