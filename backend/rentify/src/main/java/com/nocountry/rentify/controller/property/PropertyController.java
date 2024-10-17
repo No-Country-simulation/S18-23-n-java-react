@@ -43,6 +43,7 @@ public class PropertyController {
           @Spec(path = "r.name", params = "rooms", spec = In.class),
           @Spec(path = "a.name", params = "amenities", spec = In.class),
           @Spec(path = "country", params = "country", spec = Equal.class),
+          @Spec(path = "city", params = "city", spec = Equal.class),
           @Spec(path = "province", params = "province", spec = Equal.class),
           @Spec(path = "numberOfRooms", params = "minRooms", spec = GreaterThanOrEqual.class),
           @Spec(path = "numberOfRooms", params = "maxRooms", spec = LessThanOrEqual.class),
