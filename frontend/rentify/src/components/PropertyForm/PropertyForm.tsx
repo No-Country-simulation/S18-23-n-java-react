@@ -5,6 +5,7 @@ import {
   FormControl,
   FormHelperText,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -136,12 +137,13 @@ const PropertyForm: React.FC = () => {
             />
           </FormControl>
           <FormControl>
-            <textarea 
+            <TextField 
               name={"descripcion"}
               control={control}
               label={"Descripción"}
               maxLength={500}
-              rows={5}
+              multiline
+              rowsMax={5} 
 
             />
           </FormControl>
