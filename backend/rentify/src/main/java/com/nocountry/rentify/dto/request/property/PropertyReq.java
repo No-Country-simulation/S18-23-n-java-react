@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -63,5 +62,7 @@ public class PropertyReq {
   private Set<Long> amenities;
   @Valid
   private Set<Long> features;
+  @Valid
+  private Set<PropertyMultimediaReq> multimedia;
 
 }

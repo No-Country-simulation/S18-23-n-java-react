@@ -2,11 +2,13 @@ package com.nocountry.rentify.service;
 
 import com.nocountry.rentify.dto.mapper.PropertyMapper;
 import com.nocountry.rentify.dto.mapper.PropertyRoomMapper;
+import com.nocountry.rentify.dto.request.property.PropertyMultimediaReq;
 import com.nocountry.rentify.dto.request.property.PropertyReq;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Amenity;
 import com.nocountry.rentify.model.entity.Feature;
 import com.nocountry.rentify.model.entity.Property;
+import com.nocountry.rentify.model.entity.PropertyMultimedia;
 import com.nocountry.rentify.model.entity.PropertyRoom;
 import com.nocountry.rentify.repository.PropertyRepository;
 import com.nocountry.rentify.service.interfaces.AmenityService;
@@ -48,6 +50,14 @@ public class PropertyServiceImpl implements PropertyService {
   public PropertyRes addProperty(PropertyReq propertyReq) {
     Property property = mapper.toEntity(propertyReq);
 
+    if(propertyReq.getMultimedia()!=null && !propertyReq.getMultimedia().isEmpty()){
+      for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
+        PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
+        multimedia.setProperty(property);
+        property.getPropertyMultimedias().add(multimedia);
+      }
+    }
+
     if(propertyReq.getRooms()!=null && !propertyReq.getRooms().isEmpty()) {
       Set<PropertyRoom> rooms = propertyReq.getRooms().stream().map(pr-> roomMapper.toEntity(pr, property)).collect(Collectors.toSet());
       property.setRooms(rooms);
@@ -71,6 +81,14 @@ public class PropertyServiceImpl implements PropertyService {
   public PropertyRes updateProperty(Long id, PropertyReq propertyReq) {
     propertyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Property not found for id: " + id));
     var updatedProperty = mapper.toEntity(propertyReq);
+
+    if(propertyReq.getMultimedia()!=null && !propertyReq.getMultimedia().isEmpty()) {
+      for (PropertyMultimediaReq multimediaReq : propertyReq.getMultimedia()) {
+        PropertyMultimedia multimedia = mapper.toEntity(multimediaReq);
+        multimedia.setProperty(updatedProperty);
+        updatedProperty.getPropertyMultimedias().add(multimedia);
+      }
+    }
 
     if(propertyReq.getRooms()!=null && !propertyReq.getRooms().isEmpty()) {
       Set<PropertyRoom> rooms =

@@ -37,4 +37,5 @@ public class PropertyRes {
   private Set<PropertyRoomRes> rooms;
   private Set<AmenityRes> amenities;
   private Set<FeatureRes> features;
+  private Set<PropertyMultimediaRes> multimedia;
 }

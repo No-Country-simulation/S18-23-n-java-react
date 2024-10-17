@@ -41,9 +41,6 @@ public class Property {
     @JoinColumn(name="owner_id", nullable=false)
     private User owner;
 
-    //@OneToMany(mappedBy="property")
-    //private Set<PropertyMultimedia> propertyMultimedias;
-
     private String country;
 
     private String province;
@@ -95,4 +92,7 @@ public class Property {
 
     @OneToMany(mappedBy = "property", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<PropertyRoom> rooms = new HashSet<>();
+
+    @OneToMany(mappedBy="property", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PropertyMultimedia> propertyMultimedias = new HashSet<>();
 }
