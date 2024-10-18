@@ -7,6 +7,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/register-property" element={<RegisterPropertyPage />} />
+        
       </Routes>
     </Router>
   );

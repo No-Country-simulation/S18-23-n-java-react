@@ -7,11 +7,14 @@ import {
   Paper,
   TextField,
   Typography,
+  Alert
 } from "@mui/material";
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import FormInputText from "./FormComponents/FormInputText";
 import FormSelect from "./FormComponents/FormSelect";
+import { useState } from "react";
+
 
 const PropertyForm: React.FC = () => {
   const {
@@ -43,6 +46,9 @@ const PropertyForm: React.FC = () => {
     console.log(data);
     // Aquí puedes manejar el envío del formulario, por ejemplo, enviar los datos a un servidor
   };
+
+  const [guardado, setGuardado] = useState (false);
+  const manejarSubmit=()=>{setGuardado(true)};
 
   return (
     <Container
@@ -205,9 +211,11 @@ const PropertyForm: React.FC = () => {
             )}
           </FormControl>
 
-          <Button variant="contained" type="submit">
-            Guardar
+          <Button 
+          variant="contained" onClick={manejarSubmit} type="submit">
+            Guardar           
           </Button>
+          {guardado && (<Alert severity="success" onClose={()=>setGuardado(false)} className="mt-5">PROPIEDAD GUARDADA CON EXITO!</Alert>)}
         </Box>
       </Paper>
     </Container>
