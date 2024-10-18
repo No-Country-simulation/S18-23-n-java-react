@@ -18,15 +18,18 @@ public class UserProfile {
         private Long id;
 
         @Column(length = 50)
-        String name;
+        private String username;
 
         @Column(length = 50)
-        String lastName;
+        private String name;
 
         @Column(length = 50)
-        String phone;
+        private String lastName;
 
-        String photo;
+        @Column(length = 50)
+        private String phone;
+
+        private String photo;
 
         @OneToOne
         @JoinColumn(name = "user_id", referencedColumnName = "id")

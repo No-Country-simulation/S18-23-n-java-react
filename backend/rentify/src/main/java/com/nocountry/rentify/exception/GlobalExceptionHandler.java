@@ -109,6 +109,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
 
+    @ExceptionHandler(NameLastNameRequiredForUserException.class)
+    public ResponseEntity<?> handleServiceException(NameLastNameRequiredForUserException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<?> handleServiceException(RoleNotFoundException ex){
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
@@ -117,6 +123,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenExpiredException.class)
     public ResponseEntity<?> handleServiceException(TokenExpiredException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
+    @ExceptionHandler(UsernameRequiredForRealtor.class)
+    public ResponseEntity<?> handleServiceException(UsernameRequiredForRealtor ex){
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }

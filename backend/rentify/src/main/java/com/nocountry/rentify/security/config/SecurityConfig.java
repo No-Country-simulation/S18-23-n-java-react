@@ -33,7 +33,8 @@ public class SecurityConfig {
                     .requestMatchers(
                             "api/v1/auth/**",
                             "/swagger-ui/**",
-                            "/v3/api-docs/**").permitAll()
+                            "/v3/api-docs/**",
+                            "api/v1/role").permitAll()
                     .requestMatchers(HttpMethod.GET,"api/v1/user-profile/*").permitAll()
                     .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
