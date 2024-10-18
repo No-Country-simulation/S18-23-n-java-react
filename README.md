@@ -106,7 +106,7 @@ VALUES
 
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
-VALUES (@userId, 'BRAND_NEW', 80.75, 'Chile',  'Santiago', 'Moderna oficina en pleno centro', 300.00, 75000.00, 'COMMERCIAL_OFFICE', 'Santiago', 1, 'AVAILABLE', 'Calle Ahumada', '900', 'Oficina moderna lista para ser utilizada', 85.00, 0);
+VALUES (@userId, 'BRAND_NEW', 80.75, 'Argentina', 'Buenos Aires', 'Moderna oficina en pleno centro', 300.00, 75000.00, 'COMMERCIAL_OFFICE', 'Buenos Aires', 1, 'AVAILABLE', 'Avenida Corrientes', '900', 'Oficina moderna lista para ser utilizada', 85.00, 0);
 
 SET @propertyId = LAST_INSERT_ID();
 
@@ -137,7 +137,7 @@ VALUES
 
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
-VALUES (@userId, 'YEARS_OF_ANTIQUITY', 120.00, 'Brasil', 'Paia Grande', 'Casa con vista al mar', 200.00, 200000.00, 'HOUSE', 'Río de Janeiro', 3, 'AVAILABLE', 'Praia Grande', '85', 'Casa frente al mar con terraza', 150.00, 10);
+VALUES (@userId, 'YEARS_OF_ANTIQUITY', 120.00, 'Argentina', 'Mar del Plata', 'Casa con vista al mar', 200.00, 200000.00, 'HOUSE', 'Buenos Aires', 3, 'AVAILABLE', 'Boulevard Marítimo', '85', 'Casa frente al mar con terraza', 150.00, 10);
 
 SET @propertyId = LAST_INSERT_ID();
 
@@ -148,7 +148,7 @@ VALUES
     (@propertyId, (SELECT id FROM room WHERE name = 'Terraza'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
-VALUES (@userId, 'BRAND_NEW', 75.00, 'Uruguay', 'Montevideo', 'Apartamento nuevo en Pocitos', 1000.00, 125000.00, 'APARTMENT', 'Montevideo', 2, 'AVAILABLE', 'Rambla', '1250', 'Apartamento con vista al río', 80.00, 0);
+VALUES (@userId, 'BRAND_NEW', 75.00, 'Argentina', 'Rosario', 'Apartamento nuevo en zona céntrica', 1000.00, 125000.00, 'APARTMENT', 'Santa Fe', 2, 'AVAILABLE', 'Avenida Pellegrini', '1250', 'Apartamento con vista al río', 80.00, 0);
 
 SET @propertyId = LAST_INSERT_ID();
 
@@ -186,7 +186,7 @@ SET @propertyId = LAST_INSERT_ID();
 -- No se inserta en property_room ya que el valor de number_of_rooms es 0
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
-VALUES (@userId, 'BRAND_NEW', 200.00, 'Chile','Viña del Mar', 'Local comercial a estrenar', 2000.00, 90000.00, 'COMMERCIAL_PREMISES', 'Valparaíso', 1, 'AVAILABLE', 'Calle Comercio', '100', 'Local nuevo con gran afluencia de público', 210.00, 0);
+VALUES (@userId, 'BRAND_NEW', 200.00, 'Argentina', 'Mendoza', 'Local comercial a estrenar', 2000.00, 90000.00, 'COMMERCIAL_PREMISES', 'Mendoza', 1, 'AVAILABLE', 'Avenida San Martín', '100', 'Local nuevo con gran afluencia de público', 210.00, 0);
 
 SET @propertyId = LAST_INSERT_ID();
 
