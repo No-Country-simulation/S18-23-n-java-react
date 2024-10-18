@@ -36,6 +36,7 @@ public class FeatureServiceImpl implements FeatureService {
         return mapper.toResp(feature);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Feature findById(Long id) {
         return featureRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("feature does not exist"));

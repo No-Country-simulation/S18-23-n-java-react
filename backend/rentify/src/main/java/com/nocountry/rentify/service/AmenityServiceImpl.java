@@ -34,6 +34,7 @@ public class AmenityServiceImpl implements AmenityService {
                 .orElseThrow(() -> new EntityNotFoundException("Amenity not found with id: " + id));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Amenity findById(Long id) {
         return amenityRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Amenity not found with id: " + id));
