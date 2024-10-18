@@ -55,5 +55,15 @@ public interface AuthService {
    */
   void resendVerificationEmail(EmailReq request);
 
+  /**
+   * Logs out the currently authenticated user.
+   *
+   * This method invalidates the session and removes any authentication information related
+   * to the current user. Invalidate tokens used for authentication.
+   *
+   * @param request the {@link HttpServletRequest} object containing details about the current HTTP request.
+   *                It is used to access session information and other details needed for logging out.
+   */
   void logout(HttpServletRequest request);
+
 }

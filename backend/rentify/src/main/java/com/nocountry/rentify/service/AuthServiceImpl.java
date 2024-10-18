@@ -1,5 +1,6 @@
 package com.nocountry.rentify.service;
 
+import com.nocountry.rentify.dto.mapper.UserMapper;
 import com.nocountry.rentify.dto.request.*;
 import com.nocountry.rentify.dto.response.LoginRes;
 import com.nocountry.rentify.dto.response.UserRes;
@@ -40,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
   private final EmailService emailService;
   private final TokenBlacklistService tokenBlacklistService;
   private final AuthenticatedUserServiceImpl authenticatedUserService;
+  private final UserMapper userMapper;
 
   @Value("${frontend.baseUrl}")
   private String baseUrl;
@@ -56,9 +58,8 @@ public class AuthServiceImpl implements AuthService {
     if(!user.isVerify()) {
       throw new UserNotVerifiedException("User is not verified");
     }
-
     String token = this.jwtTokenProvider.generateSessionToken(user);
-    return new LoginRes(user.getId(), user.getRole().getName(), token);
+    return userMapper.toLoginRes(user, token);
   }
 
   @Override
