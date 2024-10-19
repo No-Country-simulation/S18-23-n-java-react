@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import FormInputText from "./FormComponents/FormInputText";
 import { AuthContext } from "../../context";
@@ -27,7 +27,7 @@ interface NotificationInfo {
 
 function LoginForm() {
   const { userLogin } = useContext(AuthContext);
-
+  const navigate = useNavigate()
   const [openDialog, setOpenDialog] = useState(false);
   const [notification, setNotification] = useState<NotificationInfo>({
     show: false,
@@ -46,6 +46,7 @@ function LoginForm() {
     if (response.isSuccess) {
       userLogin(response.data);
       addNewNotification("success", "Inicio de Sesión exitoso");
+      navigate("/")
     } else {
       addNewNotification("error", response.message);
     }

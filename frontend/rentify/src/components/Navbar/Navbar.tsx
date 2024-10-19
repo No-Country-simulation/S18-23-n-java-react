@@ -19,8 +19,15 @@ import { useContext, useState } from "react";
 import { authLogout } from "../../service/auth/authService";
 import { AuthContext } from "../../context";
 
-import { Link as RouterLink } from "react-router-dom";
-import { Logout, Person } from "@mui/icons-material";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import {
+  Logout,
+  Person,
+  Menu as MenuIcon,
+  Login as LoginIcon,
+  HowToReg as RegisterIcon,
+} from "@mui/icons-material";
+import NavLinkItem from "./NavLinkItem";
 
 type NotificationType = "success" | "error";
 
@@ -31,7 +38,8 @@ interface NotificationInfo {
 }
 
 function Navbar() {
-  const { isUserLoggedIn, userLogout } = useContext(AuthContext);
+  const { isUserLoggedIn, userLogout, user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [notification, setNotification] = useState<NotificationInfo>({
     show: false,
     type: "error",
@@ -44,6 +52,7 @@ function Navbar() {
     if (response.isSuccess) {
       userLogout();
       addNewNotification("success", "Sesión cerrada exitosamente");
+      navigate("/login");
     } else {
       addNewNotification("error", "Ha ocurrido un error al cerrar la sesión");
     }
@@ -67,13 +76,15 @@ function Navbar() {
   };
 
   return (
-    <AppBar sx={{ backgroundColor: "white" }}>
+    <AppBar>
       <Container maxWidth="xl">
         <Toolbar>
           <Typography
             variant="h5"
-            color="textPrimary"
-            sx={{ letterSpacing: "1.5px" }}
+            color="white"
+            sx={{ letterSpacing: "1.5px", textDecoration: "none" }}
+            component={RouterLink}
+            to={"/"}
           >
             Rentify
           </Typography>
@@ -81,20 +92,52 @@ function Navbar() {
           <Stack direction={"row"} gap={4}>
             {isUserLoggedIn ? (
               <>
-                <IconButton
+                <Button
                   onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 2 }}
+                  sx={{
+                    ml: 2,
+                    display: "flex",
+                    gap: 2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                   aria-haspopup="true"
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>U</Avatar>
-                </IconButton>
+                  {user?.username ? (
+                    <>
+                      <Typography>{user?.username}</Typography>
+                    </>
+                  ) : (
+                    <Stack
+                      direction={"row"}
+                      gap={1}
+                      color={"white"}
+                      sx={{ display: { xs: "none", sm: "flex" } }}
+                    >
+                      <Typography>{user?.name}</Typography>
+                      <Typography>{user?.lastname}</Typography>
+                    </Stack>
+                  )}
+                  {user?.photo ? (
+                    <Avatar sx={{ width: 32, height: 32 }} src={user?.photo} />
+                  ) : (
+                    <Avatar
+                      sx={{ width: 32, height: 32, backgroundColor: "white" }}
+                    >
+                      <Person color="primary" />
+                    </Avatar>
+                  )}
+                </Button>
               </>
             ) : (
               <>
                 <Button
                   variant="outlined"
-                  color="info"
+                  sx={{
+                    color: "white",
+                    borderColor: "white",
+                    display: { xs: "none", sm: "flex" },
+                  }}
                   component={RouterLink}
                   to="/login"
                 >
@@ -102,12 +145,23 @@ function Navbar() {
                 </Button>
                 <Button
                   variant="contained"
-                  color="info"
+                  sx={{
+                    color: "primary.main",
+                    backgroundColor: "white",
+                    display: { xs: "none", sm: "flex" },
+                  }}
                   component={RouterLink}
                   to="/register"
                 >
                   Registrarse
                 </Button>
+                <IconButton
+                  color="inherit"
+                  sx={{ display: { xs: "flex", sm: "none" } }}
+                  onClick={handleClick}
+                >
+                  <MenuIcon sx={{ width: 32, height: 32 }} />
+                </IconButton>
               </>
             )}
           </Stack>
@@ -150,19 +204,40 @@ function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Person />
-          </ListItemIcon>
-          Perfil
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout />
-          </ListItemIcon>
-          Cerrar Sesión
-        </MenuItem>
+        {isUserLoggedIn ? (
+          <Stack gap={1}>
+            <NavLinkItem
+              to="/profile"
+              onClick={handleClose}
+              icon={<Person />}
+              text="Mi Perfil"
+            />
+            <Divider />
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              Cerrar Sesión
+            </MenuItem>
+          </Stack>
+        ) : (
+          <Stack gap={1}>
+            <NavLinkItem
+              to="/login"
+              onClick={handleClose}
+              icon={<LoginIcon />}
+              text="Iniciar Sesión"
+            />
+
+            <Divider />
+            <NavLinkItem
+              to="/register"
+              onClick={handleClose}
+              icon={<RegisterIcon />}
+              text="Registrarse"
+            />
+          </Stack>
+        )}
       </Menu>
       <Snackbar
         open={notification.show}

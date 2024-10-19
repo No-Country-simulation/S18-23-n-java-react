@@ -35,3 +35,13 @@ export const authLogout = async () => {
     console.log(error);
   }
 };
+
+export const authRecoveryPassword = async (email: string) => {
+  try {
+    const response = await backend.post("/auth/recovery-password", { email });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) return error.response?.data;
+    console.log(error);
+  }
+};
