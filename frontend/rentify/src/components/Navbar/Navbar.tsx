@@ -1,5 +1,4 @@
 import {
-  Alert,
   AppBar,
   Avatar,
   Box,
@@ -10,14 +9,13 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-  Snackbar,
   Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { authLogout } from "../../service/auth/authService";
-import { AuthContext } from "../../context";
+import { AlertContext, AuthContext } from "../../context";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
@@ -29,41 +27,21 @@ import {
 } from "@mui/icons-material";
 import NavLinkItem from "./NavLinkItem";
 
-type NotificationType = "success" | "error";
-
-interface NotificationInfo {
-  show: boolean;
-  type: NotificationType;
-  message: string;
-}
-
 function Navbar() {
   const { isUserLoggedIn, userLogout, user } = useContext(AuthContext);
+  const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
-  const [notification, setNotification] = useState<NotificationInfo>({
-    show: false,
-    type: "error",
-    message: "",
-  });
 
   const handleLogout = async () => {
     const response = await authLogout();
     console.log(response);
     if (response.isSuccess) {
       userLogout();
-      addNewNotification("success", "Sesión cerrada exitosamente");
+      showAlert("success", "Sesión cerrada exitosamente");
       navigate("/login");
     } else {
-      addNewNotification("error", "Ha ocurrido un error al cerrar la sesión");
+      showAlert("error", "Ha ocurrido un error al cerrar la sesión");
     }
-  };
-
-  const addNewNotification = (type: NotificationType, message: string) => {
-    setNotification({ show: true, type, message });
-  };
-
-  const handleCloseNotification = () => {
-    setNotification((state) => ({ ...state, show: false }));
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -239,20 +217,6 @@ function Navbar() {
           </Stack>
         )}
       </Menu>
-      <Snackbar
-        open={notification.show}
-        autoHideDuration={6000}
-        onClose={handleCloseNotification}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        <Alert
-          severity={notification.type}
-          variant="outlined"
-          sx={{ width: "100%" }}
-        >
-          {notification.message || "Ha ocurrido un error"}
-        </Alert>
-      </Snackbar>
     </AppBar>
   );
 }

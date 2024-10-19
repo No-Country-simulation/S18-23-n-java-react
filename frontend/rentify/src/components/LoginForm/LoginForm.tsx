@@ -1,39 +1,25 @@
 import { useState, useContext } from "react";
 import {
-  Alert,
   Box,
   Button,
   Container,
   FormControl,
   Link,
   Paper,
-  Snackbar,
   Typography,
 } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { AuthContext, AlertContext } from "../../context";
+import { authLogin } from "../../service/auth/authService";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import FormInputText from "./FormComponents/FormInputText";
-import { AuthContext } from "../../context";
-import { authLogin } from "../../service/auth/authService";
-
-type NotificationType = "success" | "error";
-
-interface NotificationInfo {
-  show: boolean;
-  type: NotificationType;
-  message: string;
-}
 
 function LoginForm() {
   const { userLogin } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const { showAlert } = useContext(AlertContext);
+  const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
-  const [notification, setNotification] = useState<NotificationInfo>({
-    show: false,
-    type: "error",
-    message: "",
-  });
 
   const { control, handleSubmit } = useForm<FieldValues>({
     defaultValues: { email: "", password: "" },
@@ -45,10 +31,10 @@ function LoginForm() {
 
     if (response.isSuccess) {
       userLogin(response.data);
-      addNewNotification("success", "Inicio de Sesión exitoso");
-      navigate("/")
+      showAlert("success", "Inicio de sesión exitoso");
+      navigate("/");
     } else {
-      addNewNotification("error", response.message);
+      showAlert("error", response.message);
     }
   };
 
@@ -58,14 +44,6 @@ function LoginForm() {
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
-  };
-
-  const addNewNotification = (type: NotificationType, message: string) => {
-    setNotification({ show: true, type, message });
-  };
-
-  const handleCloseNotification = () => {
-    setNotification((state) => ({ ...state, show: false }));
   };
 
   return (
@@ -122,7 +100,7 @@ function LoginForm() {
               fontSize: "clamp(0.9rem, 2vw, 1rem)",
             }}
           >
-            <Link component="button" type="button" onClick={handleDialogOpen}>
+            <Link onClick={handleDialogOpen} sx={{ cursor: "pointer" }}>
               ¿Olvidó su contraseña?
             </Link>
           </Typography>
@@ -135,26 +113,16 @@ function LoginForm() {
             sx={{ fontSize: "clamp(0.9rem, 2vw, 1rem)" }}
           >
             ¿No tienes una cuenta?{" "}
-            <Link sx={{ cursor: "pointer" }} component={RouterLink} to={"/register"}>
+            <Link
+              sx={{ cursor: "pointer" }}
+              component={RouterLink}
+              to={"/register"}
+            >
               Regístrate
             </Link>
           </Typography>
         </Box>
         <ForgotPassword open={openDialog} handleClose={handleDialogClose} />
-        <Snackbar
-          open={notification.show}
-          autoHideDuration={6000}
-          onClose={handleCloseNotification}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert
-            severity={notification.type}
-            variant="outlined"
-            sx={{ width: "100%" }}
-          >
-            {notification.message || "Ha ocurrido un error al iniciar sesión"}
-          </Alert>
-        </Snackbar>
       </Paper>
     </Container>
   );

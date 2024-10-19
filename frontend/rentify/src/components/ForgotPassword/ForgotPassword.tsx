@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Button,
   Dialog,
@@ -7,10 +8,10 @@ import {
   DialogTitle,
   FormControl,
 } from "@mui/material";
-import FormInputText from "../LoginForm/FormComponents/FormInputText";
 import { FieldValues, useForm } from "react-hook-form";
+import { AlertContext } from "../../context";
 import { authRecoveryPassword } from "../../service/auth/authService";
-import { useNavigate } from "react-router-dom";
+import FormInputText from "../LoginForm/FormComponents/FormInputText";
 
 interface Props {
   open: boolean;
@@ -18,8 +19,8 @@ interface Props {
 }
 
 function ForgotPassword({ open, handleClose }: Props) {
-  const navigate = useNavigate();
-  const { control, handleSubmit } = useForm<FieldValues>({
+  const { showAlert } = useContext(AlertContext);
+  const { control, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: { email: "" },
   });
 
@@ -27,14 +28,15 @@ function ForgotPassword({ open, handleClose }: Props) {
     const { email } = data;
     const response = await authRecoveryPassword(email);
     if (response.isSuccess) {
-      console.log(
+      showAlert(
+        "success",
         "Correo enviado. Por favor, siga los pasos para recuperar su contraseña"
       );
-      handleClose();
-      navigate(0);
     } else {
-      console.log(response);
+      showAlert("error", response.message);
     }
+    handleClose();
+    reset();
   };
   return (
     <Dialog
