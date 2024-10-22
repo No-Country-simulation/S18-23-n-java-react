@@ -10,7 +10,11 @@ import com.nocountry.rentify.exception.UserNotFoundException;
 import com.nocountry.rentify.model.entity.Role;
 import com.nocountry.rentify.model.entity.User;
 import com.nocountry.rentify.repository.UserRepository;
-import com.nocountry.rentify.service.interfaces.*;
+import com.nocountry.rentify.service.interfaces.AuthenticatedUserService;
+import com.nocountry.rentify.service.interfaces.EmailService;
+import com.nocountry.rentify.service.interfaces.RoleService;
+import com.nocountry.rentify.service.interfaces.UserProfileService;
+import com.nocountry.rentify.service.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,4 +70,10 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
+  @Override
+  public User findById(Long id) {
+    return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+  }
+
 }
+
