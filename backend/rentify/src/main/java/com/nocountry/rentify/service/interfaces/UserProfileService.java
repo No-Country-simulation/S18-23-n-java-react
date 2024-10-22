@@ -1,6 +1,7 @@
 package com.nocountry.rentify.service.interfaces;
 
 import com.nocountry.rentify.dto.request.UserProfileReq;
+import com.nocountry.rentify.dto.request.UserReq;
 import com.nocountry.rentify.dto.response.UserProfileRes;
 import com.nocountry.rentify.model.entity.User;
 import com.nocountry.rentify.model.entity.UserProfile;
@@ -27,10 +28,9 @@ public interface UserProfileService {
      * Creates a new user profile for a given user.
      *
      * @param user the user entity for whom the profile is being created
-     * @param name the first name of the user
-     * @param lastName the last name of the user
+     * @param userReq params to userprofile request
      */
-    void create(User user, String name, String lastName);
+    void create(User user, UserReq userReq);
 
     /**
      * Updates an existing user profile with new information.
