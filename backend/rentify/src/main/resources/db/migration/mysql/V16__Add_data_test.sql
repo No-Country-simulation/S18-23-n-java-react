@@ -1,8 +1,3 @@
-## Run this sql script after the database initialization to load sample properties
-
-```sql
-START TRANSACTION;
-
 -- Here I perform an INSERT of a sample user to add it as the owner of the properties
 INSERT INTO users (email, password, status, created_at, is_verify, role_id)
 VALUES ('johndoe@example.com', '$2a$10$somethingHashedPassword', 'ACTIVE', NOW(), 1, 1);
@@ -13,7 +8,7 @@ INSERT INTO user_profiles (name, last_name, user_id)
 VALUES ('John', 'Doe', @userId);
 
 -- Here I perform an INSERT of 17 different rooms
-INSERT INTO `room` (`name`)
+INSERT INTO `rooms` (`name`)
 VALUES
     ('Dormitorio'),
     ('Baño'),
@@ -75,8 +70,8 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'UNDER_CONSTRUCTION', 200.00, 'Argentina', 'Villa Carlo Paz', 'Casa en construcción con amplio jardín', 0.00, 250000.00, 'HOUSE', 'Córdoba', 3, 'MAINTENANCE', 'Calle Falsa', '123', 'Casa con potencial en desarrollo', 350.00, 1);
@@ -85,9 +80,9 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 2),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Jardín'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 2),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Jardín'), 1);
 
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
@@ -97,11 +92,11 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 4),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 3),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Cocina'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Sala de estar'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Jardín'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 4),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 3),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Cocina'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Sala de estar'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Jardín'), 1);
 
 
 
@@ -112,7 +107,7 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Oficina'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Oficina'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'YEARS_OF_ANTIQUITY', 300.00, 'Argentina','San Lorenzo', 'Edificio antiguo de 3 pisos con patio', 10000.00, 600000.00, 'BUILDING', 'Santa Fe', 10, 'RENTED', 'San Martín', '45', 'Edificio histórico con 10 habitaciones', 600.00, 50);
@@ -121,10 +116,10 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 6),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 2),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Cocina'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Patio'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 6),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 2),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Cocina'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Patio'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'UNDER_CONSTRUCTION', 500.00, 'Argentina', 'La Plata', 'Galpón amplio en construcción', 0.00, 350000.00, 'WAREHOUSE', 'Buenos Aires' , 1, 'MAINTENANCE', 'Calle 10', '444', 'Galpón ideal para logística', 700.00, 1);
@@ -133,7 +128,7 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Garaje'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Garaje'), 1);
 
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
@@ -143,9 +138,9 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 2),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Terraza'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 2),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Terraza'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'BRAND_NEW', 75.00, 'Argentina', 'Rosario', 'Apartamento nuevo en zona céntrica', 1000.00, 125000.00, 'APARTMENT', 'Santa Fe', 2, 'AVAILABLE', 'Avenida Pellegrini', '1250', 'Apartamento con vista al río', 80.00, 0);
@@ -154,8 +149,8 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Cocina'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Cocina'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'YEARS_OF_ANTIQUITY', 60.00, 'Argentina', 'CABA', 'Oficina en barrio financiero', 500.00, 50000.00, 'COMMERCIAL_OFFICE', 'CABA', 1, 'AVAILABLE', 'Reconquista', '150', 'Oficina en excelente ubicación céntrica', 65.00, 15);
@@ -164,7 +159,7 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Oficina'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Oficina'), 1);
 
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
@@ -174,9 +169,9 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Dormitorio'), 2),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Baño'), 1),
-    (@propertyId, (SELECT id FROM room WHERE name = 'Cocina'), 1);
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Dormitorio'), 2),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Baño'), 1),
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Cocina'), 1);
 
 INSERT INTO properties (owner_id, antiquity, built_area, country, city, description, maintenance_fees, price, property_type, province, number_of_rooms, status, street_name, street_number, title, total_area, years_of_antiquity)
 VALUES (@userId, 'YEARS_OF_ANTIQUITY', 400.00, 'Argentina', 'San Miguel de Tucumán', 'Terreno con galpón en área industrial', 0.00, 700000.00, 'LAND', 'Tucumán', 0, 'UNAVAILABLE', 'Ruta 9', 'km 20', 'Terreno ideal para industria', 500.00, 30);
@@ -192,9 +187,4 @@ SET @propertyId = LAST_INSERT_ID();
 
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
-    (@propertyId, (SELECT id FROM room WHERE name = 'Comedor'), 1);
-
-
-
-COMMIT;
-```
+    (@propertyId, (SELECT id FROM rooms WHERE name = 'Comedor'), 1);
