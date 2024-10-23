@@ -66,9 +66,8 @@ function LoginForm() {
         }}
       >
         <Typography
-          variant="h3"
+          variant="h4"
           sx={{
-            fontSize: "clamp(1.8rem, 8vw, 2rem)",
             marginBottom: { xs: 3, sm: 4 },
           }}
         >
@@ -98,7 +97,6 @@ function LoginForm() {
           <Typography
             sx={{
               alignSelf: "end",
-              fontSize: "clamp(0.9rem, 2vw, 1rem)",
             }}
           >
             <Link onClick={handleDialogOpen} sx={{ cursor: "pointer" }}>
@@ -111,7 +109,7 @@ function LoginForm() {
           </Button>
           <Typography
             textAlign={"center"}
-            sx={{ fontSize: "clamp(0.9rem, 2vw, 1rem)" }}
+            variant="body2"
           >
             ¿No tienes una cuenta?{" "}
             <Link

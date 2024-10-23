@@ -66,9 +66,17 @@ function ForgotPassword({ open, handleClose }: Props) {
           />
         </FormControl>
       </DialogContent>
-      <DialogActions sx={{ pb: 3, px: 3 }}>
+      <DialogActions
+        sx={{
+          pb: 3,
+          px: 3,
+          display: "flex",
+          flexDirection: { xs: "column-reverse", sm: "row" },
+          gap: 2
+        }}
+      >
         <Button
-          variant="text"
+          variant="outlined"
           sx={{ py: 1, borderRadius: 2 }}
           onClick={handleClose}
         >
