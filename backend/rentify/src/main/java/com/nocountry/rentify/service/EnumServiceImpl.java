@@ -1,10 +1,7 @@
 package com.nocountry.rentify.service;
 
 import com.nocountry.rentify.dto.response.property.EnumRes;
-import com.nocountry.rentify.model.enums.Antiquity;
-import com.nocountry.rentify.model.enums.PropertyType;
-import com.nocountry.rentify.model.enums.Status;
-import com.nocountry.rentify.model.enums.TranslatableEnum;
+import com.nocountry.rentify.model.enums.*;
 import com.nocountry.rentify.service.interfaces.EnumService;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +24,11 @@ public class EnumServiceImpl implements EnumService {
     @Override
     public List<EnumRes> getAllPropertyTypes() {
         return getEnumValues(PropertyType.values());
+    }
+
+    @Override
+    public List<EnumRes> getAllPropertyMultimediaTypes() {
+        return getEnumValues(PropertyMultimediaType.values());
     }
 
     /**

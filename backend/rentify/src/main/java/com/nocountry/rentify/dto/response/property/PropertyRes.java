@@ -10,8 +10,10 @@ import com.nocountry.rentify.model.enums.Status;
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 @AllArgsConstructor
 public class PropertyRes {

@@ -120,5 +120,4 @@ public class PropertyServiceImpl implements PropertyService {
     propertyRepository.deleteById(id);
   }
 
-
 }
