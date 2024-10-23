@@ -47,7 +47,7 @@ function ForgotPassword({ open, handleClose }: Props) {
       PaperProps={{ sx: { borderRadius: 2 } }}
     >
       <DialogTitle
-        color="white"
+        color="primary.contrastText"
         sx={{ backgroundColor: "primary.main", marginBottom: 2 }}
       >
         Recuperar Contraseña

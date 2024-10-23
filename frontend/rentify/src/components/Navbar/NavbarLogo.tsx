@@ -33,7 +33,7 @@ function NavbarLogo() {
           component={"span"}
           sx={{
             fontSize: 24,
-            paddingTop: "3px",
+            paddingTop: "5px",
             fontWeight: "bold",
             color: "primary.main",
           }}

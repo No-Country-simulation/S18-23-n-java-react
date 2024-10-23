@@ -49,9 +49,10 @@ function LoginForm() {
   return (
     <Container
       sx={{
-        minHeight: "100vh",
+        minHeight: "92vh",
         display: "flex",
         alignItems: "center",
+        paddingBottom: "8vh",
       }}
     >
       <Paper

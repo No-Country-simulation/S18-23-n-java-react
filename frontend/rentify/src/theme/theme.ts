@@ -5,10 +5,27 @@ const theme = createTheme({
     light: {
       palette: {
         primary: {
-          main: "#37a3ad",
+          main: "#40becb",
         },
         secondary: {
-          main: "#093a3e",
+          main: "#254353",
+        },
+        background: {
+          paper: "#fff",
+          default: "#f7f7f7",
+        },
+        text: {
+          primary: "#254353",
+          secondary: "#4a4a4a",
+        },
+        success: {
+          main: "#28a745",
+        },
+        warning: {
+          main: "#ffc107",
+        },
+        error: {
+          main: "#dc3545",
         },
       },
     },
