@@ -1,7 +1,11 @@
 package com.nocountry.rentify.controller;
 
 import com.nocountry.rentify.dto.ApiResponse;
-import com.nocountry.rentify.dto.request.*;
+import com.nocountry.rentify.dto.request.EmailReq;
+import com.nocountry.rentify.dto.request.EmailVerificationReq;
+import com.nocountry.rentify.dto.request.LoginReq;
+import com.nocountry.rentify.dto.request.PasswordResetReq;
+import com.nocountry.rentify.dto.request.UserReq;
 import com.nocountry.rentify.dto.response.LoginRes;
 import com.nocountry.rentify.dto.response.UserRes;
 import com.nocountry.rentify.service.interfaces.AuthService;

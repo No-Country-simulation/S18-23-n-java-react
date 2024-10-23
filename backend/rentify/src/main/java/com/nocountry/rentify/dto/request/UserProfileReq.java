@@ -7,13 +7,17 @@ import jakarta.validation.constraints.Size;
 @Schema(description = "Request object for updating a user's profile information, including name, last name, and profile photo.")
 public record UserProfileReq(
 
+        @Schema(description = "Username", example = "UrbanNest Properties", minLength = 2, maxLength = 50)
+        @Size(min = 2, max = 50, message = "Name must be a maximum of 50 characters.")
+        String username,
+
         @Schema(description = "The user's updated first name. It should contain only letters and spaces.", example = "Juan")
-        @Size(max = 50, message = "Name must be a maximum of 50 characters.")
+        @Size(min = 2,max = 50, message = "Name must be a maximum of 50 characters.")
         @Pattern(regexp = "^[A-Za-zñáéíóúü]+(?: [A-Za-zñáéíóúü]+)*$",message = "Name should only contain letters and spaces.")
         String name,
 
         @Schema(description = "The user's updated last name. It should contain only letters and spaces.", example = "Pérez")
-        @Size(max = 50, message = "Last name must be a maximum of 50 characters.")
+        @Size(min = 2,max = 50, message = "Last name must be a maximum of 50 characters.")
         @Pattern(regexp = "^[A-Za-zñáéíóúü]+(?: [A-Za-zñáéíóúü]+)*$",message = "Name should only contain letters and spaces.")
         String lastname,
 

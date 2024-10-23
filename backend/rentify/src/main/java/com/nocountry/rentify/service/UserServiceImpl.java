@@ -7,17 +7,23 @@ import com.nocountry.rentify.dto.request.UserReq;
 import com.nocountry.rentify.dto.response.UserRes;
 import com.nocountry.rentify.exception.IncorrectCurrentPasswordException;
 import com.nocountry.rentify.exception.UserNotFoundException;
+import com.nocountry.rentify.model.entity.Role;
 import com.nocountry.rentify.model.entity.User;
 import com.nocountry.rentify.repository.UserRepository;
-import com.nocountry.rentify.service.interfaces.*;
+import com.nocountry.rentify.service.interfaces.AuthenticatedUserService;
+import com.nocountry.rentify.service.interfaces.EmailService;
+import com.nocountry.rentify.service.interfaces.RoleService;
+import com.nocountry.rentify.service.interfaces.UserProfileService;
+import com.nocountry.rentify.service.interfaces.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.validation.annotation.Validated;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 public class UserServiceImpl implements UserService {
 
   private final UserMapper userMapper;
@@ -32,25 +38,26 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public UserRes create(UserReq userReq) {
-    User user = userMapper.toEntity(userReq);
-    user.setPassword(passwordEncoder.encode(userReq.password()));
-    user.setRole(roleService.getByName("USER"));
+    User user = createUserFromRequest(userReq);
     User savedUser = userRepository.save(user);
-
-    userProfileService.create(savedUser,userReq.name(),userReq.lastname());
-
-    emailService.sendVerificationEmail(new EmailReq(savedUser.getEmail()));
-
+    userProfileService.create(savedUser, userReq);
+    emailService.sendVerificationEmail(new EmailReq(user.getEmail()));
     return userMapper.toResponse(savedUser);
   }
 
+  private User createUserFromRequest(UserReq userReq) {
+    User user = userMapper.toEntity(userReq);
+    user.setPassword(passwordEncoder.encode(userReq.password()));
+    Role role = roleService.findRoleByIdExludeAdmin(userReq.roleId());
+    user.setRole(role);
+    return user;
+  }
 
   @Override
   public User getByEmail(String email) {
     return userRepository.findByEmail(email)
             .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
   }
-
 
   @Transactional
   @Override
@@ -63,4 +70,10 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
+  @Override
+  public User findById(Long id) {
+    return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+  }
+
 }
+

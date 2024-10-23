@@ -1,6 +1,10 @@
 package com.nocountry.rentify.service.interfaces;
 
-import com.nocountry.rentify.dto.request.*;
+import com.nocountry.rentify.dto.request.EmailReq;
+import com.nocountry.rentify.dto.request.EmailVerificationReq;
+import com.nocountry.rentify.dto.request.LoginReq;
+import com.nocountry.rentify.dto.request.PasswordResetReq;
+import com.nocountry.rentify.dto.request.UserReq;
 import com.nocountry.rentify.dto.response.LoginRes;
 import com.nocountry.rentify.dto.response.UserRes;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,5 +59,15 @@ public interface AuthService {
    */
   void resendVerificationEmail(EmailReq request);
 
+  /**
+   * Logs out the currently authenticated user.
+   *
+   * This method invalidates the session and removes any authentication information related
+   * to the current user. Invalidate tokens used for authentication.
+   *
+   * @param request the {@link HttpServletRequest} object containing details about the current HTTP request.
+   *                It is used to access session information and other details needed for logging out.
+   */
   void logout(HttpServletRequest request);
+
 }

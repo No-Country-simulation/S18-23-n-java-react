@@ -1,6 +1,13 @@
 package com.nocountry.rentify.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,15 +25,18 @@ public class UserProfile {
         private Long id;
 
         @Column(length = 50)
-        String name;
+        private String username;
 
         @Column(length = 50)
-        String lastName;
+        private String name;
 
         @Column(length = 50)
-        String phone;
+        private String lastName;
 
-        String photo;
+        @Column(length = 50)
+        private String phone;
+
+        private String photo;
 
         @OneToOne
         @JoinColumn(name = "user_id", referencedColumnName = "id")

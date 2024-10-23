@@ -1,24 +1,23 @@
 package com.nocountry.rentify.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Schema(description = "Request payload for user registration")
 public record UserReq(
 
+        @Schema(description = "Username", example = "UrbanNest Properties", minLength = 2, maxLength = 50)
+        @Size(min = 2, max = 50, message = "Name must be a maximum of 50 characters.")
+        String username,
+
         @Schema(description = "User's first name", example = "John", minLength = 2, maxLength = 50)
-        @Size(max = 50, message = "Name must be a maximum of 50 characters.")
-        @NotBlank(message = "Name is required")
+        @Size(min = 2, max = 50, message = "Name must be a maximum of 50 characters.")
         @Pattern(regexp = "^[A-Za-zñáéíóúü]+(?: [A-Za-zñáéíóúü]+)*$",
                 message = "Name should only contain letters and spaces.")
         String name,
 
         @Schema(description = "User's last name", example = "Doe", minLength = 2, maxLength = 50)
-        @Size(max = 50, message = "Last name must be a maximum of 50 characters.")
-        @NotBlank(message = "Lastname is required")
+        @Size(min = 2, max = 50, message = "Last name must be a maximum of 50 characters.")
         @Pattern(regexp = "^[A-Za-zñáéíóúü]+(?: [A-Za-zñáéíóúü]+)*$",
                 message = "Name should only contain letters and spaces.")
         String lastname,
@@ -34,6 +33,10 @@ public record UserReq(
         @Pattern(regexp = "^(?=.*[A-ZÑ])(?=.*[a-zñ])(?=.*\\d)(?=.*[-@#$%^&*.,()_+{}|;:'\"<>/!¡¿?])[A-ZÑa-zñ\\d-@#$%^&*.,()_+{}|;:'\"<>/!¡¿?]{6,}$",
                 message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")
         @Size(min = 8, message = "Password must be at least 8 characters long.")
-        String password
+        String password,
+
+        @Schema(description = "The ID of the user's role", example = "1")
+        @NotNull(message = "Role ID is required")
+        Long roleId
 ) {
 }

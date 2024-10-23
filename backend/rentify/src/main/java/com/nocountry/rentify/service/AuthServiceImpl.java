@@ -1,6 +1,11 @@
 package com.nocountry.rentify.service;
 
-import com.nocountry.rentify.dto.request.*;
+import com.nocountry.rentify.dto.mapper.UserMapper;
+import com.nocountry.rentify.dto.request.EmailReq;
+import com.nocountry.rentify.dto.request.EmailVerificationReq;
+import com.nocountry.rentify.dto.request.LoginReq;
+import com.nocountry.rentify.dto.request.PasswordResetReq;
+import com.nocountry.rentify.dto.request.UserReq;
 import com.nocountry.rentify.dto.response.LoginRes;
 import com.nocountry.rentify.dto.response.UserRes;
 import com.nocountry.rentify.exception.InvalidAuthorizationHeaderException;
@@ -17,6 +22,8 @@ import com.nocountry.rentify.service.interfaces.TokenBlacklistService;
 import com.nocountry.rentify.service.interfaces.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -24,9 +31,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
   private final EmailService emailService;
   private final TokenBlacklistService tokenBlacklistService;
   private final AuthenticatedUserServiceImpl authenticatedUserService;
+  private final UserMapper userMapper;
 
   @Value("${frontend.baseUrl}")
   private String baseUrl;
@@ -56,9 +61,8 @@ public class AuthServiceImpl implements AuthService {
     if(!user.isVerify()) {
       throw new UserNotVerifiedException("User is not verified");
     }
-
     String token = this.jwtTokenProvider.generateSessionToken(user);
-    return new LoginRes(user.getId(), user.getRole().getName(), token);
+    return userMapper.toLoginRes(user, token);
   }
 
   @Override

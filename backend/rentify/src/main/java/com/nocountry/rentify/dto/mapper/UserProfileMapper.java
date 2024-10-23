@@ -11,14 +11,16 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper  {
 
-    @Mapping(target = "name.", expression = "java(CustomMapperUtil.capitalizeName(name))")
-    @Mapping(target = "lastName", expression = "java(CustomMapperUtil.capitalizeName(lastName))")
+    @Mapping(source = "username", target = "username")
+    @Mapping(target = "name", expression = "java(CustomMapperUtil.mapName(name,name))")
+    @Mapping(target = "lastName", expression = "java(CustomMapperUtil.mapName(lastName,lastName))")
     @Mapping(source = "user", target = "user")
-    UserProfile toEntity(String name, String lastName, User user);
+    UserProfile toEntity(String username,String name, String lastName, User user);
 
     @Mapping(source = "lastName", target = "lastname")
     UserProfileRes toResponse(UserProfile userProfile);
 
+    @Mapping(target = "username", expression = "java(CustomMapperUtil.mapUsername(userProfileReq.username(), userProfile.getUsername()))")
     @Mapping(target = "name", expression = "java(CustomMapperUtil.mapName(userProfileReq.name(), userProfile.getName()))")
     @Mapping(target = "lastName", expression = "java(CustomMapperUtil.mapName(userProfileReq.lastname(), userProfile.getLastName()))")
     @Mapping(target = "phone", expression = "java(CustomMapperUtil.mapPhone(userProfileReq.phone(), userProfile.getPhone()))")
@@ -29,6 +31,13 @@ public interface UserProfileMapper  {
 
 
 class CustomMapperUtil {
+
+    public static String mapUsername(String newUsername, String currentUsername) {
+        if (newUsername!= null &&!newUsername.isBlank()) {
+            return newUsername;
+        }
+        return currentUsername;
+    }
 
     public static String mapName(String newValue, String currentValue) {
         if (newValue != null && !newValue.isBlank()) {
