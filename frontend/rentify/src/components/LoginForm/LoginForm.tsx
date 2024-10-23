@@ -1,61 +1,41 @@
+import { useState, useContext } from "react";
 import {
-  Alert,
   Box,
   Button,
   Container,
   FormControl,
   Link,
   Paper,
-  Snackbar,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import axios from "axios";
 import { FieldValues, useForm } from "react-hook-form";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { AuthContext, AlertContext } from "../../context";
+import { authLogin } from "../../service/auth/authService";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import FormInputText from "./FormComponents/FormInputText";
 
-interface AlertInfo {
-  type: "success" | "error";
-  message: string;
-}
-
 function LoginForm() {
+  const { userLogin } = useContext(AuthContext);
+  const { showAlert } = useContext(AlertContext);
+  const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-  const [alertInfo, setAlertInfo] = useState<AlertInfo>({
-    type: "error",
-    message: "",
-  });
 
   const { control, handleSubmit } = useForm<FieldValues>({
     defaultValues: { email: "", password: "" },
   });
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     const { email, password } = data;
+    const response = await authLogin(email, password);
 
-    // Ejemplo para probar una petición POST a una API
-    axios
-      .post("https://s18-23-n-java-react.onrender.com/api/v1/auth/login", {
-        email,
-        password,
-      })
-      .then((response) => {
-        console.log(response.data.data)
-        setShowMessage(true);
-        setAlertInfo({
-          type: "success",
-          message: "Inicio de sesión exitoso",
-        });
-      })
-      .catch((error) => {
-        setShowMessage(true);
-        setAlertInfo({
-          type: "error",
-          message: error.response.data.message,
-        });
-      });
+    if (response.isSuccess) {
+      userLogin(response.data);
+      showAlert("success", "Inicio de sesión exitoso");
+      navigate("/");
+    } else {
+      showAlert("error", response.message);
+    }
   };
 
   const handleDialogClose = () => {
@@ -64,10 +44,6 @@ function LoginForm() {
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
-  };
-
-  const handleCloseMessage = () => {
-    setShowMessage(false);
   };
 
   return (
@@ -124,7 +100,7 @@ function LoginForm() {
               fontSize: "clamp(0.9rem, 2vw, 1rem)",
             }}
           >
-            <Link component="button" type="button" onClick={handleDialogOpen}>
+            <Link onClick={handleDialogOpen} sx={{ cursor: "pointer" }}>
               ¿Olvidó su contraseña?
             </Link>
           </Typography>
@@ -137,24 +113,16 @@ function LoginForm() {
             sx={{ fontSize: "clamp(0.9rem, 2vw, 1rem)" }}
           >
             ¿No tienes una cuenta?{" "}
-            <Link sx={{ cursor: "pointer" }}>Regístrate</Link>
+            <Link
+              sx={{ cursor: "pointer" }}
+              component={RouterLink}
+              to={"/register"}
+            >
+              Regístrate
+            </Link>
           </Typography>
         </Box>
         <ForgotPassword open={openDialog} handleClose={handleDialogClose} />
-        <Snackbar
-          open={showMessage}
-          autoHideDuration={6000}
-          onClose={handleCloseMessage}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert
-            severity={alertInfo.type}
-            variant="outlined"
-            sx={{ width: "100%" }}
-          >
-            {alertInfo.message || "Ha ocurrido un error al iniciar sesión"}
-          </Alert>
-        </Snackbar>
       </Paper>
     </Container>
   );
