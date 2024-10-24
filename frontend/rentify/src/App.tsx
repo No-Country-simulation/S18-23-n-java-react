@@ -6,6 +6,7 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/theme";
 import { AuthProvider, AlertProvider } from "./context";
 import AlertElement from "./components/Alert/AlertElement";
+import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/property/*" element={<PropertyInfoPage />} />
             </Routes>
             <AlertElement />
           </Router>
