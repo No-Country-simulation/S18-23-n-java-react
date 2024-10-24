@@ -1,17 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
-import "./App.css";
-import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/register-property" element={<RegisterPropertyPage />} />
-        
-      </Routes>
-    </Router>
-=======
 import { AuthProvider } from "./context";
 import LandingPage from "./pages/Landing/LandigPage";
 import LoginPage from "./pages/Login/LoginPage";
@@ -21,6 +8,8 @@ import AlertElement from "./components/Alert/AlertElement";
 import "./App.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/theme";
+import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
+import MyListProperty from "./components/MyListProperty/MyListProperty";
 
 function App() {
   return (
@@ -32,13 +21,15 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/register-property" element={<RegisterPropertyPage />} />
+              <Route path="/mylistproperty" element={<MyListProperty />} />
+
             </Routes>
             <AlertElement />
           </Router>
         </AlertProvider>
       </AuthProvider>
     </ThemeProvider>
->>>>>>> d2ca3f191a6e7d819ba0de0be16394c3fc1f6891
   );
 }
 

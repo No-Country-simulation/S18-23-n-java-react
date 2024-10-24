@@ -7,13 +7,15 @@ import {
   Paper,
   TextField,
   Typography,
-  Alert
+  Alert,
+  Link
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import FormInputText from "./FormComponents/FormInputText";
 import FormSelect from "./FormComponents/FormSelect";
 import { useState } from "react";
+import { AlertContext } from "../../context";
 
 
 const PropertyForm: React.FC = () => {
@@ -23,6 +25,8 @@ const PropertyForm: React.FC = () => {
     watch,
     register,
     formState: { errors },
+    linkText = 'Ver propiedad',
+    linkHref
   } = useForm<FieldValues>({
     defaultValues: {
       nombre: "",
@@ -39,16 +43,24 @@ const PropertyForm: React.FC = () => {
     },
   });
 
+  const [guardado, setGuardado] = useState (false);
   const watchPhotos = watch("fotos");
+  const {showAlert} = useContext(AlertContext)
 
   const onSubmit = (data: FieldValues) => {
     data.fotos = Array.from(data.fotos);
     console.log(data);
+    showAlert("success","Se ha guardado la propiedad") 
+    setGuardado(true);
     // Aquí puedes manejar el envío del formulario, por ejemplo, enviar los datos a un servidor
   };
 
-  const [guardado, setGuardado] = useState (false);
-  const manejarSubmit=()=>{setGuardado(true)};
+  
+  const manejarSubmit=()=>{
+    showAlert("success","Se ha guardado la propiedad") 
+    setGuardado(true)
+  };
+  
 
   return (
     <Container
@@ -66,7 +78,7 @@ const PropertyForm: React.FC = () => {
           padding: 4,
           borderRadius: 2,
           width: "100%",
-          maxWidth: "400px",
+          maxWidth: "600px",
         }}
       >
         <Typography
@@ -212,10 +224,12 @@ const PropertyForm: React.FC = () => {
           </FormControl>
 
           <Button 
-          variant="contained" onClick={manejarSubmit} type="submit">
+          variant="contained" onClick={handleSubmit(onSubmit)} type="submit">
             Guardar           
           </Button>
-          {guardado && (<Alert severity="success" onClose={()=>setGuardado(false)} className="mt-5">PROPIEDAD GUARDADA CON EXITO!</Alert>)}
+          {guardado && (<Alert severity="success" onClose={()=>setGuardado(false)} className="mt-5">PROPIEDAD GUARDADA CON EXITO!</Alert>)} <Link href={linkHref} target="_blank" rel="noopener">
+            {linkText}
+          </Link>
         </Box>
       </Paper>
     </Container>
