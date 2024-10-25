@@ -11,6 +11,8 @@ import theme from "./theme/theme";
 import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
 import MyListProperty from "./components/MyListProperty/MyListProperty";
 
+
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -22,7 +24,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register-property" element={<RegisterPropertyPage />} />
-              <Route path="/mylistproperty" element={<MyListProperty />} />
+              <Route path="/mylist" element={<MyListProperty />} />
 
             </Routes>
             <AlertElement />

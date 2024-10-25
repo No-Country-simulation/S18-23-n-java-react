@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardContent, Typography, CardMedia, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {  Card, CardContent, Typography, CardMedia, Box, Stack } from '@mui/material';
+
 import axios from 'axios';
 
 interface Propiedad {
@@ -10,30 +11,30 @@ interface Propiedad {
 }
 
 const MyListProperty: React.FC = () => {
-    const [propiedades, setPropiedades] = useState<Propiedad[]>([]);
+    const [propiedades, setPropiedades] = useState<Propiedad[]>([{id:0,titulo: "Las Condes",descripcion:"mmmmmmmmmm", imagen: "https://http2.mlstatic.com/D_NQ_NP_2X_792050-MLC78020470920_082024-F.webp"}]);
 
-    useEffect(() => {
-        // aqui deberia llamar a la API del backend para obtener las propiedades
-        const fetchPropiedades = async () => {
-            try {
-                const response = await axios.get('/api/propiedades'); // en teoria aqui va URL del backend
-                setPropiedades(response.data);
-            } catch (error) {
-                console.error('Error fetching propiedades:', error);
-            }
-        };
+    // useEffect(() => {
+    //     // aqui deberia llamar a la API del backend para obtener las propiedades
+    //     const fetchPropiedades = async () => {
+    //         try {
+    //             const response = await axios.get('/api/propiedades'); // en teoria aqui va URL del backend
+    //             setPropiedades(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching propiedades:', error);
+    //         }
+    //     };
 
-        fetchPropiedades();
-    }, []);
+    //     fetchPropiedades();
+    // }, []);
 
     return (
         <Box>
             <Typography variant="h4" component="h1" gutterBottom>
                 Mis Propiedades
             </Typography>
-            <Grid container spacing={4}>
+            <Stack>
                 {propiedades.map((propiedad) => (
-                    <Grid item xs={12} sm={6} md={4} key={propiedad.id}>
+                    <Stack  key={propiedad.id}>
                         <Card>
                             <CardMedia
                                 component="img"
@@ -50,9 +51,9 @@ const MyListProperty: React.FC = () => {
                                 </Typography>
                             </CardContent>
                         </Card>
-                    </Grid>
+                    </Stack>
                 ))}
-            </Grid>
+            </Stack>
         </Box>
     );
 };
