@@ -31,9 +31,15 @@ public class EnumController {
         return enumService.getAllAntiquities();
     }
 
-    @GetMapping("/propertytypes")
+    @GetMapping("/property-types")
     @ResponseStatus(HttpStatus.OK)
     public List<EnumRes> getPropertyTypes() {
         return enumService.getAllPropertyTypes();
+    }
+
+    @GetMapping("/property-multimedia-types")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EnumRes> getPropertyMultimediaTypes(){
+        return enumService.getAllPropertyMultimediaTypes();
     }
 }
