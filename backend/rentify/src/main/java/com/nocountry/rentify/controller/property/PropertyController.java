@@ -61,6 +61,12 @@ public class PropertyController {
     return propertyService.getAllProperties(spec);
   }
 
+  @GetMapping("/user/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<PropertyRes> getPropertiesByUserId(@PathVariable Long id) {
+    return propertyService.getPropertiesByUserId(id);
+  }
+
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public PropertyRes getProperty(@PathVariable Long id) {
