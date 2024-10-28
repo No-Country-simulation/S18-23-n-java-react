@@ -8,6 +8,7 @@ import AlertElement from "./components/Alert/AlertElement";
 import "./App.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/theme";
+import ExplorePage from "./pages/Explore/ExplorePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/explore" element={<ExplorePage />} />
             </Routes>
             <AlertElement />
           </Router>
