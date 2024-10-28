@@ -8,6 +8,7 @@ import { Property } from "../../interfaces/Property";
 import PropertyDescription from "../../components/PropertyInfo/PropertyDescription";
 import PropertyHeader from "../../components/PropertyInfo/PropertyHeader";
 import PropertyOwner from "../../components/PropertyInfo/PropertyOwner";
+import Map from "../../components/Map/Map";
 
 function PropertyInfoPage() {
   const { state } = useLocation();
@@ -55,7 +56,6 @@ function PropertyInfoPage() {
         </Stack>
         <PropertyOwner property={property} />
       </Stack>
-
       <Paper sx={{width: "fit-content", padding: 2, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 1, alignItems: "center"}}>
         <Room/>
         <Typography sx={{fontWeight: "bold"}}>Ubicación:</Typography>
@@ -65,6 +65,18 @@ function PropertyInfoPage() {
         </Typography>
       </Paper>
 
+      <Box sx={{width: "5600 px", padding: 2, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 1, alignItems: "center", marginTop: 2}}>
+        <Map
+          isView={true}
+          // La latitud y longitud de inicio
+          latitude={-34.60351704153353}
+          longitude={-58.394393920898445}
+          // ChangePosition es opcional solo se podra usar si isView es false y podras marcar en el mapa un punto, y te dara las coordenadas
+          changePosition={(la, lo) => {
+            console.log(la, lo);
+          }}
+        />
+      </Box>
       <PropertyDescription property={property} />
     </Box>
   );
