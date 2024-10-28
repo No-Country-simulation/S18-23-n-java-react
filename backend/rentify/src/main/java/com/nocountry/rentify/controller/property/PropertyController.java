@@ -54,6 +54,8 @@ public class PropertyController {
           @Spec(path = "price", params = "minPrice", spec = GreaterThanOrEqual.class),
           @Spec(path = "price", params = "maxPrice", spec = LessThanOrEqual.class),
           @Spec(path = "totalArea", params = "minTotalArea", spec = GreaterThanOrEqual.class ),
+          @Spec(path = "totalArea", params = "maxTotalArea", spec = LessThanOrEqual.class ),
+          @Spec(path = "builtArea", params = "minBuiltArea", spec = GreaterThanOrEqual.class ),
           @Spec(path = "builtArea", params = "maxBuiltArea", spec = LessThanOrEqual.class ),
           @Spec(path = "status", params = "status", spec = Equal.class)
       })Specification<Property> spec
