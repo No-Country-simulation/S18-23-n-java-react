@@ -150,7 +150,7 @@ function FilterForm({ onSubmit, closeFilter }: Props) {
 
         <Stack gap={1}>
           <Typography variant="body1" textAlign={"center"} fontWeight={"bold"}>
-            Antiguedad
+            Antigüedad
           </Typography>
           <InputSelect
             label="Seleccione"
