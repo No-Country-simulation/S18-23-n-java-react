@@ -45,6 +45,12 @@ public class PropertyServiceImpl implements PropertyService {
     return mapper.toRes(property);
   }
 
+  @Transactional(readOnly = true)
+  @Override
+  public List<PropertyRes> getPropertiesByUserId(Long userId){
+     return propertyRepository.findByOwnerId(userId).stream().map(mapper::toRes).toList();
+  }
+
   @Transactional
   @Override
   public PropertyRes addProperty(PropertyReq propertyReq) {
