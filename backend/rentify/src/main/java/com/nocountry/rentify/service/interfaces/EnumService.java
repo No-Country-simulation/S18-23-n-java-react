@@ -9,6 +9,4 @@ public interface EnumService {
     public List<EnumRes> getAllAntiquities();
 
     public List<EnumRes> getAllPropertyTypes();
-
-    public List<EnumRes> getAllPropertyMultimediaTypes();
 }

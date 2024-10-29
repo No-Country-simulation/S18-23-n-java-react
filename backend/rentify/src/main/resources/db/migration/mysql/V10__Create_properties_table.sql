@@ -1,0 +1,21 @@
+CREATE TABLE properties (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    owner_id BIGINT NOT NULL,
+    country VARCHAR(255),
+    province VARCHAR(255),
+    city VARCHAR(255),
+    street_name VARCHAR(255) NOT NULL,
+    street_number VARCHAR(255) NOT NULL,
+    number_of_rooms INT,
+    property_type VARCHAR(255),
+    antiquity VARCHAR(255),
+    years_of_antiquity INT,
+    price DECIMAL(38, 2),
+    maintenance_fees DECIMAL(38, 2),
+    title VARCHAR(255),
+    description VARCHAR(255),
+    total_area DECIMAL(38, 2),
+    built_area DECIMAL(38, 2),
+    status VARCHAR(255),
+    FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+);

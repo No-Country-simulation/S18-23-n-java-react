@@ -32,12 +32,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(
                             "api/v1/auth/**",
+                            "api/v1/role",
                             "/swagger-ui/**",
                             "/swagger-ui",
                             "/swagger-ui.html",
                             "/v3/api-docs",
                             "/v3/api-docs/**").permitAll()
-                    .requestMatchers(HttpMethod.GET,"api/v1/user-profile/*").permitAll()
+                    .requestMatchers(HttpMethod.GET,"api/v1/properties/*").permitAll()
+                    .requestMatchers(HttpMethod.GET,"api/v1/properties").permitAll()
                     .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)

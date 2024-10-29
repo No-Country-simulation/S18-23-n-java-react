@@ -5,7 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Response object containing user profile information.")
 public record UserProfileRes(
 
-        @Schema(description = "The first name of the user.", example = "John")
+        @Schema(description = "The first name of the user.", example = "UrbanNest Properties")
+        String username,
+
+        @Schema(description = "The username.", example = "")
         String name,
 
         @Schema(description = "The last name of the user.", example = "Doe")
