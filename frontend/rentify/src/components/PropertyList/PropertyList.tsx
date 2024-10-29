@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography, TextField, MenuItem, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { Property } from "../../interfaces/Property";
 
 interface PropertyListProps {
   properties: Property[]; 
 }
 
-const PropertyList: React.FC<PropertyListProps> = ({ properties }) => { 
-  const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
+const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
+  const navigate = useNavigate()
+  const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
   const [visibleCount, setVisibleCount] = useState(4); 
   const [filters, setFilters] = useState({
     propertyType: "",
@@ -15,10 +17,10 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
     city: ""
   });
   
-  const getImageUrl = (property: Property) => {
-    const image = property.multimedia.find(media => media.type === "image");
-    return image ? image.url : ""; 
-  };
+  // const getImageUrl = (property: Property) => {
+  //   const image = property.multimedia.find(media => media.type === "image");
+  //   return image ? image.url : ""; 
+  // };
 
   useEffect(() => {
     setFilteredProperties(properties);
@@ -27,9 +29,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
   useEffect(() => {
     let filtered = properties;
 
-    if (filters.propertyType) {
-      filtered = filtered.filter(property => property.propertyType === filters.propertyType);
-    }
+    // if (filters.type) {
+    //   filtered = filtered.filter(property => property.propertyType === filters.type);
+    // }
     if (filters.province) {
       filtered = filtered.filter(property => property.province === filters.province);
     }
@@ -49,7 +51,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
   };
 
   const handleViewProperty = (id: number) => {
-    console.log(`Ver propiedad con ID: ${id}`);
+    navigate(`/property/${id}`, {state: {property: properties.find(property => property.id === id)}})
   };
 
   const handleLoadMore = () => {
@@ -128,19 +130,32 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
               <Card key={property.id} style={{ display: 'flex', padding: '10px' }}>
                 <CardMedia
                   component="img"
-                  image={getImageUrl(property)}
+                  image={property.multimedia[0].url}
                   alt={property.title}
                   style={{ height: "170px", width: "25em" }}  
                 />
-                <CardContent style={{ display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                  <div style={{ display: 'flex', flexDirection: 'column'}}>
-                    <Typography variant="h6">{property.title}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {property.description}
-                    </Typography>
-                    <Typography variant="h5" color="primary">
-                      ${property.price}
-                    </Typography>
+                <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
+                  <Typography variant="h6">{property.title}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {property.description}
+                  </Typography>
+                  <Typography variant="h5" color="primary">
+                    ${property.price}
+                  </Typography>
+                  <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                    <div style={{ display: 'flex', gap: '1em'}}>
+                        <Typography variant="body2">Tamaño: {property.totalArea} m²</Typography>
+                        <Typography variant="body2">Habitaciones: {property.numberOfRooms}</Typography>
+                        <Typography variant="body2">Antiguedad: {property.yearsOfAntiquity} años</Typography>
+                    </div>
+                    <Button 
+                        variant='contained'
+                        color='primary'
+                        style={{ margin: '10px', alignSelf: 'center'}} 
+                        onClick={() => handleViewProperty(property.id)}
+                    >
+                        Ver Propiedad
+                    </Button>
                   </div>
                   <Button 
                       variant='contained'

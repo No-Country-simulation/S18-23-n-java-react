@@ -55,7 +55,7 @@ function Navbar() {
   };
 
   return (
-      <AppBar sx={{ backgroundColor: "white" }}>
+      <AppBar sx={{ backgroundColor: "white" }} position="sticky">
         <Container maxWidth="xl">
           <Toolbar>
             <NavbarLogo />
@@ -184,7 +184,7 @@ function Navbar() {
               />
               <Divider />
               <MenuItem onClick={handleLogout}>
-                <ListItemIcon>
+                <ListItemIcon sx={{color: "secondary.main"}}>
                   <Logout />
                 </ListItemIcon>
                 Cerrar Sesión

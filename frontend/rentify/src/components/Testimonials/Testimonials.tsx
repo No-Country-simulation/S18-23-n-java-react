@@ -17,7 +17,7 @@ const Testimonials = () => {
           url="https://thumbs.dreamstime.com/b/retrato-de-una-hembra-joven-contenido-en-la-ronda-glassed-mostrando-lengua-y-juguet%C3%B3namente-mirando-persona-feliz-satisfecha-204177709.jpg"
           fullName="Sarah Berd"
           occupation="Arrendatario"
-          opinion="La plataforma de rentify me permitio conseguir inquilos con un mejor precio que otras plataformas existentes"
+          opinion="La plataforma de Rentify me permitio conseguir inquilinos con un mejor precio que otras plataformas existentes"
         />
         <Box>
           <Box padding={2}></Box>
@@ -32,7 +32,7 @@ const Testimonials = () => {
           url="https://meragor.com/files/styles//220_220_bottom_wm/avatar-212000-002246.png"
           fullName="Martin Matienzo"
           occupation="Arrendatario"
-          opinion="La plataforma de rentify me permitio conseguir inquilos con un mejor precio que otras plataformas existentes"
+          opinion="Cuenta con multitud de filtros que me ayudaron a conseguir una nueva oficina"
         />
       </Box>
     </div>
