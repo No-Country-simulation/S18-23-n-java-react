@@ -1,14 +1,14 @@
 import axios from "axios";
 import { getCookie } from "../cookies/cookiesService";
 
-const backend = axios.create({
+export const backend = axios.create({
   baseURL: "https://s18-23-n-java-react.onrender.com/api/v1",
   withCredentials: true,
 });
 
-const authHeaders = () => {
+export const authHeaders = () => {
   const userCookie = getCookie("user");
-  const token = userCookie.token || "";
+  const token = userCookie?.token || "";
   return { Authorization: `Bearer ${token}` };
 };
 

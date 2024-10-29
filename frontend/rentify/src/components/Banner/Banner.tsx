@@ -1,4 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Banner: React.FC = () => {
   return (
@@ -23,7 +24,7 @@ const Banner: React.FC = () => {
       <Typography variant="h5" component="p" gutterBottom marginTop={5}>
         Encuentra la casa o apartamento perfecto para ti.
       </Typography>
-      <Button variant="contained" color="primary" size="large">
+      <Button variant="contained" color="primary" size="large" component={RouterLink} to={"/explore"}>
         Explorar Propiedades
       </Button>
     </Box>
