@@ -1,15 +1,6 @@
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Drawer,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Drawer, Stack, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import {
-  getAllProperties,
-} from "../../service/property/propertyService";
+import { getAllProperties } from "../../service/property/propertyService";
 import { Property } from "../../interfaces/Property";
 import { FieldValues } from "react-hook-form";
 import { AlertContext } from "../../context";
@@ -17,13 +8,14 @@ import FilterForm from "../../components/AdvacedFilter/FilterForm";
 import FilteredPropertyCard from "../../components/PropertyCards/FilteredPropertyCard";
 import { Tune } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
+import LoadingCard from "../../components/PropertyCards/LoadingCard";
 
 function ExplorePage() {
   const { showAlert } = useContext(AlertContext);
   const [properties, setProperties] = useState([] as Property[]);
-  const [waitForResponse, setWaitForResponse] = useState(<CircularProgress />);
+  const [waitForResponse, setWaitForResponse] = useState(<LoadingCard />);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     getFilteredProperties(searchParams.toString());
@@ -36,14 +28,22 @@ function ExplorePage() {
         sx={{
           flexGrow: 1,
           display: "flex",
-          alignSelf: "center",
-          justifySelf: "center",
+          minWidth: "100%"
         }}
       >
-        <CircularProgress
-          size={80}
-          sx={{ margin: "0 auto", alignSelf: "center" }}
-        />
+        <Stack
+          gap={4}
+          flexGrow={1}
+          sx={{
+            alignItems: { xs: "center", md: "start" },
+            paddingBottom: "20px",
+            flexGrow: 1
+          }}
+        >
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+        </Stack>
       </Box>
     );
     setProperties([]);
@@ -74,12 +74,12 @@ function ExplorePage() {
         data[key] = undefined;
       } else if (value === "" || !value) {
         data[key] = undefined;
-      } else{
+      } else {
         queryParams += `${key}=${value}&`;
       }
     }
-    setSearchParams(queryParams)
-  }
+    setSearchParams(queryParams);
+  };
 
   const toggleDrawer =
     () => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -178,12 +178,7 @@ function ExplorePage() {
         </Stack>
       </Box>
       <Drawer anchor={"right"} open={isFilterOpen} onClose={toggleDrawer()}>
-        {
-          <FilterForm
-            onSubmit={onSubmit}
-            closeFilter={toggleDrawer}
-          />
-        }
+        {<FilterForm onSubmit={onSubmit} closeFilter={toggleDrawer} />}
       </Drawer>
     </Container>
   );
