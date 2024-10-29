@@ -123,17 +123,36 @@ const PropertyForm: React.FC = () => {
           </FormControl>
 
           <FormControl>
+            <FormInputText name={"provincia"} control={control} label={"Provincia"} />
+          </FormControl>
+
+          <FormControl>
             <FormInputText name={"ciudad"} control={control} label={"Ciudad"} />
           </FormControl>
 
           <FormControl>
-            <FormInputText
-              name={"direccion"}
-              control={control}
-              label={"Dirección"}
-            />
+            <FormInputText  name={"calle"} control={control} label={"Calle"}  />
           </FormControl>
+
           <FormControl>
+            <FormInputText name={"numero"} control={control} label={"Numero"} />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"antiguedad"} control={control} label={"Antiguedad"} />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"Area total"} control={control} label={"Mts2 Totales"} />                        
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"Area constrida"} control={control} label={"Mts2 construidos"} />            
+          </FormControl>
+
+
+
+          <FormControl> 
             <FormInputText
               name={"dormitorios"}
               control={control}
@@ -154,6 +173,16 @@ const PropertyForm: React.FC = () => {
               label={"Estacionamientos"}
             />
           </FormControl>
+
+          <FormControl>
+            <FormInputText name={"precio"} control={control} label={"Precio"} />                        
+          </FormControl>
+
+          <FormControl>
+            <FormInputText name={"Titulo"} control={control} label={"Titulo"} />                      
+          </FormControl>
+
+
           <FormControl>
             <TextField 
               name={"descripcion"}
