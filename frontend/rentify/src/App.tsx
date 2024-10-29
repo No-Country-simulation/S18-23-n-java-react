@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context";
-import LandingPage from "./pages/Landing/LandigPage";
+import LandingPage from "./pages/Landing/LandingPage";
 import LoginPage from "./pages/Login/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import { AlertProvider } from "./context/Alert/AlertProvider";

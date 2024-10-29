@@ -1,15 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
+import { Property } from "../../interfaces/Property";
 
-interface Property {
-  id: number;
-  title: string;
-  image: string;
-  description: string;
-  price: number;
-  size: number;      
-  rooms: number;     
-  bathrooms: number; 
-}
+
 
 interface FeaturedPropertiesProps {
   properties: Property[];
@@ -33,7 +25,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properties }) =
             <CardMedia
               component="img"
               height="140"
-              image={property.image}
+              // image={property.image}
               alt={property.title} 
             />
             <CardContent style={{flexGrow: 1}}>
@@ -45,13 +37,13 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ properties }) =
                 ${property.price}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Tamaño: {property.size} m²
+                {/* Tamaño: {property.size} m² */}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
+              {/* <Typography variant="body2" color="textSecondary">
                 Habitaciones: {property.rooms}
-              </Typography>
+              </Typography> */}
               <Typography variant="body2" color="textSecondary">
-                Baños: {property.bathrooms}
+                {/* Baños: {property.bathrooms} */}
               </Typography>
             </CardContent>
             <Button 
