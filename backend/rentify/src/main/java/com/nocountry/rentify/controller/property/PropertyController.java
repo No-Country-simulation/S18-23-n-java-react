@@ -103,13 +103,18 @@ public class PropertyController {
 
 
   public Specification<Property> hasRooms(List<String> roomNames) {
-    List<Integer> roomIds = new ArrayList<>();
-    for(String roomName : roomNames){
-      Room room = roomRepository.findByName(roomName);
-      if(room != null)
-        roomIds.add(room.getId());
-    }
     return (Root<Property> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+      if (roomNames == null || roomNames.isEmpty()) {
+        return builder.conjunction(); // Esto no agrega condiciones, es como un "true"
+      }
+
+      List<Integer> roomIds = new ArrayList<>();
+      for(String roomName : roomNames){
+        Room room = roomRepository.findByName(roomName);
+        if(room != null)
+          roomIds.add(room.getId());
+      }
+
       // Realiza el JOIN entre Property y PropertyRoom
       jakarta.persistence.criteria.Join<Property, PropertyRoom>
           propertyRoomJoin = root.join("rooms", JoinType.LEFT);
