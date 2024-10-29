@@ -13,10 +13,10 @@ function NavLinkItem({ to, onClick, icon, text }: Props) {
     <Link
       to={to}
       onClick={onClick}
-      style={{ textDecoration: "none", color: "inherit" }}
+      style={{ textDecoration: "none" }}
     >
-      <MenuItem>
-        <ListItemIcon>{icon}</ListItemIcon>
+      <MenuItem sx={{color: "secondary.main"}}>
+        <ListItemIcon sx={{color: "secondary.main"}}>{icon}</ListItemIcon>
         {text}
       </MenuItem>
     </Link>
