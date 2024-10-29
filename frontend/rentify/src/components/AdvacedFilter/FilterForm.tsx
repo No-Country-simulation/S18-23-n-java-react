@@ -32,7 +32,7 @@ function FilterForm({ onSubmit, closeFilter }: Props) {
       component={"form"}
       onSubmit={handleSubmit(onSubmit)}
       sx={{
-        maxWidth: { xs: "100%", sm: "432px" },
+        maxWidth: { xs: "100%", sm: "450px" },
         boxShadow: 4,
         display: "flex",
         flexDirection: "column",

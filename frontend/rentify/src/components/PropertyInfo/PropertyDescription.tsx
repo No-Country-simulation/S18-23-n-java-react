@@ -61,7 +61,7 @@ const roomFeatureIcon = {
 
 function PropertyDescription({ property }: Props) {
   return (
-    <Paper sx={{ padding: 2, boxShadow: 2, marginTop: 4 }}>
+    <Paper sx={{ padding: 2, boxShadow: 2, marginY: 4 }}>
       <Stack gap={2}>
         <Typography variant="body1">{property.description}</Typography>
         <Box>

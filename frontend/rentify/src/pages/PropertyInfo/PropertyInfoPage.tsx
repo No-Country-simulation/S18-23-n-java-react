@@ -37,7 +37,15 @@ function PropertyInfoPage() {
         flexWrap={"wrap"}
         gap={4}
       >
-        <Stack direction={"row"} gap={2} flexWrap={"wrap"} sx={{justifyContent: {xs: "center", lg: "start"}, width: {xs: "100%", lg: "auto"}}}>
+        <Stack
+          direction={"row"}
+          gap={2}
+          flexWrap={"wrap"}
+          sx={{
+            justifyContent: { xs: "center", lg: "start" },
+            width: { xs: "100%", lg: "auto" },
+          }}
+        >
           <PropertyFeatures
             FeatIcon={DoorFront}
             label="Habitaciones"
@@ -45,7 +53,7 @@ function PropertyInfoPage() {
           />
           <PropertyFeatures
             FeatIcon={Texture}
-            label="Área Construida"
+            label="Área Total"
             value={property.totalArea + "m²"}
           />
           <PropertyFeatures
@@ -56,28 +64,47 @@ function PropertyInfoPage() {
         </Stack>
         <PropertyOwner property={property} />
       </Stack>
-      <Paper sx={{width: "fit-content", padding: 2, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 1, alignItems: "center"}}>
-        <Room/>
-        <Typography sx={{fontWeight: "bold"}}>Ubicación:</Typography>
-        <Typography variant="body1" textAlign={"center"}>
-           {property.streetName} {property.streetNumber}, {property.city},{" "}
-          {property.province}, {property.country}
-        </Typography>
-      </Paper>
-
-      <Box sx={{width: "5600 px", padding: 2, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 1, alignItems: "center", marginTop: 2}}>
-        <Map
-          isView={true}
-          // La latitud y longitud de inicio
-          latitude={-34.60351704153353}
-          longitude={-58.394393920898445}
-          // ChangePosition es opcional solo se podra usar si isView es false y podras marcar en el mapa un punto, y te dara las coordenadas
-          changePosition={(la, lo) => {
-            console.log(la, lo);
-          }}
-        />
-      </Box>
       <PropertyDescription property={property} />
+      <Paper
+        sx={{
+          width: "100%",
+          padding: 2,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+          boxSizing: "border-box",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+          <Room />
+          <Typography sx={{ fontWeight: "bold" }}>Ubicación:</Typography>
+          <Typography variant="body1">
+            {property.streetName} {property.streetNumber}, {property.city},{" "}
+            {property.province}, {property.country}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            marginTop: 2,
+          }}
+        >
+          <Map
+            isView={true}
+            // La latitud y longitud de inicio
+            latitude={-34.60351704153353}
+            longitude={-58.394393920898445}
+            // ChangePosition es opcional solo se podra usar si isView es false y podras marcar en el mapa un punto, y te dara las coordenadas
+            changePosition={(la, lo) => {
+              console.log(la, lo);
+            }}
+          />
+        </Box>
+      </Paper>
     </Box>
   );
 }

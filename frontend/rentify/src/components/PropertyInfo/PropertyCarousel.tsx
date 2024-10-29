@@ -1,4 +1,4 @@
-import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+import { ArrowBackIosNew, ArrowForwardIos, HideImage } from "@mui/icons-material";
 import { Box, Fade, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import ArrowButton from "./ArrowButton";
@@ -43,47 +43,69 @@ function PropertyCarousel({ images }: Props) {
           position: "relative",
         }}
       >
-        {images.map(({id, url}) => (
-          <Fade
-            in={id === activeStep}
-            style={{
-              display: id === activeStep ? "flex" : "none",
-              transitionDuration: "600ms",
-            }}
-            key={url}
-          >
-            <Box
-              component={"img"}
-              src={url}
-              height={"60vw"}
-              width={"100%"}
+        {images.length > 0 ? (
+          images.map(({ id, url }) => (
+            <Fade
+              in={id === activeStep}
               style={{
-                objectFit: "cover",
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-                maxHeight: "600px",
+                display: id === activeStep ? "flex" : "none",
+                transitionDuration: "600ms",
               }}
-              alt=""
-            />
-          </Fade>
-        ))}
-        <ArrowButton
-          variant="text"
-          action={handlePrevStep}
-          sx={{ position: "absolute", left: 10 }}
-        >
-          <ArrowBackIosNew sx={{ width: 48, height: 48 }} />
-        </ArrowButton>
-        <ArrowButton
-          variant="text"
-          action={handleNextStep}
-          sx={{ position: "absolute", right: 10 }}
-        >
-          <ArrowForwardIos sx={{ width: 48, height: 48 }} />
-        </ArrowButton>
+              key={url}
+            >
+              <Box
+                component={"img"}
+                src={url}
+                height={"60vw"}
+                width={"100%"}
+                style={{
+                  objectFit: "cover",
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  maxHeight: "600px",
+                }}
+                alt=""
+              />
+            </Fade>
+          ))
+        ) : (
+          <Box
+            sx={{
+              height: "60vw",
+              width: "100%",
+              backgroundColor: "#f0f0f0",
+              maxHeight: "600px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1
+            }}
+          >
+            <HideImage />
+            <Typography> Sin imagen</Typography>
+          </Box>
+        )}
+        {images.length > 0 && (
+          <ArrowButton
+            variant="text"
+            action={handlePrevStep}
+            sx={{ position: "absolute", left: 10 }}
+          >
+            <ArrowBackIosNew sx={{ width: 48, height: 48 }} />
+          </ArrowButton>
+        )}
+        {images.length > 0 && (
+          <ArrowButton
+            variant="text"
+            action={handleNextStep}
+            sx={{ position: "absolute", right: 10 }}
+          >
+            <ArrowForwardIos sx={{ width: 48, height: 48 }} />
+          </ArrowButton>
+        )}
       </Box>
       <Typography textAlign={"center"}>
-        {activeStep + 1} / {images.length}
+        {images.length > 0 ? activeStep + 1 : 0} / {images.length}
       </Typography>
     </Paper>
   );

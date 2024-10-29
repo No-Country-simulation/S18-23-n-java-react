@@ -68,6 +68,7 @@ const theme = createTheme({
           lineHeight: "26px",
           borderRadius: "20px",
           padding: "8px 16px",
+          textTransform: "initial"
         },
       },
     },

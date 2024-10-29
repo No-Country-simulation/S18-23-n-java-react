@@ -55,12 +55,6 @@ function PropertyRoomSection({ control }: Props) {
           icon={<RestaurantMenuOutlined />}
         />
         <CheckCard
-          name="roomDormitorio"
-          label="Dormitorio"
-          control={control}
-          icon={<HotelOutlined />}
-        />
-        <CheckCard
           name="roomEstudio"
           label="Estudio"
           control={control}
@@ -126,6 +120,12 @@ function PropertyRoomSection({ control }: Props) {
           control={control}
           icon={<FenceOutlined />}
         />
+          <CheckCard
+            name="roomDormitorio"
+            label="Dormitorio"
+            control={control}
+            icon={<HotelOutlined />}
+          />
         <CheckCard
           name="roomCuarto de servicio"
           label="Cuarto de servicio"
