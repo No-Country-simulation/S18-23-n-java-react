@@ -4,9 +4,11 @@ import {
   CardMedia,
   Typography,
   Button,
+  Box,
 } from "@mui/material";
 import { Property } from "../../interfaces/Property";
 import { useNavigate } from "react-router-dom";
+import { HideImage } from "@mui/icons-material";
 
 interface FeaturedPropertiesProps {
   properties: Property[];
@@ -31,7 +33,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
         }}
       >
         {properties.map((property) => (
@@ -44,12 +46,34 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
               flexDirection: "column",
             }}
           >
-            <CardMedia
-              component="img"
-              height="140"
-              image={property.multimedia[0].url}
-              alt={property.title}
-            />
+            {property.multimedia.length > 0 ? (
+              <CardMedia
+                component="img"
+                image={property.multimedia[0].url}
+                alt={property.title}
+                sx={{
+                  height: { xs: "180px", lg: "240px" },
+                  width: { xs: "300px", lg: "300px" },
+                  borderRadius: "10px",
+                }}
+              />
+              ) : (
+                <Box
+                  sx={{
+                    height: { xs: "180px", lg: "240px" },
+                    width: { xs: "300px", lg: "300px" },
+                    borderRadius: "10px",
+                    backgroundColor: "#f0f0f0",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 1,
+                  }}
+                >
+                  <HideImage />
+                  <Typography> Sin imagen</Typography>
+                </Box>
+            )}
             <CardContent style={{ flexGrow: 1 }}>
               <Typography variant="h6">{property.title}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
