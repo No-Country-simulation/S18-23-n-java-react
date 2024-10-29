@@ -66,7 +66,7 @@ public class PropertyController {
           @Spec(path = "builtArea", params = "minBuiltArea", spec = GreaterThanOrEqual.class),
           @Spec(path = "builtArea", params = "maxBuiltArea", spec = LessThanOrEqual.class),
           @Spec(path = "status", params = "status", spec = Equal.class)}) Specification<Property> spec,
-      @RequestParam(name = "rooms") List<String> rooms
+      @RequestParam(name = "rooms", required = false) List<String> rooms
       ) {
     return propertyService.getAllProperties(spec.and(hasRooms(rooms)));
   }
