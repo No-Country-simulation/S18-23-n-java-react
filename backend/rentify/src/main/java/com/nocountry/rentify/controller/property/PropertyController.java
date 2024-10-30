@@ -1,6 +1,7 @@
 package com.nocountry.rentify.controller.property;
 
 import com.nocountry.rentify.dto.request.property.PropertyReq;
+import com.nocountry.rentify.dto.response.property.PropertyBasicRes;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.model.entity.PropertyRoom;
@@ -47,7 +48,7 @@ public class PropertyController {
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public List<PropertyRes> getProperties(
+  public List<PropertyBasicRes> getProperties(
       @Join(path = "amenities", alias = "a")
       @And({
           @Spec(path = "a.name", params = "amenities", spec = In.class),
