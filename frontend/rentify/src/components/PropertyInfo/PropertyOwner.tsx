@@ -4,14 +4,17 @@ import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import PropertyFeatures from "./PropertyFeatures";
 import { AuthContext } from "../../context";
-import { Property } from "../../interfaces/Property";
+import { Owner } from "../../interfaces/Property";
 
 interface Props {
-  property: Property;
+  owner: Owner;
 }
 
-function PropertyOwner({ property }: Props) {
+function PropertyOwner({ owner }: Props) {
   const { isUserLoggedIn } = useContext(AuthContext);
+
+  const visibleName = !owner.username ? owner.name + " " + owner.lastname : owner.username
+
   return (
     <>
       {isUserLoggedIn ? (
@@ -19,17 +22,17 @@ function PropertyOwner({ property }: Props) {
           <PropertyFeatures
             FeatIcon={Person}
             label="Propietario"
-            value={property.owner.name + " " + property.owner.lastname}
+            value={visibleName}
           />
           <PropertyFeatures
             FeatIcon={Phone}
             label="Teléfono"
-            value={property.owner.phone}
+            value={owner.phone}
           />
           <PropertyFeatures
             FeatIcon={Email}
             label="Correo Electrónico"
-            value={property.owner.email}
+            value={owner.email}
           />
         </Stack>
       ) : (

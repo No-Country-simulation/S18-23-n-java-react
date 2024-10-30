@@ -26,3 +26,16 @@ export const getPropertyById = async (id: string) => {
     }
   }
 };
+
+export const getOwnerById = async (id: number) => {
+  try {
+    const response = await backend.get(`/user-profile/${id}`, {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};

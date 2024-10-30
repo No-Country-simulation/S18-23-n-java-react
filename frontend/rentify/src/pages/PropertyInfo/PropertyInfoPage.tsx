@@ -1,47 +1,52 @@
 import { useLocation, useParams } from "react-router-dom";
-import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import PropertyCarousel from "../../components/PropertyInfo/PropertyCarousel";
 import { CalendarMonth, DoorFront, Room, Texture } from "@mui/icons-material";
 import PropertyFeatures from "../../components/PropertyInfo/PropertyFeatures";
-import { useEffect, useState } from "react";
-import { Property } from "../../interfaces/Property";
+import { useEffect, useState, useContext } from "react";
+import { Owner, Property } from "../../interfaces/Property";
 import PropertyDescription from "../../components/PropertyInfo/PropertyDescription";
 import PropertyHeader from "../../components/PropertyInfo/PropertyHeader";
 import PropertyOwner from "../../components/PropertyInfo/PropertyOwner";
 import Map from "../../components/Map/Map";
-import { getPropertyById } from "../../service/property/propertyService";
+import {
+  getPropertyById,
+  getOwnerById,
+} from "../../service/property/propertyService";
+import { AlertContext } from "../../context";
+import LoadingPropertyInfo from "../../components/PropertyInfo/LoadingPropertyInfo";
 
 function PropertyInfoPage() {
+  const { showAlert } = useContext(AlertContext);
   const { propertyId } = useParams();
   const { pathname } = useLocation();
   const [property, setProperty] = useState<Property>();
+  const [owner, setOwner] = useState<Owner>();
+
+  const getFullProperty = async () => {
+    if (!propertyId) return;
+    try {
+      const propertyResponse: Property = await getPropertyById(propertyId);
+      const ownerResponse = await getOwnerById(1);
+      //const ownerResponse: Owner = await getOwnerById(propertyResponse.ownerId)
+      setProperty(propertyResponse);
+      setOwner(ownerResponse.data as Owner);
+    } catch (error) {
+      if (error)
+        showAlert("error", "Ha ocurrido un error al mostrar esta propiedad");
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    if (propertyId) {
-      getPropertyById(propertyId).then((data) => {
-        setProperty(data);
-      });
-    }
-  }, [propertyId]);
+    getFullProperty();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (!property)
-    return (
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "92vh"
-        }}
-      >
-         <CircularProgress size={"60px"} />
-      </Box>
-    );
+  if (!property || !owner) return <LoadingPropertyInfo />;
 
   return (
     <Box
@@ -86,7 +91,7 @@ function PropertyInfoPage() {
             value={property.yearsOfAntiquity + " años"}
           />
         </Stack>
-        <PropertyOwner property={property} />
+        <PropertyOwner owner={owner} />
       </Stack>
       <PropertyDescription property={property} />
       <Paper
