@@ -40,7 +40,7 @@ function LandingPage() {
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <CircularProgress />
+        <CircularProgress size={"60px"} />
       </Box>
     );
   }
