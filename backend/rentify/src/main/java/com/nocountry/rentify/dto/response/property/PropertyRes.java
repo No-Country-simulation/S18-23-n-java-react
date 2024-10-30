@@ -1,6 +1,5 @@
 package com.nocountry.rentify.dto.response.property;
 
-import com.nocountry.rentify.dto.response.UserRes;
 import com.nocountry.rentify.dto.response.amenity.AmenityRes;
 import com.nocountry.rentify.dto.response.feature.FeatureRes;
 import com.nocountry.rentify.dto.response.rooms.PropertyRoomRes;
@@ -17,7 +16,7 @@ import lombok.Data;
 public class PropertyRes {
 
   private Long id;
-  private UserRes owner;
+  private Long ownerId;
   private String country;
   private String province;
   private String city;

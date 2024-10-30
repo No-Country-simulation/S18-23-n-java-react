@@ -24,9 +24,11 @@ public interface PropertyMapper {
   Property toEntity(PropertyReq propertyReq);
 
   @Mapping(target = "multimedia", source = "propertyMultimedias")
+  @Mapping(target = "ownerId", source = "owner.id")
   PropertyRes toRes(Property property);
 
   PropertyMultimedia toEntity(PropertyMultimediaReq propertyMultimediaReq);
+
   PropertyMultimediaRes toRes(PropertyMultimedia propertyMultimedia);
 
   @Mapping(target = "multimedia", source = "propertyMultimedias")
