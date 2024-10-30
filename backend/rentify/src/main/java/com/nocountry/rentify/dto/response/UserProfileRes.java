@@ -14,6 +14,9 @@ public record UserProfileRes(
         @Schema(description = "The last name of the user.", example = "Doe")
         String lastname,
 
+        @Schema(description = "The email address of the user.", example = "user@example.com")
+        String email,
+
         @Schema(description = "The phone number of the user.", example = "+54 9 11 1234 5678")
         String phone,
 
