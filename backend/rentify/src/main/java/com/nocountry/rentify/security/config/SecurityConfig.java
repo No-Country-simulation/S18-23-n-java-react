@@ -40,6 +40,8 @@ public class SecurityConfig {
                             "/v3/api-docs/**").permitAll()
                     .requestMatchers(HttpMethod.GET,"api/v1/properties/*").permitAll()
                     .requestMatchers(HttpMethod.GET,"api/v1/properties").permitAll()
+                    .requestMatchers(HttpMethod.GET,"api/v1/user-profile/*").permitAll()
+                    .requestMatchers(HttpMethod.GET,"api/v1/user-profile").permitAll()
                     .anyRequest().authenticated()
             ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)
