@@ -183,7 +183,7 @@ function FilterForm({ onSubmit, closeFilter }: Props) {
               { label: "Casa Vacacional", value: "VACATION_HOME" },
               { label: "Oficina Comercial", value: "COMMERCIAL_OFFICE" },
               { label: "Almacen", value: "WAREHOUSE" },
-              { label: "Granja", value: "FARM" },
+              { label: "Finca", value: "FARM" },
             ]}
           />
         </Stack>
