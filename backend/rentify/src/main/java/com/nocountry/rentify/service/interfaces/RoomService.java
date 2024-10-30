@@ -1,7 +1,6 @@
 package com.nocountry.rentify.service.interfaces;
 
 import com.nocountry.rentify.dto.response.rooms.RoomRes;
-
 import com.nocountry.rentify.model.entity.Room;
 import java.util.List;
 

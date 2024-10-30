@@ -18,6 +18,7 @@ public interface UserProfileMapper  {
     UserProfile toEntity(String username,String name, String lastName, User user);
 
     @Mapping(source = "lastName", target = "lastname")
+    @Mapping(source = "user.email", target = "email")
     UserProfileRes toResponse(UserProfile userProfile);
 
     @Mapping(target = "username", expression = "java(CustomMapperUtil.mapUsername(userProfileReq.username(), userProfile.getUsername()))")
