@@ -1,7 +1,7 @@
 import { Box, Container, Drawer, Stack, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { getAllProperties } from "../../service/property/propertyService";
-import { Property } from "../../interfaces/Property";
+import { PropertyCard } from "../../interfaces/Property";
 import { FieldValues } from "react-hook-form";
 import { AlertContext } from "../../context";
 import FilterForm from "../../components/AdvacedFilter/FilterForm";
@@ -12,7 +12,7 @@ import LoadingCard from "../../components/PropertyCards/LoadingCard";
 
 function ExplorePage() {
   const { showAlert } = useContext(AlertContext);
-  const [properties, setProperties] = useState([] as Property[]);
+  const [properties, setProperties] = useState([] as PropertyCard[]);
   const [waitForResponse, setWaitForResponse] = useState(<LoadingCard />);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,7 +50,7 @@ function ExplorePage() {
 
     const response = await getAllProperties(queryParams);
     if (typeof response !== "string" && response.length > 0) {
-      setProperties(response as Property[]);
+      setProperties(response as PropertyCard[]);
     } else {
       if (response.length > 0) showAlert("error", response);
       setWaitForResponse(

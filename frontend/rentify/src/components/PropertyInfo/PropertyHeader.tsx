@@ -9,7 +9,7 @@ function PropertyHeader({ property }: Props) {
   return (
     <Box component={"header"} sx={{ mb: 2 }}>
       <Typography variant="h4">{property.title}</Typography>
-      <Typography variant="subtitle1" fontSize={"24px"} color="primary">${property.price}</Typography>
+      <Typography variant="subtitle1" color="primary">${property.price}</Typography>
     </Box>
   );
 }

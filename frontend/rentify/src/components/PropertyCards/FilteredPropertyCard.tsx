@@ -1,5 +1,5 @@
 import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
-import { Property } from "../../interfaces/Property";
+import { PropertyCard } from "../../interfaces/Property";
 import {
   BathtubOutlined,
   DoorFrontOutlined,
@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  property: Property;
+  property: PropertyCard;
 }
 
 function FilteredPropertyCard({ property }: Props) {
