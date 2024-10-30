@@ -20,7 +20,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/explore" element={<ExplorePage />} />
-              <Route path="/property/*" element={<PropertyInfoPage />} />
+              <Route path="/property/:propertyId" element={<PropertyInfoPage />} />
             </Routes>
             <AlertElement />
           </Router>

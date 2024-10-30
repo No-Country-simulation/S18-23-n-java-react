@@ -1,23 +1,47 @@
-import { useLocation } from "react-router-dom";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { useLocation, useParams } from "react-router-dom";
+import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import PropertyCarousel from "../../components/PropertyInfo/PropertyCarousel";
 import { CalendarMonth, DoorFront, Room, Texture } from "@mui/icons-material";
 import PropertyFeatures from "../../components/PropertyInfo/PropertyFeatures";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Property } from "../../interfaces/Property";
 import PropertyDescription from "../../components/PropertyInfo/PropertyDescription";
 import PropertyHeader from "../../components/PropertyInfo/PropertyHeader";
 import PropertyOwner from "../../components/PropertyInfo/PropertyOwner";
 import Map from "../../components/Map/Map";
+import { getPropertyById } from "../../service/property/propertyService";
 
 function PropertyInfoPage() {
-  const { state } = useLocation();
-  const property = state.property as Property;
+  const { propertyId } = useParams();
   const { pathname } = useLocation();
+  const [property, setProperty] = useState<Property>();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  useEffect(() => {
+    if (propertyId) {
+      getPropertyById(propertyId).then((data) => {
+        setProperty(data);
+      });
+    }
+  }, [propertyId]);
+
+  if (!property)
+    return (
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "92vh"
+        }}
+      >
+         <CircularProgress size={"60px"} />
+      </Box>
+    );
 
   return (
     <Box
