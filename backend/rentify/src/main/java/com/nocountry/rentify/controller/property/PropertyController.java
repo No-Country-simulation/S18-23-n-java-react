@@ -1,6 +1,7 @@
 package com.nocountry.rentify.controller.property;
 
 import com.nocountry.rentify.dto.request.property.PropertyReq;
+import com.nocountry.rentify.dto.response.property.PropertyBasicRes;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Property;
 import com.nocountry.rentify.model.entity.PropertyRoom;
@@ -20,7 +21,6 @@ import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
@@ -47,7 +47,7 @@ public class PropertyController {
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public List<PropertyRes> getProperties(
+  public List<PropertyBasicRes> getProperties(
       @Join(path = "amenities", alias = "a")
       @And({
           @Spec(path = "a.name", params = "amenities", spec = In.class),

@@ -4,6 +4,7 @@ import com.nocountry.rentify.dto.mapper.PropertyMapper;
 import com.nocountry.rentify.dto.mapper.PropertyRoomMapper;
 import com.nocountry.rentify.dto.request.property.PropertyMultimediaReq;
 import com.nocountry.rentify.dto.request.property.PropertyReq;
+import com.nocountry.rentify.dto.response.property.PropertyBasicRes;
 import com.nocountry.rentify.dto.response.property.PropertyRes;
 import com.nocountry.rentify.model.entity.Amenity;
 import com.nocountry.rentify.model.entity.Feature;
@@ -32,10 +33,16 @@ public class PropertyServiceImpl implements PropertyService {
   private final AmenityService amenityService;
   private final FeatureService featureService;
 
+//  @Transactional(readOnly = true)
+//  @Override
+//  public List<PropertyRes> getAllProperties(Specification<Property> specification) {
+//    return propertyRepository.findAll(specification).stream().map(mapper::toRes).toList();
+//  }
+
   @Transactional(readOnly = true)
   @Override
-  public List<PropertyRes> getAllProperties(Specification<Property> specification) {
-    return propertyRepository.findAll(specification).stream().map(mapper::toRes).toList();
+  public List<PropertyBasicRes> getAllProperties(Specification<Property> specification) {
+    return propertyRepository.findAll(specification).stream().map(mapper::toBasicRes).toList();
   }
 
   @Transactional(readOnly = true)
