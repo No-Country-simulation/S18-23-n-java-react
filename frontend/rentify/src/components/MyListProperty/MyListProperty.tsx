@@ -32,13 +32,13 @@ const MyListProperty: React.FC = () => {
             <Typography variant="h4" component="h1" gutterBottom>
                 Mis Propiedades
             </Typography>
-            <Stack>
+            <Stack direction="row" spacing={{justfyContent:"center", alignItems: "center"}} >
                 {propiedades.map((propiedad) => (
                     <Stack  key={propiedad.id}>
                         <Card>
                             <CardMedia
                                 component="img"
-                                height="140"
+                                height="400"
                                 image={propiedad.imagen}
                                 alt={propiedad.titulo}
                             />

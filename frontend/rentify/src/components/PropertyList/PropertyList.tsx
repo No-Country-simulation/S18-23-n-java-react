@@ -1,25 +1,14 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography, TextField, MenuItem, Button } from "@mui/material";
-
-interface Property {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  type: string;
-  province: string;
-  city: string;
-  image: string;
-  size: number;
-  rooms: number;
-  bathrooms: number;
-}
+import { useNavigate } from "react-router-dom";
+import { Property } from "../../interfaces/Property";
 
 interface PropertyListProps {
   properties: Property[];
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
+  const navigate = useNavigate()
   const [filteredProperties, setFilteredProperties] = useState<Property[]>(properties);
   const [visibleCount, setVisibleCount] = useState(4); 
   const [filters, setFilters] = useState({
@@ -34,7 +23,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
     let filtered = properties;
 
     if (filters.type) {
-      filtered = filtered.filter(property => property.type === filters.type);
+      filtered = filtered.filter(property => property.propertyType === filters.type);
     }
 
     if (filters.province) {
@@ -64,7 +53,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
   };
 
   const handleViewProperty = (id: number) => {
-    console.log(`Ver propiedad con ID: ${id}`);
+    navigate(`/property/${id}`, {state: {property: properties.find(property => property.id === id)}})
   };
 
   const handleLoadMore = () => {
@@ -150,7 +139,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
               <Card key={property.id} style={{ display: 'flex', padding: '10px' }}>
                 <CardMedia
                   component="img"
-                  image={property.image}
+                  image={property.multimedia[0].url}
                   alt={property.title}
                   style={{ height: "170px", width: "25em" }}  
                 />
@@ -164,9 +153,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
                   </Typography>
                   <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                     <div style={{ display: 'flex', gap: '1em'}}>
-                        <Typography variant="body2">Tamaño: {property.size} m²</Typography>
-                        <Typography variant="body2">Habitaciones: {property.rooms}</Typography>
-                        <Typography variant="body2">Baños: {property.bathrooms}</Typography>
+                        <Typography variant="body2">Tamaño: {property.totalArea} m²</Typography>
+                        <Typography variant="body2">Habitaciones: {property.numberOfRooms}</Typography>
+                        <Typography variant="body2">Antiguedad: {property.yearsOfAntiquity} años</Typography>
                     </div>
                     <Button 
                         variant='contained'
