@@ -1,6 +1,6 @@
 export interface Property {
   id: number;
-  owner: Owner;
+  ownerId: number;
   country: string;
   province: string;
   city: string;
@@ -22,6 +22,25 @@ export interface Property {
   features: Features[];
   multimedia: Multimedia[];
   featured?: boolean;
+}
+
+export interface PropertyCard {
+  id: number;
+  ownerId: number;
+  country: string;
+  province: string;
+  city: string;
+  numberOfRooms: number;
+  yearsOfAntiquity: number;
+  price: number;
+  title: string;
+  description: string;
+  totalArea: number;
+  builtArea: number;
+  rooms: Room[];
+  amenities: Amenity[];
+  features: Features[];
+  multimedia: Multimedia[];
 }
 
 export interface Owner {
