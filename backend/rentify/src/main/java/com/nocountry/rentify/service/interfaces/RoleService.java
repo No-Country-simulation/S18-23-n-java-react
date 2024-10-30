@@ -2,7 +2,6 @@ package com.nocountry.rentify.service.interfaces;
 
 import com.nocountry.rentify.dto.response.RoleRes;
 import com.nocountry.rentify.model.entity.Role;
-
 import java.util.List;
 
 public interface RoleService {
