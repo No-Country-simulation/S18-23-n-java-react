@@ -12,7 +12,7 @@ import { getAllProperties } from "../../service/property/propertyService";
 function LandingPage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProperties = async () => {
