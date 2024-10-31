@@ -27,8 +27,8 @@ function PropertyInfoPage() {
     if (!propertyId) return;
     try {
       const propertyResponse: Property = await getPropertyById(propertyId);
-      const ownerResponse = await getOwnerById(1);
-      //const ownerResponse: Owner = await getOwnerById(propertyResponse.ownerId)
+      const ownerResponse = await getOwnerById(propertyResponse.ownerId);
+      console.log(ownerResponse);
       setProperty(propertyResponse);
       setOwner(ownerResponse.data as Owner);
     } catch (error) {

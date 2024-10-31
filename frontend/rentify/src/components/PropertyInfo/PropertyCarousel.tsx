@@ -44,7 +44,7 @@ function PropertyCarousel({ images }: Props) {
         }}
       >
         {images.length > 0 ? (
-          images.map(({ id, url }) => (
+          images.map(({ url }, id) => (
             <Fade
               in={id === activeStep}
               style={{
@@ -64,7 +64,7 @@ function PropertyCarousel({ images }: Props) {
                   borderTopRightRadius: 10,
                   maxHeight: "600px",
                 }}
-                alt=""
+                alt="Agua"
               />
             </Fade>
           ))
