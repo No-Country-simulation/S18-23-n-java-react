@@ -1,45 +1,25 @@
 # Rentify
 
 <div align="center">
-  <!-- <a>
-    <img src="/front/public/logo.png" alt="Descripción de la imagen" width="50%">
-  </a> -->
-  <h3 align="center"> Bienvenido a Rentify </h3>
+  <img src="/front/public/logo.png" alt="Logo de Rentify" width="40%" />
+  <h2>Bienvenido a Rentify</h2>
+  <p>Facilitando el alquiler de propiedades de forma rápida y segura</p>
 </div>
 
-## Introducción
+---
 
-<dl>
-  <dd>
-    <b>Rentify</b>
-    es una aplicación web diseñada para facilitar el proceso de alquiler de propiedades, tanto para propietarios que desean poner sus inmuebles en alquiler como para inquilinos que buscan encontrar el hogar ideal. A través de una interfaz intuitiva y fácil de usar, Rentify permite a los usuarios explorar una amplia gama de propiedades disponibles, filtrando según sus preferencias y necesidades. Además, los propietarios pueden gestionar sus listados de manera eficiente, asegurando que sus propiedades lleguen a una audiencia amplia y diversa. Con Rentify, alquilar propiedades se convierte en una experiencia rápida, segura y accesible para todos.
-  </dd>
-</dl>
-<br/>
+## 🚀 Introducción
 
-## Objetivo principal
+**Rentify** es una aplicación web que simplifica el proceso de alquiler de propiedades, conectando a propietarios e inquilinos en un entorno intuitivo y seguro. Tanto los propietarios como los inquilinos pueden gestionar sus propiedades y búsquedas de manera eficiente.
 
-<dl>
-  <dd>
-    El objetivo principal de Rentify es facilitar el proceso de alquiler de propiedades, permitiendo a los inquilinos encontrar rápidamente inmuebles que se ajusten a sus necesidades y preferencias, mientras que los propietarios pueden gestionar sus anuncios de manera efectiva y conectar con posibles arrendatarios.
-  </dd>
-</dl>
-<br/>
+---
+## 🎯 Objetivo Principal
 
-## Características
+Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, mientras que los propietarios pueden crear y gestionar sus anuncios fácilmente.
 
-<dl>
-  <dd>
-    ✅ Búsqueda y Filtros Avanzados
-  </dd>
-  <dd>
-    ✅ Perfiles Detallados de Propiedades
-  </dd>
-</dl>
-<br>
+---
 
-## Funcionalidades
-
+## 🌟 Funcionalidades
 <dl>
   <dd>
     <dl>
@@ -55,9 +35,26 @@
     </dl>
   </dd>
 </dl>
-<br>
 
-## 🛠️ Teconologías
+---
+
+## 🔗 Enlaces Importantes
+
+### 🚀 Despliegue del Frontend
+>El frontend está desplegado y disponible en [Rentify](https://rentify-desarrollo.onrender.com).
+### 📜 Swagger del Backend
+>Accede a la documentación de la API del backend a través de [Swagger](https://s18-23-n-java-react.onrender.com/swagger-ui/index.html).
+
+
+---
+## 📸 Vista Previa de la Aplicación
+
+![Pantalla 1](ruta/a/tu/imagen1.png)
+![Pantalla 2](ruta/a/tu/imagen2.png)
+![Pantalla 3](ruta/a/tu/imagen3.png)
+---
+
+## 🛠️ Tecnologías
 
 <table>
   <thead>
@@ -132,6 +129,7 @@
 </table>
 <br>
 
+---
 <h1 align="center"> 
   🧑‍🤝‍🧑 Team
 </h1>
@@ -254,7 +252,7 @@
                 </a>
               </td>
               <td>
-                <a href="#">
+                <a href="https://www.linkedin.com/in/edgar-camberos-8a66052bb">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
@@ -289,19 +287,6 @@
               <td>Matías Badano</td>
               <td>
                 <a href="https://github.com/MatiasJB95">
-                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-                </a>
-              </td>
-              <td>
-                <a href="#">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>Maximiliano Echeverria</td>
-              <td>
-                <a href="https://github.com/MaximilianoEcheverria">
                   <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
                 </a>
               </td>
@@ -392,5 +377,5 @@
     </dl>
   </dd>
 
-## Comandos
+
 
