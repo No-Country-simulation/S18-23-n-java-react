@@ -1,5 +1,5 @@
 import { Card, CardMedia, Typography, Box, Stack } from "@mui/material";
-import { Property } from "../../interfaces/Property";
+import { PropertyCard } from "../../interfaces/Property";
 import {
   BathtubOutlined,
   DoorFrontOutlined,
@@ -11,15 +11,13 @@ import {
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  property: Property;
+  property: PropertyCard;
 }
 
 function FilteredPropertyCard({ property }: Props) {
   const navigate = useNavigate();
   const handleViewProperty = (id: number) => {
-    navigate(`/property/${id}`, {
-      state: { property }
-    });
+    navigate(`/property/${id}`);
   };
 
   const bedroom =
@@ -100,7 +98,7 @@ function FilteredPropertyCard({ property }: Props) {
           <Typography
             variant="subtitle1"
             fontWeight={"bold"}
-            sx={{ maxWidth: { xs: "100%", md: "120ch" } }}
+            sx={{ maxWidth: { xs: "100%", md: "80%" } }}
           >
             {property.title}
           </Typography>

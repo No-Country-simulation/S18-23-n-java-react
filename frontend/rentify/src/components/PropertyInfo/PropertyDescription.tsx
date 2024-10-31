@@ -70,7 +70,7 @@ function PropertyDescription({ property }: Props) {
             {property.rooms.map(({ roomName, quantity }) => {
               const plural = quantity > 1 ? "s" : "";
               return (
-                <Stack direction={"row"} gap={1} alignItems={"center"}>
+                <Stack key={roomName} direction={"row"} gap={1} alignItems={"center"}>
                   {roomTypeIcon[roomName as RoomTypes]}
                   <Typography key={roomName} variant="body1">
                     {`${quantity} ${
