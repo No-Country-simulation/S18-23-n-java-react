@@ -237,6 +237,19 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
               </td>
             </tr>
             <tr>
+              <td>Oliver Barahona</td>
+              <td>
+                <a href="https://github.com/OliverMBM">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
               <td>Rafael Cortez</td>
               <td>
                 <a href="https://github.com/RafaelJUY">
