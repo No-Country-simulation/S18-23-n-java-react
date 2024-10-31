@@ -10,6 +10,8 @@ import AlertElement from "./components/Alert/AlertElement";
 import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
 import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
 import MyListProperty from "./components/MyListProperty/MyListProperty";
+import UserPage from "./pages/UserPage/UserPage"
+
 
 
 
@@ -27,6 +29,7 @@ function App() {
               <Route path="/property/*" element={<PropertyInfoPage />} />
               <Route path="/register-property" element={<RegisterPropertyPage />} />
               <Route path="/mylist" element={<MyListProperty />} />
+              <Route path="/userpage" element={<UserPage />} />
 
             </Routes>
             <AlertElement />
