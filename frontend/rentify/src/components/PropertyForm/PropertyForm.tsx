@@ -5,18 +5,19 @@ import {
   FormControl,
   FormHelperText,
   Paper,
-  TextField,
   Typography,
-  Alert,
-  Link
 } from "@mui/material";
-import React, { useContext } from "react";
+import { useContext, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import FormInputText from "./FormComponents/FormInputText";
-import FormSelect from "./FormComponents/FormSelect";
-import { useState } from "react";
-import { AlertContext } from "../../context";
-
+import InputSelect from "./FormComponents/InputSelect";
+import { AlertContext, AuthContext } from "../../context";
+import FormTextArea from "./FormComponents/FormTextArea";
+import uploadImages from "../../service/images/cloudinaryService";
+import CheckboxWithInput from "./CheckboxWithInput";
+import CheckboxWithId from "./CheckboxWithId";
+import { createProperty } from "../../service/property/propertyService";
+import { Property } from "../../interfaces/Property";
 
 const PropertyForm: React.FC = () => {
   const {
@@ -25,42 +26,54 @@ const PropertyForm: React.FC = () => {
     watch,
     register,
     formState: { errors },
-    linkText = 'Ver propiedad',
-    linkHref
   } = useForm<FieldValues>({
     defaultValues: {
-      nombre: "",
-      apellido: "",
-      tipoDePropiedad: "casa",
-      pais: "",
-      ciudad: "",
-      direccion: "",
-      dormitorios:"",
-      baños: "",
-      mts2:"",
-      estacionamiento:"",
-      fotos: [],
+      title: "",
+      description: "",
+      propertyType: "APARMENT",
+      totalArea: 0,
+      builtArea: 0,
+      streetName: "",
+      streetNumber: "",
+      country: "",
+      yearsOfAntiquity: 0,
+      city: "",
+      province: "",
+      price: 0,
+      antiquity: "BRAND_NEW",
+      maintenanceFees: 0,
+      status: "AVAILABLE",
+      multimedia: [],
     },
   });
 
-  const [guardado, setGuardado] = useState (false);
-  const watchPhotos = watch("fotos");
-  const {showAlert} = useContext(AlertContext)
+  const watchPhotos = watch("multimedia");
+  const { showAlert } = useContext(AlertContext);
+  const [selectedRooms, setSelectedRooms] = useState<
+    { id: number; quantity: string }[]
+  >([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<number[]>([]);
+  const [selectedFeatures, setSelectedFeatures] = useState<number[]>([]);
 
-  const onSubmit = (data: FieldValues) => {
-    data.fotos = Array.from(data.fotos);
-    console.log(data);
-    showAlert("success","Se ha guardado la propiedad") 
-    setGuardado(true);
-    // Aquí puedes manejar el envío del formulario, por ejemplo, enviar los datos a un servidor
-  };
+  const {user} = useContext(AuthContext)
 
-  
-  const manejarSubmit=()=>{
-    showAlert("success","Se ha guardado la propiedad") 
-    setGuardado(true)
+  const onSubmit = async (data: FieldValues) => {
+    const images = await uploadImages(data.multimedia);
+    data.multimedia = images.map((image) => {
+      return { url: image, type: "IMAGE" };
+    });
+    data.rooms = selectedRooms;
+    data.amenities = selectedAmenities;
+    data.features = selectedFeatures;
+    data.antiquity = "BRAND_NEW"
+    data.ownerId = user?.id
+    data.numberOfRooms = selectedRooms.length
+    console.log(data)
+    const response = await createProperty(data as Property);
+    console.log(response)
+
+    showAlert("success", "Se ha guardado la propiedad");
   };
-  
 
   return (
     <Container
@@ -68,7 +81,7 @@ const PropertyForm: React.FC = () => {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        marginY: { xs: 2, sm: 1, md: 0 },
+        marginY: { xs: 2, md: 4 },
       }}
     >
       <Paper
@@ -95,110 +108,346 @@ const PropertyForm: React.FC = () => {
           sx={{ display: "flex", flexDirection: "column", gap: 4 }}
         >
           <FormControl>
-            <FormInputText name={"nombre"} control={control} label={"Nombre"} />
+            <FormInputText name={"title"} control={control} label={"Titulo"} />
           </FormControl>
-
           <FormControl>
-            <FormInputText
-              name={"apellido"}
+            <FormTextArea
+              name={"description"}
               control={control}
-              label={"Apellido"}
+              label={"Descripción"}
             />
           </FormControl>
-
           <FormControl>
-            <FormSelect
-              name="tipoDePropiedad"
+            <InputSelect
+              name="propertyType"
               label="Tipo de Propiedad"
               control={control}
+              rules={{}}
               options={[
-                { label: "Casa", value: "casa" },
-                { label: "Departamento", value: "departamento" },
+                { label: "Apartamento", value: "APARMENT" },
+                { label: "Casa", value: "HOUSE" },
+                { label: "Casa Vacacional", value: "VACATION_HOME" },
+                { label: "Oficina Comercial", value: "COMMERCIAL_OFFICE" },
+                { label: "Almacen", value: "WAREHOUSE" },
+                { label: "Finca", value: "FARM" },
               ]}
             />
           </FormControl>
 
           <FormControl>
-            <FormInputText name={"pais"} control={control} label={"País"} />
+            <FormInputText name={"country"} control={control} label={"País"} />
           </FormControl>
 
-          <FormControl>
-            <FormInputText name={"provincia"} control={control} label={"Provincia"} />
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"ciudad"} control={control} label={"Ciudad"} />
-          </FormControl>
-
-          <FormControl>
-            <FormInputText  name={"calle"} control={control} label={"Calle"}  />
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"numero"} control={control} label={"Numero"} />
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"antiguedad"} control={control} label={"Antiguedad"} />
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"Area total"} control={control} label={"Mts2 Totales"} />                        
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"Area constrida"} control={control} label={"Mts2 construidos"} />            
-          </FormControl>
-
-
-
-          <FormControl> 
-            <FormInputText
-              name={"dormitorios"}
-              control={control}
-              label={"Dormitorios"}
-            />
-          </FormControl>
           <FormControl>
             <FormInputText
-              name={"baños"}
+              name={"province"}
               control={control}
-              label={"Baños"}
+              label={"Provincia"}
             />
           </FormControl>
+
+          <FormControl>
+            <FormInputText name={"city"} control={control} label={"Ciudad"} />
+          </FormControl>
+
           <FormControl>
             <FormInputText
-              name={"estacionamientos"}
+              name={"streetName"}
               control={control}
-              label={"Estacionamientos"}
+              label={"Nombre de la Calle"}
             />
           </FormControl>
 
           <FormControl>
-            <FormInputText name={"precio"} control={control} label={"Precio"} />                        
-          </FormControl>
-
-          <FormControl>
-            <FormInputText name={"Titulo"} control={control} label={"Titulo"} />                      
-          </FormControl>
-
-
-          <FormControl>
-            <TextField 
-              name={"descripcion"}
+            <FormInputText
+              name={"streetNumber"}
               control={control}
-              label={"Descripción"}
-              maxLength={500}
-              multiline
-              rowsMax={5} 
-
+              label={"Número de la Calle"}
             />
           </FormControl>
-          
+
+          <FormControl>
+            <FormInputText
+              type="number"
+              name={"yearsOfAntiquity"}
+              control={control}
+              label={"Años de Antigüedad"}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText
+              name={"totalArea"}
+              control={control}
+              label={"Área total de la propiedad"}
+              additionalText="m²"
+              type="number"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText
+              name={"builtArea"}
+              control={control}
+              label={"Área construída de la propiedad"}
+              additionalText="m²"
+              type="number"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormInputText
+              name={"price"}
+              control={control}
+              label={"Precio"}
+              type="number"
+            />
+          </FormControl>
+          <FormControl>
+            <Typography variant="body2" fontWeight={"bold"} marginBottom={2}>
+              Indique las habitaciones de la propiedad y su cantidad
+            </Typography>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                rowGap: 1,
+                columnGap: 4,
+              }}
+            >
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Dormitorio"
+                name={1}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Baño"
+                name={2}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Cocina"
+                name={3}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Comedor"
+                name={4}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Sala de Estar"
+                name={5}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Estudio"
+                name={6}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Lavadero"
+                name={7}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Vestidor"
+                name={8}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Oficina"
+                name={9}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Balcón"
+                name={10}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Terraza"
+                name={11}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Garaje"
+                name={12}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Sótano"
+                name={13}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Ático"
+                name={14}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Jardín"
+                name={15}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Cuarto de Servicio"
+                name={16}
+              />
+              <CheckboxWithInput
+                container={setSelectedRooms}
+                label="Patio"
+                name={17}
+              />
+            </Box>
+          </FormControl>
+
+          <FormControl>
+            <Typography variant="body2" fontWeight={"bold"} marginBottom={2}>
+              Seleccione alguna de las características que coincidan para su
+              propiedad
+            </Typography>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                rowGap: 1,
+                columnGap: 4,
+              }}
+            >
+              <CheckboxWithId
+                container={setSelectedFeatures}
+                label="Apto Profesional"
+                id={1}
+              />
+              <CheckboxWithId
+                container={setSelectedFeatures}
+                label="Acceso para personas con discapacidad"
+                id={2}
+              />
+              <CheckboxWithId
+                container={setSelectedFeatures}
+                label="Uso Comercial"
+                id={3}
+              />
+              <CheckboxWithId
+                container={setSelectedFeatures}
+                label="Permite mascotas"
+                id={4}
+              />
+            </Box>
+          </FormControl>
+
+          <FormControl>
+            <Typography variant="body2" fontWeight={"bold"} marginBottom={2}>
+              Seleccione aquellas comodidades que posee su propiedad
+            </Typography>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                rowGap: 1,
+                columnGap: 4,
+              }}
+            >
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Aire Acondicionado"
+                id={1}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Gimnasio"
+                id={2}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Hidromasaje"
+                id={3}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Solarium"
+                id={4}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Pileta"
+                id={5}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Sala de Juegos"
+                id={6}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Parrilla"
+                id={7}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Sum"
+                id={8}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Cocina equipada"
+                id={9}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Ascensor"
+                id={10}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Quincho"
+                id={11}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Laundry"
+                id={12}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Internet"
+                id={13}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Wi-fi"
+                id={14}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Horno"
+                id={15}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Microondas"
+                id={16}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Calefacción"
+                id={17}
+              />
+              <CheckboxWithId
+                container={setSelectedAmenities}
+                label="Sauna"
+                id={18}
+              />
+            </Box>
+          </FormControl>
+
           <FormControl>
             <Box>
-              <Typography variant="body2" marginBottom={1}>
-                Fotos (máximo 12):
+              <Typography variant="body2" fontWeight={"bold"} marginBottom={1}>
+                Fotos de la Propiedad:
               </Typography>
               <Button
                 component={"label"}
@@ -209,7 +458,7 @@ const PropertyForm: React.FC = () => {
                   type="file"
                   style={{ visibility: "hidden", width: "1px" }}
                   multiple
-                  {...register("fotos", {
+                  {...register("multimedia", {
                     required: {
                       value: true,
                       message: "Este campo es requerido",
@@ -218,9 +467,9 @@ const PropertyForm: React.FC = () => {
                 />
                 Añadir Foto
               </Button>
-              {errors.fotos && (
+              {errors.multimedia && (
                 <FormHelperText sx={{ color: "error.main" }}>
-                  {errors.fotos.message as string}
+                  {errors.multimedia.message as string}
                 </FormHelperText>
               )}
             </Box>
@@ -241,7 +490,8 @@ const PropertyForm: React.FC = () => {
                       src={URL.createObjectURL(foto as File)}
                       style={{
                         objectFit: "cover",
-                        width: "120px",
+                        width: "100%",
+                        maxWidth: "200px",
                         height: "120px",
                         margin: "0 auto",
                       }}
@@ -252,13 +502,13 @@ const PropertyForm: React.FC = () => {
             )}
           </FormControl>
 
-          <Button 
-          variant="contained" onClick={handleSubmit(onSubmit)} type="submit">
-            Guardar           
+          <Button
+            variant="contained"
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+          >
+            Guardar
           </Button>
-          {guardado && (<Alert severity="success" onClose={()=>setGuardado(false)} className="mt-5">PROPIEDAD GUARDADA CON EXITO!</Alert>)} <Link href={linkHref} target="_blank" rel="noopener">
-            {linkText}
-          </Link>
         </Box>
       </Paper>
     </Container>
