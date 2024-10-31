@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react';
-import {  Card, CardContent, Typography, CardMedia, Box, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
-import axios from 'axios';
-
-interface Propiedad {
+/* interface Propiedad {
     id: number;
     titulo: string;
     descripcion: string;
     imagen: string;
-}
+} */
 
 const MyListProperty: React.FC = () => {
-    const [propiedades, setPropiedades] = useState<Propiedad[]>([{id:0,titulo: "Las Condes",descripcion:"mmmmmmmmmm", imagen: "https://http2.mlstatic.com/D_NQ_NP_2X_792050-MLC78020470920_082024-F.webp"}]);
+    //const [propiedades, setPropiedades] = useState<Propiedad[]>([{id:0,titulo: "Las Condes",descripcion:"mmmmmmmmmm", imagen: "https://http2.mlstatic.com/D_NQ_NP_2X_792050-MLC78020470920_082024-F.webp"}]);
 
     // useEffect(() => {
     //     // aqui deberia llamar a la API del backend para obtener las propiedades
@@ -32,7 +29,7 @@ const MyListProperty: React.FC = () => {
             <Typography variant="h4" component="h1" gutterBottom>
                 Mis Propiedades
             </Typography>
-            <Stack direction="row" spacing={{justfyContent:"center", alignItems: "center"}} >
+{/*             <Stack direction="row" spacing={{justfyContent:"center", alignItems: "center"}} >
                 {propiedades.map((propiedad) => (
                     <Stack  key={propiedad.id}>
                         <Card>
@@ -53,7 +50,7 @@ const MyListProperty: React.FC = () => {
                         </Card>
                     </Stack>
                 ))}
-            </Stack>
+            </Stack> */}
         </Box>
     );
 };

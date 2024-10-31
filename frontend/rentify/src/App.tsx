@@ -13,6 +13,7 @@ import MyListProperty from "./components/MyListProperty/MyListProperty";
 
 
 
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -28,6 +29,7 @@ function App() {
               <Route path="/register-property" element={<RegisterPropertyPage />} />
               <Route path="/edit-property/:propertyId" element={<RegisterPropertyPage />} />
               <Route path="/mylist" element={<MyListProperty />} />
+              <Route path="/profile"/>
             </Routes>
             <AlertElement />
           </Router>
