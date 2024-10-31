@@ -91,7 +91,7 @@ function FeaturedPropertyCard({ property }: Props) {
           height: "fit-content",
           paddingRight: { xs: 0 },
           paddingBottom: { xs: "10px" },
-          gap: { xs: 3 },
+          gap: { xs: 2 },
           justifyContent: "space-between",
         }}
       >
@@ -106,7 +106,7 @@ function FeaturedPropertyCard({ property }: Props) {
           >
             {property.title}
           </Typography>
-          <Typography color="primary" variant="body1">
+          <Typography color="primary" variant="subtitle1">
             ${property.price}
           </Typography>
         </Stack>
