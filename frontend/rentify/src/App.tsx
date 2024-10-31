@@ -8,6 +8,12 @@ import ExplorePage from "./pages/Explore/ExplorePage";
 import { AuthProvider, AlertProvider } from "./context";
 import AlertElement from "./components/Alert/AlertElement";
 import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
+import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
+import MyListProperty from "./components/MyListProperty/MyListProperty";
+import UserPage from "./pages/UserPage/UserPage"
+
+
+
 
 function App() {
   return (
@@ -21,6 +27,10 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/explore" element={<ExplorePage />} />
               <Route path="/property/:propertyId" element={<PropertyInfoPage />} />
+              <Route path="/register-property" element={<RegisterPropertyPage />} />
+              <Route path="/mylist" element={<MyListProperty />} />
+              <Route path="/userpage" element={<UserPage />} />
+
             </Routes>
             <AlertElement />
           </Router>
