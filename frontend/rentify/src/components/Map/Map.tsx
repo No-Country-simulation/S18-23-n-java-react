@@ -3,9 +3,7 @@ import {
   TileLayer,
   Marker,
   useMapEvents,
-  useMap,
   Popup,
-  AttributionControl,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
@@ -29,7 +27,7 @@ const Map: React.FC<MapProps> = ({
   ]);
 
   // Custom hook to keep the map centered on the new position
-  const CenterMap = () => {
+/*   const CenterMap = () => {
     const map = useMap();
 
     useEffect(() => {
@@ -39,7 +37,7 @@ const Map: React.FC<MapProps> = ({
     }, [position, map]);
 
     return null;
-  };
+  }; */
 
   useEffect(() => {
     if (isView && latitude !== undefined && longitude !== undefined) {
@@ -77,7 +75,6 @@ const Map: React.FC<MapProps> = ({
       style={{ height: '50vh', width: '100%' }}
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LocationMarker />
