@@ -3,10 +3,12 @@ import {
   TileLayer,
   Marker,
   useMapEvents,
-  Popup,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
+
+import markerIconPng from "leaflet/dist/images/marker-icon.png"
+import {Icon} from 'leaflet'
 
 interface MapProps {
   isView: boolean;
@@ -60,9 +62,7 @@ const Map: React.FC<MapProps> = ({
 
     if (position) {
       return (
-        <Marker position={position}>
-          <Popup></Popup>
-        </Marker>
+        <Marker position={position} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})} />
       );
     }
     return null;
