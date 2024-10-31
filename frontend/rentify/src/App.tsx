@@ -26,8 +26,8 @@ function App() {
               <Route path="/explore" element={<ExplorePage />} />
               <Route path="/property/:propertyId" element={<PropertyInfoPage />} />
               <Route path="/register-property" element={<RegisterPropertyPage />} />
+              <Route path="/edit-property/:propertyId" element={<RegisterPropertyPage />} />
               <Route path="/mylist" element={<MyListProperty />} />
-
             </Routes>
             <AlertElement />
           </Router>
