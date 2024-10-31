@@ -18,6 +18,7 @@ import CheckboxWithInput from "./CheckboxWithInput";
 import CheckboxWithId from "./CheckboxWithId";
 import { createProperty } from "../../service/property/propertyService";
 import { Property } from "../../interfaces/Property";
+import { useNavigate } from "react-router-dom";
 
 const PropertyForm: React.FC = () => {
   const {
@@ -30,7 +31,7 @@ const PropertyForm: React.FC = () => {
     defaultValues: {
       title: "",
       description: "",
-      propertyType: "APARMENT",
+      propertyType: "APARTMENT",
       totalArea: 0,
       builtArea: 0,
       streetName: "",
@@ -54,6 +55,7 @@ const PropertyForm: React.FC = () => {
   >([]);
   const [selectedAmenities, setSelectedAmenities] = useState<number[]>([]);
   const [selectedFeatures, setSelectedFeatures] = useState<number[]>([]);
+  const navigate = useNavigate()
 
   const {user} = useContext(AuthContext)
 
@@ -69,10 +71,17 @@ const PropertyForm: React.FC = () => {
     data.ownerId = user?.id
     data.numberOfRooms = selectedRooms.length
     console.log(data)
-    const response = await createProperty(data as Property);
-    console.log(response)
+    try {
+      const response = await createProperty(data as Property);
+      console.log(response)
+      showAlert("success", "Se ha guardado la propiedad");
+      navigate("/profile")
+    } catch (error) {
+      showAlert("error", "Ha ocurrido un error al guardar la propiedad")
+      console.log(error)
+    }
 
-    showAlert("success", "Se ha guardado la propiedad");
+
   };
 
   return (
@@ -124,7 +133,7 @@ const PropertyForm: React.FC = () => {
               control={control}
               rules={{}}
               options={[
-                { label: "Apartamento", value: "APARMENT" },
+                { label: "Apartamento", value: "APARTMENT" },
                 { label: "Casa", value: "HOUSE" },
                 { label: "Casa Vacacional", value: "VACATION_HOME" },
                 { label: "Oficina Comercial", value: "COMMERCIAL_OFFICE" },

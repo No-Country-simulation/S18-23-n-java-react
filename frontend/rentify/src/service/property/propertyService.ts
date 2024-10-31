@@ -53,3 +53,16 @@ export const createProperty = async (property: Property) => {
     }
   }
 };
+
+export const getPropertiesByUserId = async (id: number) => {
+  try {
+    const response = await backend.get(`/properties/user/${id}`, {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};

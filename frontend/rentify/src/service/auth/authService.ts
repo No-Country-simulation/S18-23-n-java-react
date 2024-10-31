@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { getCookie } from "../cookies/cookiesService";
 
 export const backend = axios.create({
@@ -43,5 +43,18 @@ export const authRecoveryPassword = async (email: string) => {
   } catch (error) {
     if (axios.isAxiosError(error)) return error.response?.data;
     console.log(error);
+  }
+};
+
+export const getUserAuth = async () => {
+  try {
+    const response = await backend.get(`/user-profile`, {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
   }
 };
