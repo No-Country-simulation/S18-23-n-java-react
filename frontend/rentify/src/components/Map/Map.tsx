@@ -76,9 +76,10 @@ const Map: React.FC<MapProps> = ({
       zoom={20}
       style={{ height: '50vh', width: '100%' }}
     >
-      <AttributionControl position="bottomright" />
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <CenterMap />
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
       <LocationMarker />
     </MapContainer>
   );
