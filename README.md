@@ -6,19 +6,17 @@
 </div>
 
 ---
-
 ## 🚀 Introducción
 
 **Rentify** es una aplicación web que simplifica el proceso de alquiler de propiedades, conectando a propietarios e inquilinos en un entorno intuitivo y seguro. Tanto propietarios como inquilinos pueden gestionar sus propiedades y búsquedas de manera eficiente.
 
----
 
+---
 ## 🎯 Objetivo Principal
 
 Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, mientras que los propietarios pueden crear y gestionar sus anuncios fácilmente.
 
 ---
-
 ## 🌟 Funcionalidades
 
 <dl>
@@ -28,6 +26,7 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
 </dl>
 
 ---
+<br>
 
 ## 🛠️ Tecnologías
 
@@ -173,57 +172,83 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
       </thead>
       <tbody>
         <tr>
-          <td>Diego Jorges</td>
-          <td>
-            <a href="https://github.com/djorges">
-              <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-            </a>
-          </td>
-          <td>
-            <a href="#">
-              <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>Edgar Camberos</td>
-          <td>
-            <a href="https://github.com/EdgarCamberos1894">
-              <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-            </a>
-          </td>
-          <td>
-            <a href="#">
-              <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>Eduardo Castañeda</td>
-          <td>
-            <a href="https://github.com/Eduardo22122002">
-              <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-            </a>
-          </td>
-          <td>
-            <a href="#">
-              <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>Gabriel Velasco</td>
-          <td>
-            <a href="https://github.com/gavela9">
-              <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-            </a>
-          </td>
-          <td>
-            <a href="#">
-              <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-            </a>
-          </td>
-        </tr>
+              <td>Diego Jorges</td>
+              <td>
+                <a href="https://github.com/djorges">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Edgar Camberos</td>
+              <td>
+                <a href="https://github.com/EdgarCamberos1894">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="https://www.linkedin.com/in/edgar-camberos-8a66052bb">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Gabriel Romero</td>
+              <td>
+                <a href="https://github.com/gabeust">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Kenti Antezana</td>
+              <td>
+                <a href="https://github.com/23737k">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Matías Badano</td>
+              <td>
+                <a href="https://github.com/MatiasJB95">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Rafael Cortez</td>
+              <td>
+                <a href="https://github.com/RafaelJUY">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
       </tbody>
     </table>
   </dd>
@@ -290,9 +315,9 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
     </dl>
   </dd>
 </dl>
+<br>
 
 ---
-<br>
 
 ## 🔗 Enlaces Importantes
 
@@ -300,8 +325,10 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
 >El frontend está desplegado y disponible en [Rentify](https://rentify-desarrollo.onrender.com).
 * 📜 Swagger del Backend
 >Accede a la documentación de la API del backend a través de [Swagger](https://s18-23-n-java-react.onrender.com/swagger-ui/index.html).
+<br>
 
 ---
+
 ## 📸 Vista Previa de la Aplicación
 
 | Pantalla 1 | Pantalla 2 |
@@ -311,3 +338,12 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
 | Pantalla 3 | Pantalla 4 |
 |------------|------------|
 | ![Pantalla 3](https://github.com/user-attachments/assets/2b113514-0049-498c-ad6f-6a2c3f67c15f) | ![Pantalla 4](https://github.com/user-attachments/assets/56491607-7fe7-4b6d-9e93-2f5bd7867fee) |
+
+
+---
+<br>
+<br>
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
