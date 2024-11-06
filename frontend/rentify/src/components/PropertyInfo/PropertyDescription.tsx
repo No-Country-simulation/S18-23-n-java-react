@@ -59,6 +59,18 @@ const roomFeatureIcon = {
   "permite mascotas": <PetsOutlinedIcon sx={{ width: 30, height: 30 }} />,
 };
 
+const pluralRooms = (room: RoomTypes) => {
+  if (room.split(" ").length > 1){
+    const roomWords = room.split(" ")
+    roomWords[0] = roomWords[0] + "s" 
+    return roomWords.join(" ")
+  }
+  if (room.endsWith("n") || room.endsWith("r")){
+    return room + "es"
+  }
+  return room + "s"
+}
+
 function PropertyDescription({ property }: Props) {
   return (
     <Paper sx={{ padding: 2, boxShadow: 2, marginY: 4 }}>
@@ -68,15 +80,15 @@ function PropertyDescription({ property }: Props) {
           <Typography variant="body1">Tipos de Habitaciones:</Typography>
           <Stack gap={1} paddingY={1}>
             {property.rooms.map(({ roomName, quantity }) => {
-              const plural = quantity > 1 ? "s" : "";
+              const plural = quantity > 1;
               return (
                 <Stack key={roomName} direction={"row"} gap={1} alignItems={"center"}>
                   {roomTypeIcon[roomName as RoomTypes]}
                   <Typography key={roomName} variant="body1">
                     {`${quantity} ${
-                      roomName !== "Cuarto de servicio"
-                        ? roomName + plural
-                        : `Cuarto${plural} de servicio`
+                      plural
+                        ? pluralRooms(roomName as RoomTypes)
+                        : roomName
                     }`}
                   </Typography>
                 </Stack>

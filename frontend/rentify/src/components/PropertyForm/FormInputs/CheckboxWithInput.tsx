@@ -4,7 +4,7 @@ import {
   FormControl,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   label: string;
@@ -17,10 +17,23 @@ interface Props {
       }[]
     >
   >;
+  selectedRooms?: {
+    id: number;
+    quantity: string;
+  }[];
 }
 
-function CheckboxWithInput({ label, name, container }: Props) {
+function CheckboxWithInput({ label, name, container, selectedRooms }: Props) {
   const [isSelected, setIsSelected] = useState(false);
+  const [quantity, setQuantity] = useState("");
+
+  useEffect(() => {
+    const room = selectedRooms?.find((room) => room.id === name);
+    if (room) {
+      setIsSelected(true);
+      setQuantity(room.quantity);
+    }
+  }, [selectedRooms, name]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
@@ -37,13 +50,13 @@ function CheckboxWithInput({ label, name, container }: Props) {
   const handleQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
     container((value) => {
       const filteredRooms = value.filter((element) => element.id != name);
-
       if (event.target.value === "") {
         return filteredRooms;
       } else {
         return [...filteredRooms, { id: name, quantity: event.target.value }];
       }
     });
+    setQuantity(event.target.value)
   };
   return (
     <FormControl
@@ -54,7 +67,7 @@ function CheckboxWithInput({ label, name, container }: Props) {
       }}
     >
       <FormControlLabel
-        control={<Checkbox onChange={handleOnChange} />}
+        control={<Checkbox onChange={handleOnChange} checked={isSelected} />}
         label={label}
         slotProps={{
           typography: {
@@ -62,7 +75,13 @@ function CheckboxWithInput({ label, name, container }: Props) {
             lineHeight: "24px",
           },
         }}
-        sx={{ display: "flex", marginY: 1, alignItems: "center" }}
+        sx={{
+          display: "flex",
+          marginY: 0.5,
+          alignItems: "center",
+          marginRight: 0,
+          paddingLeft: 1.8,
+        }}
       />
       {isSelected && (
         <TextField
@@ -72,6 +91,7 @@ function CheckboxWithInput({ label, name, container }: Props) {
           size="small"
           name="quantity"
           label="Cantidad:"
+          value={quantity}
           slotProps={{
             inputLabel: { sx: { fontSize: 14 } },
             input: { sx: { fontSize: 14 } },

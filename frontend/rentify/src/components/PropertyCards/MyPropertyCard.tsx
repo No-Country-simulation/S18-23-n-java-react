@@ -21,17 +21,17 @@ import {
   TextureOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface Props {
   property: PropertyCard;
   index: number;
-  handleDeleteProperty: (id: number) => Promise<void>
-  openDialog: boolean,
-  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
+  handleDeleteProperty: (id: number) => Promise<void>;
 }
 
-function MyPropertyCard({ property, index, handleDeleteProperty, openDialog, setOpenDialog }: Props) {
+function MyPropertyCard({ property, index, handleDeleteProperty }: Props) {
   const navigate = useNavigate();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const handleViewProperty = (id: number) => {
     navigate(`/property/${id}`);
   };
@@ -42,7 +42,7 @@ function MyPropertyCard({ property, index, handleDeleteProperty, openDialog, set
     property.rooms.find((room) => room.roomName == "Baño")?.quantity ?? 0;
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setOpenDeleteDialog(false);
   };
 
   return (
@@ -175,14 +175,14 @@ function MyPropertyCard({ property, index, handleDeleteProperty, openDialog, set
       </Button>
       <Button
         variant="contained"
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenDeleteDialog(true)}
         color="error"
       >
         Eliminar Propiedad
       </Button>
 
       <Dialog
-        open={openDialog}
+        open={openDeleteDialog}
         onClose={handleCloseDialog}
         sx={{ border: "1px solid transparent", borderRadius: "20px" }}
       >
@@ -209,7 +209,10 @@ function MyPropertyCard({ property, index, handleDeleteProperty, openDialog, set
             Cancelar
           </Button>
           <Button
-            onClick={() => handleDeleteProperty(property.id)}
+            onClick={() => {
+              setOpenDeleteDialog(false);
+              handleDeleteProperty(property.id);
+            }}
             variant="contained"
             color="error"
           >

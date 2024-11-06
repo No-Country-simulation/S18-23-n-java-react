@@ -24,7 +24,6 @@ import {
 import MyPropertyCard from "../../components/PropertyCards/MyPropertyCard";
 
 function ProfilePage() {
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const { isUserLoggedIn, user } = useContext(AuthContext);
   const { showAlert } = useContext(AlertContext);
   const [fullUser, setFullUser] = useState<User>();
@@ -111,12 +110,10 @@ function ProfilePage() {
       setIsLoading(true)
       setProperties([])
       setProperties(properties => properties?.filter(property => property.id === id))
-      setOpenDeleteDialog(false);
       showAlert("success", "La propiedad ha sido eliminada exitosamente")
       setIsLoading(false)
     } else{
       showAlert("error", "Ha ocurrido un error al eliminar la propiedad")
-      setOpenDeleteDialog(false);
     }
   };
 
@@ -240,8 +237,6 @@ function ProfilePage() {
                     key={property.title}
                     index={index}
                     handleDeleteProperty={handleDeleteProperty}
-                    openDialog={openDeleteDialog}
-                    setOpenDialog={setOpenDeleteDialog}
                   />
                 ))}
               </Box>
