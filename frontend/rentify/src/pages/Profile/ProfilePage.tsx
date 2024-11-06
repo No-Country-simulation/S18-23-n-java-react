@@ -12,7 +12,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AlertContext, AuthContext } from "../../context";
 import { getUserAuth } from "../../service/auth/authService";
 import { User } from "../../interfaces/User";
-import { getPropertiesByUserId } from "../../service/property/propertyService";
+import { deleteProperty, getPropertiesByUserId } from "../../service/property/propertyService";
 import { Property, PropertyCard } from "../../interfaces/Property";
 import ArrowButton from "../../components/PropertyInfo/ArrowButton";
 import {
@@ -24,6 +24,7 @@ import {
 import MyPropertyCard from "../../components/PropertyCards/MyPropertyCard";
 
 function ProfilePage() {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const { isUserLoggedIn, user } = useContext(AuthContext);
   const { showAlert } = useContext(AlertContext);
   const [fullUser, setFullUser] = useState<User>();
@@ -31,7 +32,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [position, setPosition] = useState(0);
   const [visibleCards, setVisibleCards] = useState<PropertyCard[]>();
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +73,7 @@ function ProfilePage() {
           const propertyResponse = await getPropertiesByUserId(user.id);
           setFullUser(userResponse.data);
           setProperties(propertyResponse);
-          setIsLoading(false)
+          setIsLoading(false);
         } else {
           navigate("/");
           showAlert("error", "Ha ocurrido un error con su sesión");
@@ -103,6 +104,22 @@ function ProfilePage() {
       }
     }
   };
+
+  const handleDeleteProperty = async (id: number) => {
+    const response = await deleteProperty(id);
+    if (response.status === 204) {
+      setIsLoading(true)
+      setProperties([])
+      setProperties(properties => properties?.filter(property => property.id === id))
+      setOpenDeleteDialog(false);
+      showAlert("success", "La propiedad ha sido eliminada exitosamente")
+      setIsLoading(false)
+    } else{
+      showAlert("error", "Ha ocurrido un error al eliminar la propiedad")
+      setOpenDeleteDialog(false);
+    }
+  };
+
 
   if (isLoading || !visibleCards)
     return (
@@ -135,6 +152,7 @@ function ProfilePage() {
             <Avatar
               alt={fullUser?.name}
               src={
+                fullUser?.photo ??
                 "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg"
               }
               sx={{ width: 200, height: 200, margin: "auto" }}
@@ -173,7 +191,11 @@ function ProfilePage() {
           </Button>
         </Box>
         <Box sx={{ position: "relative", padding: { xs: 1, md: 4 } }}>
-          <Stack justifyContent={"space-between"} alignItems={"center"} sx={{marginBottom: 2, flexDirection: {xs: "column", sm: "row"}}}>
+          <Stack
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            sx={{ marginBottom: 2, flexDirection: { xs: "column", sm: "row" } }}
+          >
             <Typography
               variant="subtitle1"
               fontWeight={"bold"}
@@ -190,42 +212,59 @@ function ProfilePage() {
               Agregar Propiedad
             </Button>
           </Stack>
+          {properties && properties.length > 0 ? (
+            <>
+              <ArrowButton
+                variant="text"
+                action={prevPosition}
+                sx={{
+                  position: "absolute",
+                  left: { xs: -40, md: -30 },
+                  top: "50%",
+                  bottom: 0,
+                  height: "fit-content",
+                }}
+              >
+                <ArrowBackIosNew sx={{ width: 48, height: 48 }} />
+              </ArrowButton>
 
-          <ArrowButton
-            variant="text"
-            action={prevPosition}
-            sx={{
-              position: "absolute",
-              left: { xs: -40, md: -30 },
-              top: "50%",
-              bottom: 0,
-              height: "fit-content",
-            }}
-          >
-            <ArrowBackIosNew sx={{ width: 48, height: 48 }} />
-          </ArrowButton>
+              <Box
+                overflow={"hidden"}
+                display={"flex"}
+                gap={4}
+                sx={{ paddingX: { xs: 1, sm: 2, md: 4 }, paddingY: 3 }}
+              >
+                {visibleCards?.map((property, index) => (
+                  <MyPropertyCard
+                    property={property}
+                    key={property.title}
+                    index={index}
+                    handleDeleteProperty={handleDeleteProperty}
+                    openDialog={openDeleteDialog}
+                    setOpenDialog={setOpenDeleteDialog}
+                  />
+                ))}
+              </Box>
 
-          <Box overflow={"hidden"} display={"flex"} gap={4} sx={{paddingX: {xs: 1, sm: 2, md: 4}, paddingY: 3}}>
-            {visibleCards?.map((property, index) => (
-              <MyPropertyCard property={property} key={property.title} index={index} />
-            ))}
-          </Box>
-
-          <ArrowButton
-            variant="text"
-            action={nextPosition}
-            sx={{
-              position: "absolute",
-              right: { xs: -40, md: -30 },
-              top: "50%",
-              bottom: 0,
-              height: "fit-content",
-            }}
-          >
-            <ArrowForwardIos sx={{ width: 48, height: 48 }} />
-          </ArrowButton>
+              <ArrowButton
+                variant="text"
+                action={nextPosition}
+                sx={{
+                  position: "absolute",
+                  right: { xs: -40, md: -30 },
+                  top: "50%",
+                  bottom: 0,
+                  height: "fit-content",
+                }}
+              >
+                <ArrowForwardIos sx={{ width: 48, height: 48 }} />
+              </ArrowButton>
+            </>
+          ) : 
+          <Typography textAlign={"center"}>No tienes ninguna propiedad</Typography>}
         </Box>
       </Paper>
+      
     </Box>
   );
 }

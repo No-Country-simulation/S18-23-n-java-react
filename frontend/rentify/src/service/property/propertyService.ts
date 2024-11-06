@@ -28,6 +28,19 @@ export const getPropertyById = async (id: string) => {
   }
 };
 
+export const getPropertiesByUserId = async (id: number) => {
+  try {
+    const response = await backend.get(`/properties/user/${id}`, {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
+
 export const getOwnerById = async (id: number) => {
   try {
     const response = await backend.get(`/user-profile/${id}`, {
@@ -54,12 +67,12 @@ export const createProperty = async (property: Property) => {
   }
 };
 
-export const getPropertiesByUserId = async (id: number) => {
+export const deleteProperty = async (id: number) => {
   try {
-    const response = await backend.get(`/properties/user/${id}`, {
+    const response = await backend.delete(`/properties/${id}`,  {
       headers: authHeaders(),
     });
-    return response.data;
+    return response
   } catch (error) {
     if (isAxiosError(error)) {
       return error.response?.data;

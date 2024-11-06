@@ -9,7 +9,7 @@ import { AuthProvider, AlertProvider } from "./context";
 import AlertElement from "./components/Alert/AlertElement";
 import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
 import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
-import ProfilePage from "./pages/UserPage/ProfilePage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 function App() {
   return (

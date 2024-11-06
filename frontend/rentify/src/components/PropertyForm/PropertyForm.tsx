@@ -70,10 +70,8 @@ const PropertyForm: React.FC = () => {
     data.antiquity = "BRAND_NEW"
     data.ownerId = user?.id
     data.numberOfRooms = selectedRooms.length
-    console.log(data)
     try {
-      const response = await createProperty(data as Property);
-      console.log(response)
+      await createProperty(data as Property);
       showAlert("success", "Se ha guardado la propiedad");
       navigate("/profile")
     } catch (error) {

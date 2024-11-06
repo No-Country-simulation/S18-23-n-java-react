@@ -1,4 +1,16 @@
-import { Card, CardMedia, Typography, Box, Stack, Button } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  Typography,
+  Box,
+  Stack,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { PropertyCard } from "../../interfaces/Property";
 import {
   BathtubOutlined,
@@ -13,9 +25,12 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   property: PropertyCard;
   index: number;
+  handleDeleteProperty: (id: number) => Promise<void>
+  openDialog: boolean,
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function MyPropertyCard({ property, index }: Props) {
+function MyPropertyCard({ property, index, handleDeleteProperty, openDialog, setOpenDialog }: Props) {
   const navigate = useNavigate();
   const handleViewProperty = (id: number) => {
     navigate(`/property/${id}`);
@@ -25,6 +40,10 @@ function MyPropertyCard({ property, index }: Props) {
     property.rooms.find((room) => room.roomName == "Dormitorio")?.quantity ?? 0;
   const bathroom =
     property.rooms.find((room) => room.roomName == "Baño")?.quantity ?? 0;
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <Card
@@ -151,8 +170,53 @@ function MyPropertyCard({ property, index }: Props) {
           {property.description}
         </Typography>
       </Box>
-      <Button variant="contained" color="info">Modificar Propiedad</Button>
-      <Button variant="contained" color="error">Eliminar Propiedad</Button>
+      <Button variant="contained" color="info">
+        Modificar Propiedad
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => setOpenDialog(true)}
+        color="error"
+      >
+        Eliminar Propiedad
+      </Button>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        sx={{ border: "1px solid transparent", borderRadius: "20px" }}
+      >
+        <DialogTitle sx={{ backgroundColor: "error.main", color: "white" }}>
+          Eliminar Propiedad
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            paddingX: { xs: 1, sm: 2 },
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+          }}
+        >
+          <DialogContentText textAlign={"center"} sx={{ marginTop: 2 }}>
+            ¿Estás seguro que deseas eliminar esta propiedad?
+          </DialogContentText>
+          <DialogContentText fontWeight={"bold"} textAlign={"center"}>
+            {property.title}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ paddingY: 2, paddingX: 2 }}>
+          <Button onClick={handleCloseDialog} variant="outlined" color="error">
+            Cancelar
+          </Button>
+          <Button
+            onClick={() => handleDeleteProperty(property.id)}
+            variant="contained"
+            color="error"
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }
