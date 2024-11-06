@@ -1,11 +1,11 @@
--- Here I perform an INSERT of a sample user to add it as the owner of the properties
+-- Here I perform an INSERT of a sample user to add it as the owner of the properties    password = P@ssw0rd!
 INSERT INTO users (email, password, status, created_at, is_verify, role_id)
-VALUES ('johndoe@example.com', '$2a$10$somethingHashedPassword', 'ACTIVE', NOW(), 1, 1);
+VALUES ('johndoe@example.com', '$2a$10$0HNCOcOLf.TihrHlvL63huM5BY7A0Ugp51E/4uuyAsAVCLf7z9rGm', 'ACTIVE', NOW(), 1, 1);
 
 SET @userId = LAST_INSERT_ID();
 
-INSERT INTO user_profiles (name, last_name, user_id)
-VALUES ('John', 'Doe', @userId);
+INSERT INTO user_profiles (name, last_name, phone, user_id)
+VALUES ('John', 'Doe', '+54 9 261 123 4567', @userId);
 
 -- Here I perform an INSERT of 17 different rooms
 INSERT INTO `rooms` (`name`)
@@ -188,3 +188,13 @@ SET @propertyId = LAST_INSERT_ID();
 INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
     (@propertyId, (SELECT id FROM rooms WHERE name = 'Comedor'), 1);
+
+
+-- Here I perform an INSERT of a sample user 2    password = P@ssw0rd!
+INSERT INTO users (email, password, status, created_at, is_verify, role_id)
+VALUES ('bewaka2777@digopm.com', '$2a$10$0HNCOcOLf.TihrHlvL63huM5BY7A0Ugp51E/4uuyAsAVCLf7z9rGm', 'ACTIVE', NOW(), 1, 1);
+
+SET @userId = LAST_INSERT_ID();
+
+INSERT INTO user_profiles (name, last_name, phone, user_id)
+VALUES ('Jonathan', 'Sanchez', '+54 9 11 1234 5678', @userId);

@@ -1,13 +1,13 @@
 -- Aquí inserto un usuario de ejemplo para agregarlo como propietario de las propiedades
 INSERT INTO users (email, password, status, created_at, is_verify, role_id)
-VALUES ('johndoe@example.com', '$2a$10$somethingHashedPassword', 'ACTIVE', NOW(), true, 1);
+VALUES ('johndoe@example.com', '$2a$10$0HNCOcOLf.TihrHlvL63huM5BY7A0Ugp51E/4uuyAsAVCLf7z9rGm', 'ACTIVE', NOW(), true, 1);
 
 -- Obtener el ID del usuario insertado
 WITH inserted_user AS (
     SELECT id FROM users WHERE email = 'johndoe@example.com'
 )
-INSERT INTO user_profiles (name, last_name, user_id)
-SELECT 'John', 'Doe', id FROM inserted_user;
+INSERT INTO user_profiles (name, last_name, phone, user_id)
+SELECT 'John', 'Doe', '+54 9 261 123 4567', id FROM inserted_user;
 
 -- Aquí inserto 17 habitaciones diferentes
 INSERT INTO rooms (name)
@@ -198,3 +198,16 @@ INSERT INTO property_room (property_id, room_id, quantity)
 VALUES
     ((SELECT id FROM inserted_property), (SELECT id FROM rooms WHERE name = 'Dormitorio'), 3),
     ((SELECT id FROM inserted_property), (SELECT id FROM rooms WHERE name = 'Cocina'), 1);
+
+
+-- Aquí inserto un usuario de ejemplo 2 para agregarlo
+INSERT INTO users (email, password, status, created_at, is_verify, role_id)
+VALUES ('bewaka2777@digopm.com', '$2a$10$0HNCOcOLf.TihrHlvL63huM5BY7A0Ugp51E/4uuyAsAVCLf7z9rGm', 'ACTIVE', NOW(), true, 1);
+
+-- Obtener el ID del usuario insertado
+WITH inserted_user AS (
+    SELECT id FROM users WHERE email = 'bewaka2777@digopm.com'
+)
+INSERT INTO user_profiles (name, last_name, phone, user_id)
+SELECT 'Jonathan', 'Sanchez','+54 9 11 1234 5678', id FROM inserted_user;
+
