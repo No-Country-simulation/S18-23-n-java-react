@@ -1,15 +1,22 @@
 import { PhotoCamera } from '@mui/icons-material';
 import { Box, Button, FormControl, FormHelperText, Typography } from "@mui/material";
-import { UseFormWatch, FieldValues, FieldErrors, UseFormRegister } from "react-hook-form";
+import { UseFormWatch, FieldValues, FieldErrors, UseFormSetValue, UseFormClearErrors } from "react-hook-form";
 
 interface Props {
   watch: UseFormWatch<FieldValues>,
-  register: UseFormRegister<FieldValues>,
-  errors: FieldErrors<FieldValues>
+  errors: FieldErrors<FieldValues>,
+  setValue: UseFormSetValue<FieldValues>,
+  clearErrors: UseFormClearErrors<FieldValues>
 }
 
-export function FormStepImages({ watch, register, errors }: Props) {
+export function FormStepImages({ watch, errors, setValue, clearErrors }: Props) {
   const watchPhotos = watch("multimedia");
+  const handleInputFile = (event: React.ChangeEvent<HTMLInputElement> ) => {
+    clearErrors()
+    const files = Array.from(event.target.files ?? [])
+    const newWatchPhotos = [...files, ...watchPhotos]
+    setValue("multimedia", newWatchPhotos)
+  }
   return (
     <>
       <FormControl>
@@ -26,12 +33,7 @@ export function FormStepImages({ watch, register, errors }: Props) {
               type="file"
               style={{ visibility: "hidden", width: "1px" }}
               multiple
-              {...register("multimedia", {
-                required: {
-                  value: true,
-                  message: "Este campo es requerido",
-                },
-              })}
+              onChange={handleInputFile}
             />
             Añadir Foto <PhotoCamera/>
           </Button>
@@ -51,20 +53,37 @@ export function FormStepImages({ watch, register, errors }: Props) {
               paddingTop: 4,
             }}
           >
-            {Array.from(watchPhotos).map((foto, index) => {
-              return (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(foto as File)}
-                  style={{
-                    objectFit: "cover",
-                    width: "100%",
-                    maxWidth: "200px",
-                    height: "120px",
-                    margin: "0 auto",
-                  }}
-                />
-              );
+            {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            Array.from(watchPhotos).map((foto: any, index) => {
+              if (foto.name){
+                return (
+                  <img
+                    key={index}
+                    src={URL.createObjectURL(foto as File)}
+                    style={{
+                      objectFit: "cover",
+                      width: "100%",
+                      maxWidth: "200px",
+                      height: "120px",
+                      margin: "0 auto",
+                    }}
+                  />
+                );
+              } else {
+                return <img
+                key={index}
+                src={foto?.url ? foto.url : ""}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  maxWidth: "200px",
+                  height: "120px",
+                  margin: "0 auto",
+                }}
+              />
+              }
+              
             })}
           </Box>
         )}

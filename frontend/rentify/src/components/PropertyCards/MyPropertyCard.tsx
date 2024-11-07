@@ -20,7 +20,7 @@ import {
   HotelOutlined,
   TextureOutlined,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 
 interface Props {
@@ -170,7 +170,12 @@ function MyPropertyCard({ property, index, handleDeleteProperty }: Props) {
           {property.description}
         </Typography>
       </Box>
-      <Button variant="contained" color="info">
+      <Button
+        variant="contained"
+        color="info"
+        component={RouterLink}
+        to={`/modify-property/${property.id}`}
+      >
         Modificar Propiedad
       </Button>
       <Button

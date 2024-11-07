@@ -67,6 +67,19 @@ export const createProperty = async (property: Property) => {
   }
 };
 
+export const updateProperty = async (property: Property, id: number) => {
+  try {
+    const response = await backend.put(`/properties/${id}`, property,  {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
+
 export const deleteProperty = async (id: number) => {
   try {
     const response = await backend.delete(`/properties/${id}`,  {

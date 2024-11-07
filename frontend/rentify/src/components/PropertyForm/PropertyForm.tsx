@@ -1,10 +1,14 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { AlertContext, AuthContext } from "../../context";
 import uploadImages from "../../service/images/cloudinaryService";
-import { createProperty } from "../../service/property/propertyService";
-import { Property } from "../../interfaces/Property";
+import { createProperty, updateProperty } from "../../service/property/propertyService";
+import {
+  Property,
+  RoomTypes,
+  UpdatePropertyKeys,
+} from "../../interfaces/Property";
 import { useNavigate } from "react-router-dom";
 import {
   FormStepGeneral,
@@ -17,14 +21,20 @@ import {
   FormStepper,
 } from "./FormSteps";
 
-const PropertyForm: React.FC = () => {
+interface Props {
+  modifyProperty?: Property;
+}
+
+const PropertyForm = ({ modifyProperty }: Props) => {
   const {
     handleSubmit,
     control,
     watch,
-    register,
     formState: { errors },
     trigger,
+    setValue,
+    setError,
+    clearErrors,
   } = useForm<FieldValues>({
     defaultValues: {
       title: "",
@@ -43,8 +53,58 @@ const PropertyForm: React.FC = () => {
       maintenanceFees: 0,
       status: "AVAILABLE",
       multimedia: [],
+      amenities: [],
+      features: [],
+      numberOfRooms: 0,
+      rooms: [],
+      ownerId: 0,
     },
   });
+
+  useEffect(() => {
+    const roomNamesById = {
+      Dormitorio: 1,
+      Baño: 2,
+      Cocina: 3,
+      Comedor: 4,
+      "Sala de estar": 5,
+      Estudio: 6,
+      Lavadero: 7,
+      Vestidor: 8,
+      Oficina: 9,
+      Balcón: 10,
+      Terraza: 11,
+      Garaje: 12,
+      Sótano: 13,
+      Ático: 14,
+      Jardín: 15,
+      "Cuarto de servicio": 16,
+      Patio: 17,
+    };
+    if (modifyProperty) {
+      Object.keys(modifyProperty).forEach(async (name) => {
+        if (name === "amenities") {
+          const amenities = modifyProperty["amenities"].map(
+            (amenity) => amenity.id
+          );
+          setSelectedAmenities(amenities);
+        } else if (name === "features") {
+          const features = modifyProperty["features"].map(
+            (feature) => feature.id
+          );
+          setSelectedFeatures(features);
+        } else if (name === "rooms") {
+          const rooms = modifyProperty["rooms"].map((room) => ({
+            quantity: String(room.quantity),
+            id: roomNamesById[room.roomName as RoomTypes],
+          }));
+          setSelectedRooms(rooms);
+        } else {
+          setValue(name, modifyProperty[name as UpdatePropertyKeys]);
+        }
+      });
+    }
+  }, [modifyProperty, setValue]);
 
   const { showAlert } = useContext(AlertContext);
   const [selectedRooms, setSelectedRooms] = useState<
@@ -57,10 +117,6 @@ const PropertyForm: React.FC = () => {
   const { user } = useContext(AuthContext);
 
   const onSubmit = async (data: FieldValues) => {
-    const images = await uploadImages(data.multimedia);
-    data.multimedia = images.map((image) => {
-      return { url: image, type: "IMAGE" };
-    });
     data.rooms = selectedRooms;
     data.amenities = selectedAmenities;
     data.features = selectedFeatures;
@@ -68,16 +124,43 @@ const PropertyForm: React.FC = () => {
     data.ownerId = user?.id;
     data.numberOfRooms = 0;
     selectedRooms?.forEach(({ quantity }) => {
-      data.numberOfRooms += quantity;
+      data.numberOfRooms += Number(quantity);
     });
-    const response = await createProperty(data as Property);
-    if (!response.errors) {
-      showAlert("success", "Se ha guardado la propiedad");
-      navigate("/profile");
-    } else {
-      response.errors.forEach((error: string) => {
-        showAlert("error", error);
+    const imageFiles: File[] = [];
+    data.multimedia = data.multimedia.filter((image: { url?: string }) => {
+      if (image.url) return {url: image.url, type: "IMAGE"};
+      else {
+        imageFiles.push(image as File);
+      }
+    });
+    if (imageFiles.length > 0){
+      const imagesResponse = await uploadImages(imageFiles);
+      const imagesUrl = imagesResponse.map((image) => {
+        return { url: image, type: "IMAGE" };
       });
+      data.multimedia = [...data.multimedia, ...imagesUrl]
+    }
+
+    if (!modifyProperty) {
+      const response = await createProperty(data as Property);
+      if (!response.errors) {
+        showAlert("success", "Se ha guardado la propiedad");
+        navigate("/profile");
+      } else {
+        response.errors.forEach((error: string) => {
+          showAlert("error", error);
+        });
+      }
+    } else {
+      const response = await updateProperty(data as Property, modifyProperty.id);
+      if (!response.errors) {
+        showAlert("success", "Se han actualizado correctamente los datos de la propiedad");
+        navigate("/profile");
+      } else {
+        response.errors.forEach((error: string) => {
+          showAlert("error", error);
+        });
+      }
     }
   };
 
@@ -103,8 +186,9 @@ const PropertyForm: React.FC = () => {
     <FormStepImages
       key={"7"}
       watch={watch}
-      register={register}
+      setValue={setValue}
       errors={errors}
+      clearErrors={clearErrors}
     />,
   ];
   const [activeStep, setActiveStep] = useState(0);
@@ -146,19 +230,23 @@ const PropertyForm: React.FC = () => {
         >
           Registrar Propiedad
         </Typography>
-        <Box
-          component={"form"}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-            height: "100%",
-            paddingX: { xs: 2, sm: 4 },
-            paddingY: 1,
-          }}
-        >
+        <Box component={"form"} sx={{ height: "100%" }}>
           {stepsComponents.map((step, index) => {
-            if (activeStep === index) return step;
+            return (
+              <Box
+                key={index}
+                sx={{
+                  display: activeStep === index ? "flex" : "none",
+                  flexDirection: "column",
+                  gap: 4,
+                  height: "100%",
+                  paddingX: { xs: 2, sm: 4 },
+                  paddingY: 1,
+                }}
+              >
+                {step}
+              </Box>
+            );
           })}
         </Box>
         <FormStepper
@@ -168,6 +256,8 @@ const PropertyForm: React.FC = () => {
           setActiveStep={setActiveStep}
           stepsComponents={stepsComponents}
           trigger={trigger}
+          watch={watch}
+          setError={setError}
         />
       </Paper>
     </Container>

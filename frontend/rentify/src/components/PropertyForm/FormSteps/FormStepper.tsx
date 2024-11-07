@@ -1,20 +1,49 @@
 import { ArrowBackIosNew, Check, ArrowForwardIos } from "@mui/icons-material";
 import { MobileStepper, Button, Typography } from "@mui/material";
-import { UseFormTrigger, FieldValues, UseFormHandleSubmit } from "react-hook-form";
+import {
+  UseFormTrigger,
+  FieldValues,
+  UseFormHandleSubmit,
+  UseFormWatch,
+  UseFormSetError,
+} from "react-hook-form";
 
 interface Props {
-    activeStep: number
-    setActiveStep: React.Dispatch<React.SetStateAction<number>>
-    stepsComponents: JSX.Element[]
-    trigger: UseFormTrigger<FieldValues>
-    handleSubmit: UseFormHandleSubmit<FieldValues, undefined>
-    onSubmit: (data: FieldValues) => Promise<void>
+  activeStep: number;
+  setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  stepsComponents: JSX.Element[];
+  trigger: UseFormTrigger<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<FieldValues, undefined>;
+  onSubmit: (data: FieldValues) => Promise<void>;
+  watch: UseFormWatch<FieldValues>;
+  setError: UseFormSetError<FieldValues>;
 }
 
-export function FormStepper({activeStep, setActiveStep, stepsComponents, trigger, handleSubmit, onSubmit}: Props) {
+const stepValidate = {
+  0: ["title", "description", "propertyType", "price"],
+  1: ["country", "province", "city", "streetNumber", "streetName"],
+  2: ["antiquity", "builtArea", "totalArea"],
+  3: ["title", "description", "propertyType", "price"],
+  4: ["title", "description", "propertyType", "price"],
+  5: ["title", "description", "propertyType", "price"],
+  6: ["multimedia"],
+};
+
+export function FormStepper({
+  activeStep,
+  setActiveStep,
+  stepsComponents,
+  trigger,
+  handleSubmit,
+  onSubmit,
+  watch,
+  setError,
+}: Props) {
   const nextStep = async () => {
     if (activeStep < stepsComponents.length) {
-      const validate = await trigger();
+      const validate = await trigger(
+        stepValidate[activeStep as 0 | 1 | 2 | 3 | 4 | 5 | 6]
+      );
       if (validate) setActiveStep(activeStep + 1);
     }
   };
@@ -22,6 +51,18 @@ export function FormStepper({activeStep, setActiveStep, stepsComponents, trigger
   const prevStep = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
+    }
+  };
+
+  const validateForm = async (data: FieldValues) => {
+    const images = watch("multimedia");
+    if (images.length > 0) {
+      onSubmit(data);
+    } else {
+      setError("multimedia", {
+        type: "manual",
+        message: "Por favor, agregue al menos una imagen de su propiedad",
+      });
     }
   };
   return (
@@ -52,7 +93,7 @@ export function FormStepper({activeStep, setActiveStep, stepsComponents, trigger
         activeStep === stepsComponents.length - 1 ? (
           <Button
             variant="contained"
-            onClick={handleSubmit(onSubmit)}
+            onClick={handleSubmit(validateForm)}
             type="submit"
           >
             <Typography sx={{ display: { xs: "none", sm: "flex" } }}>

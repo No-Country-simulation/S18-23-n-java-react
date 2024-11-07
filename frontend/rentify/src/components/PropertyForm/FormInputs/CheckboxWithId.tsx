@@ -28,6 +28,7 @@ function CheckboxWithId({ label, id, container, selectedOptions }: Props) {
         return filteredId;
       }
     });
+    setIsSelected(checked)
   };
 
   return (

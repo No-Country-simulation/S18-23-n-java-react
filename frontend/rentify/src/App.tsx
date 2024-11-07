@@ -10,6 +10,7 @@ import AlertElement from "./components/Alert/AlertElement";
 import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
 import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import ModifyPropertyPage from "./pages/ModifyProperty/ModifyPropertyPage";
 
 function App() {
   return (
@@ -23,8 +24,10 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/explore" element={<ExplorePage />} />
               <Route path="/property/:propertyId" element={<PropertyInfoPage />} />
-              <Route path="/register-property" element={<RegisterPropertyPage />} />
               <Route path="/profile" element={<ProfilePage/>}/>
+              <Route path="/register-property" element={<RegisterPropertyPage />} />
+              <Route path="/modify-property/:propertyId" element={<ModifyPropertyPage />} />
+
             </Routes>
             <AlertElement />
           </Router>
