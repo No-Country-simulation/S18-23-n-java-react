@@ -228,7 +228,7 @@ const PropertyForm = ({ modifyProperty }: Props) => {
             borderEndStartRadius: 0,
           }}
         >
-          Registrar Propiedad
+          {modifyProperty ? "Modificar Propiedad" : "Registrar Propiedad" }
         </Typography>
         <Box component={"form"} sx={{ height: "100%" }}>
           {stepsComponents.map((step, index) => {

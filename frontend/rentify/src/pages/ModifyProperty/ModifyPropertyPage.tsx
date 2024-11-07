@@ -3,6 +3,7 @@ import PropertyForm from "../../components/PropertyForm/PropertyForm";
 import { Property } from "../../interfaces/Property";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPropertyById } from "../../service/property/propertyService";
+import FormLoader from "../../components/PropertyForm/FormLoader/FormLoader";
 
 function ModifyPropertyPage() {
   const { propertyId } = useParams();
@@ -15,7 +16,7 @@ function ModifyPropertyPage() {
       getPropertyById(propertyId).then((response) => setProperty(response));
     }
   }, [propertyId, navigate]);
-  if (!property) return <>Cargando</>;
+  if (!property) return <FormLoader/>;
 
   return (
     <>

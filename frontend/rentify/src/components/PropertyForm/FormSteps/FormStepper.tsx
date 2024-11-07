@@ -79,6 +79,7 @@ export function FormStepper({
             onClick={prevStep}
             type="button"
             disabled={activeStep === 0}
+            sx={{ minWidth: "auto" }}
           >
             <Typography sx={{ display: { xs: "none", sm: "flex" } }}>
               Atrás
