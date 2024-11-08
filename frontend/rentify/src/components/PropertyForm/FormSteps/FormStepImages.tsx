@@ -99,7 +99,7 @@ export function FormStepImages({
                       key={index}
                       sx={{
                         position: "relative",
-                        width: "fit-content",
+                        width: "100%",
                         margin: "0 auto",
                       }}
                     >

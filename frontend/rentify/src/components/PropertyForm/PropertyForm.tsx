@@ -3,7 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { AlertContext, AuthContext } from "../../context";
 import uploadImages from "../../service/images/cloudinaryService";
-import { createProperty, updateProperty } from "../../service/property/propertyService";
+import {
+  createProperty,
+  updateProperty,
+} from "../../service/property/propertyService";
 import {
   Property,
   RoomTypes,
@@ -23,9 +26,10 @@ import {
 
 interface Props {
   modifyProperty?: Property;
+  setIsLoadingForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PropertyForm = ({ modifyProperty }: Props) => {
+const PropertyForm = ({ modifyProperty, setIsLoadingForm }: Props) => {
   const {
     handleSubmit,
     control,
@@ -117,50 +121,62 @@ const PropertyForm = ({ modifyProperty }: Props) => {
   const { user } = useContext(AuthContext);
 
   const onSubmit = async (data: FieldValues) => {
-    data.rooms = selectedRooms;
-    data.amenities = selectedAmenities;
-    data.features = selectedFeatures;
-    data.antiquity = "BRAND_NEW";
-    data.ownerId = user?.id;
-    data.numberOfRooms = 0;
-    selectedRooms?.forEach(({ quantity }) => {
-      data.numberOfRooms += Number(quantity);
-    });
-    const imageFiles: File[] = [];
-    data.multimedia = data.multimedia.filter((image: { url?: string }) => {
-      if (image.url) return {url: image.url, type: "IMAGE"};
-      else {
-        imageFiles.push(image as File);
-      }
-    });
-    if (imageFiles.length > 0){
-      const imagesResponse = await uploadImages(imageFiles);
-      const imagesUrl = imagesResponse.map((image) => {
-        return { url: image, type: "IMAGE" };
+    setIsLoadingForm(true);
+    try {
+      data.rooms = selectedRooms;
+      data.amenities = selectedAmenities;
+      data.features = selectedFeatures;
+      data.antiquity = "BRAND_NEW";
+      data.ownerId = user?.id;
+      data.numberOfRooms = 0;
+      selectedRooms?.forEach(({ quantity }) => {
+        data.numberOfRooms += Number(quantity);
       });
-      data.multimedia = [...data.multimedia, ...imagesUrl]
-    }
+      const imageFiles: File[] = [];
+      data.multimedia = data.multimedia.filter((image: { url?: string }) => {
+        if (image.url) return { url: image.url, type: "IMAGE" };
+        else {
+          imageFiles.push(image as File);
+        }
+      });
+      if (imageFiles.length > 0) {
+        const imagesResponse = await uploadImages(imageFiles);
+        const imagesUrl = imagesResponse.map((image) => {
+          return { url: image, type: "IMAGE" };
+        });
+        data.multimedia = [...data.multimedia, ...imagesUrl];
+      }
 
-    if (!modifyProperty) {
-      const response = await createProperty(data as Property);
-      if (!response.errors) {
-        showAlert("success", "Se ha guardado la propiedad");
-        navigate("/profile");
+      if (!modifyProperty) {
+        const response = await createProperty(data as Property);
+        if (!response.errors) {
+          showAlert("success", "Se ha guardado la propiedad");
+          navigate("/profile");
+        } else {
+          response.errors.forEach((error: string) => {
+            showAlert("error", error);
+          });
+        }
       } else {
-        response.errors.forEach((error: string) => {
-          showAlert("error", error);
-        });
+        const response = await updateProperty(
+          data as Property,
+          modifyProperty.id
+        );
+        if (!response.errors) {
+          showAlert(
+            "success",
+            "Se han actualizado correctamente los datos de la propiedad"
+          );
+          navigate("/profile");
+        } else {
+          response.errors.forEach((error: string) => {
+            showAlert("error", error);
+          });
+          setIsLoadingForm(false);
+        }
       }
-    } else {
-      const response = await updateProperty(data as Property, modifyProperty.id);
-      if (!response.errors) {
-        showAlert("success", "Se han actualizado correctamente los datos de la propiedad");
-        navigate("/profile");
-      } else {
-        response.errors.forEach((error: string) => {
-          showAlert("error", error);
-        });
-      }
+    } catch (error) {
+      if (error) setIsLoadingForm(false);
     }
   };
 
@@ -228,7 +244,7 @@ const PropertyForm = ({ modifyProperty }: Props) => {
             borderEndStartRadius: 0,
           }}
         >
-          {modifyProperty ? "Modificar Propiedad" : "Registrar Propiedad" }
+          {modifyProperty ? "Modificar Propiedad" : "Registrar Propiedad"}
         </Typography>
         <Box component={"form"} sx={{ height: "100%" }}>
           {stepsComponents.map((step, index) => {

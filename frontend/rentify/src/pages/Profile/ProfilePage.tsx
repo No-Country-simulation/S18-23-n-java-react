@@ -19,6 +19,7 @@ import {
   ArrowBackIosNew,
   ArrowForwardIos,
   Email,
+  Person,
   Phone,
 } from "@mui/icons-material";
 import MyPropertyCard from "../../components/PropertyCards/MyPropertyCard";
@@ -32,7 +33,8 @@ function ProfilePage() {
   const [position, setPosition] = useState(0);
   const [visibleCards, setVisibleCards] = useState<PropertyCard[]>();
   const [isLoading, setIsLoading] = useState(true);
-
+console.log(position)
+console.log(properties)
   useEffect(() => {
     const interval = setInterval(() => {
       if (properties) {
@@ -146,14 +148,21 @@ function ProfilePage() {
         {/* Información del usuario */}
         <Stack spacing={3} alignItems="center" mt={2}>
           <Stack>
-            <Avatar
+            {fullUser?.photo ? <Avatar
               alt={fullUser?.name}
               src={
-                fullUser?.photo ??
-                "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg"
+                fullUser?.photo
               }
-              sx={{ width: 200, height: 200, margin: "auto" }}
-            />
+              sx={{ margin: "auto" }}
+            /> : 
+            <Avatar
+              alt={fullUser?.name}
+              sx={{ width: 190, height: 190, margin: "auto", padding: 2 }}
+              
+          >
+            <Person sx={{ width: 200, height: 200, margin: "auto" }}/>
+            </Avatar>}
+            
           </Stack>
           <Stack gap={2}>
             <Typography variant="h5" textAlign={"center"}>

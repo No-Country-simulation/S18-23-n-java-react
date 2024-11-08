@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
         <Box mt={5}>
           <Typography variant="body2" color="inherit" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://rentify.com/">
+            <Link color="inherit" href="https://rentify-desarrollo.onrender.com/">
               Rentify
             </Link>{' '}
             {new Date().getFullYear()}

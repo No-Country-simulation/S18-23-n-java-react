@@ -8,19 +8,26 @@ import FormLoader from "../../components/PropertyForm/FormLoader/FormLoader";
 function ModifyPropertyPage() {
   const { propertyId } = useParams();
   const [property, setProperty] = useState<Property>();
+  const [isLoadingForm, setisLoadingForm] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!propertyId) navigate("/");
     else {
-      getPropertyById(propertyId).then((response) => setProperty(response));
+      getPropertyById(propertyId).then((response) => {
+        setProperty(response);
+        setisLoadingForm(false);
+      });
     }
   }, [propertyId, navigate]);
-  if (!property) return <FormLoader/>;
+  if (isLoadingForm) return <FormLoader />;
 
   return (
     <>
-      <PropertyForm modifyProperty={property} />
+      <PropertyForm
+        modifyProperty={property}
+        setIsLoadingForm={setisLoadingForm}
+      />
     </>
   );
 }
