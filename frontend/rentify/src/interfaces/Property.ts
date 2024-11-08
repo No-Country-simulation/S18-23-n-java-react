@@ -24,6 +24,56 @@ export interface Property {
   featured?: boolean;
 }
 
+export interface UpdateProperty {
+  id?: number;
+  ownerId: number;
+  country: string;
+  province: string;
+  city: string;
+  streetName: string;
+  streetNumber: string;
+  numberOfRooms: number;
+  propertyType: string;
+  antiquity: string;
+  yearsOfAntiquity: number;
+  price: number;
+  maintenanceFees: number;
+  title: string;
+  description: string;
+  totalArea: number;
+  builtArea: number;
+  status: string;
+  rooms: Room[];
+  amenities: Amenity[];
+  features: Features[];
+  multimedia: Multimedia[];
+  featured?: boolean;
+}
+
+export type UpdatePropertyKeys = 
+  "id" |
+  "ownerId" |
+  "country" |
+  "province" |
+  "city" |
+  "streetName" |
+  "streetNumber" |
+  "numberOfRooms" |
+  "propertyType" |
+  "antiquity" |
+  "yearsOfAntiquity" |
+  "price" |
+  "maintenanceFees" |
+  "title" |
+  "description" |
+  "totalArea" |
+  "builtArea" |
+  "status" |
+  "rooms" |
+  "amenities" |
+  "features" |
+  "multimedia"
+
 export interface PropertyCard {
   id: number;
   ownerId: number;

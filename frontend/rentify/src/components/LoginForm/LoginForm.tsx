@@ -12,8 +12,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthContext, AlertContext } from "../../context";
 import { authLogin } from "../../service/auth/authService";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import FormInputText from "./FormComponents/FormInputText";
+import ForgotPassword from "./ForgotPassword";
+import InputText from "../FormInputs/InputText";
 
 function LoginForm() {
   const { userLogin } = useContext(AuthContext);
@@ -79,7 +79,7 @@ function LoginForm() {
           sx={{ display: "flex", flexDirection: "column", gap: 3 }}
         >
           <FormControl>
-            <FormInputText
+            <InputText
               name="email"
               type="email"
               label="Correo electrónico"
@@ -87,7 +87,7 @@ function LoginForm() {
             />
           </FormControl>
           <FormControl>
-            <FormInputText
+            <InputText
               name="password"
               type="password"
               label="Contraseña"

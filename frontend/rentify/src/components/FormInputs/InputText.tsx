@@ -1,31 +1,24 @@
 import { InputAdornment, TextField } from "@mui/material";
-import {
-  Control,
-  Controller,
-  FieldValues,
-  RegisterOptions,
-} from "react-hook-form";
+import { Control, Controller, FieldValues, RegisterOptions } from "react-hook-form";
 
 interface Props {
   name: string;
   label: string;
   control: Control<FieldValues> | undefined;
-  rules?: RegisterOptions;
+  additionalText?: string;
   type?: React.HTMLInputTypeAttribute;
-  additionalText?: string
+  rules?: Omit<RegisterOptions<FieldValues, string>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined
 }
 
-function InputText({ name, label, control, rules, type, additionalText }: Props) {
+function InputText({ name, label, control, additionalText, type, rules }: Props) {
   return (
     <Controller
       name={name}
       control={control}
-      rules={{
-        ...rules,
-      }}
+      rules={{ required: { value: true, message: "Este campo es requerido" }, ...rules }}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
-          type={type || "text"}
+          type={type}
           label={label}
           size="small"
           value={value}
@@ -34,7 +27,9 @@ function InputText({ name, label, control, rules, type, additionalText }: Props)
           helperText={error ? error.message : ""}
           slotProps={{
             input: {
-              endAdornment: <InputAdornment position="end">{additionalText}</InputAdornment>,
+              endAdornment: (
+                <InputAdornment position="end">{additionalText}</InputAdornment>
+              ),
             },
           }}
         />

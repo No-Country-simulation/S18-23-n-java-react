@@ -7,7 +7,7 @@ interface Props {
   control: Control<FieldValues> | undefined;
 }
 
-function FormTextArea({ name, label, control }: Props) {
+function InputTextArea({ name, label, control }: Props) {
   return (
     <Controller
       name={name}
@@ -28,4 +28,4 @@ function FormTextArea({ name, label, control }: Props) {
   );
 }
 
-export default FormTextArea;
+export default InputTextArea;

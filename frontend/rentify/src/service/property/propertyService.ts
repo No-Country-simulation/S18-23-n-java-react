@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { authHeaders, backend } from "../auth/authService";
 import { Property } from "../../interfaces/Property";
 
-export const getAllProperties = async (params: string) => {
+export const getAllProperties = async (params?: string) => {
   try {
     const response = await backend.get(`/properties?${params}`, {
       headers: authHeaders(),
@@ -18,6 +18,19 @@ export const getAllProperties = async (params: string) => {
 export const getPropertyById = async (id: string) => {
   try {
     const response = await backend.get(`/properties/${id}`, {
+      headers: authHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
+
+export const getPropertiesByUserId = async (id: number) => {
+  try {
+    const response = await backend.get(`/properties/user/${id}`, {
       headers: authHeaders(),
     });
     return response.data;
@@ -54,12 +67,25 @@ export const createProperty = async (property: Property) => {
   }
 };
 
-export const getPropertiesByUserId = async (id: number) => {
+export const updateProperty = async (property: Property, id: number) => {
   try {
-    const response = await backend.get(`/properties/user/${id}`, {
+    const response = await backend.put(`/properties/${id}`, property,  {
       headers: authHeaders(),
     });
     return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
+  }
+};
+
+export const deleteProperty = async (id: number) => {
+  try {
+    const response = await backend.delete(`/properties/${id}`,  {
+      headers: authHeaders(),
+    });
+    return response
   } catch (error) {
     if (isAxiosError(error)) {
       return error.response?.data;

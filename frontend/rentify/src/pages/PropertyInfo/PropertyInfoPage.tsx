@@ -16,7 +16,7 @@ import {
 import { AlertContext } from "../../context";
 import LoadingPropertyInfo from "../../components/PropertyInfo/LoadingPropertyInfo";
 
-function PropertyInfoPage() {
+export function PropertyInfoPage() {
   const { showAlert } = useContext(AlertContext);
   const { propertyId } = useParams();
   const { pathname } = useLocation();
@@ -28,7 +28,6 @@ function PropertyInfoPage() {
     try {
       const propertyResponse: Property = await getPropertyById(propertyId);
       const ownerResponse = await getOwnerById(propertyResponse.ownerId);
-      console.log(ownerResponse);
       setProperty(propertyResponse);
       setOwner(ownerResponse.data as Owner);
     } catch (error) {

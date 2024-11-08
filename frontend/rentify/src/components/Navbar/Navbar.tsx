@@ -35,7 +35,6 @@ function Navbar() {
 
   const handleLogout = async () => {
     const response = await authLogout();
-    console.log(response);
     if (response.isSuccess) {
       userLogout();
       showAlert("success", "Sesión cerrada exitosamente");
@@ -99,11 +98,10 @@ function Navbar() {
                     <Avatar sx={{ width: 36, height: 36 }} src={user?.photo} />
                   ) : (
                     <Avatar
-                      alt={user?.name}
-                      src={
-                        "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg"
-                      }
-                    />
+                      alt={user?.name} 
+                    >
+                      <Person/>
+                    </Avatar>
                   )}
                 </Button>
               </>
