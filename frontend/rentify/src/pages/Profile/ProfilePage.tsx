@@ -16,6 +16,7 @@ import { deleteProperty, getPropertiesByUserId } from "../../service/property/pr
 import { Property, PropertyCard } from "../../interfaces/Property";
 import ArrowButton from "../../components/PropertyInfo/ArrowButton";
 import {
+  Add,
   ArrowBackIosNew,
   ArrowForwardIos,
   Email,
@@ -25,7 +26,7 @@ import {
 import MyPropertyCard from "../../components/PropertyCards/MyPropertyCard";
 
 function ProfilePage() {
-  const { isUserLoggedIn, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { showAlert } = useContext(AlertContext);
   const [fullUser, setFullUser] = useState<User>();
   const [properties, setProperties] = useState<Property[]>();
@@ -33,8 +34,7 @@ function ProfilePage() {
   const [position, setPosition] = useState(0);
   const [visibleCards, setVisibleCards] = useState<PropertyCard[]>();
   const [isLoading, setIsLoading] = useState(true);
-console.log(position)
-console.log(properties)
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (properties) {
@@ -134,16 +134,11 @@ console.log(properties)
       </Box>
     );
 
-  if (!isUserLoggedIn) {
-    navigate("/");
-    return <Box></Box>;
-  }
-
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box sx={{ paddingY: {xs: 0, sm: 4} }}>
       <Paper
         elevation={3}
-        sx={{ padding: "2rem", maxWidth: 1000, margin: "auto" }}
+        sx={{ padding: {xs: 2, sm: 3, md: 4}, maxWidth: 1000, margin: "auto" }}
       >
         {/* Información del usuario */}
         <Stack spacing={3} alignItems="center" mt={2}>
@@ -153,7 +148,7 @@ console.log(properties)
               src={
                 fullUser?.photo
               }
-              sx={{ margin: "auto" }}
+              sx={{width: 190, height: 190, margin: "auto", padding: 2 }}
             /> : 
             <Avatar
               alt={fullUser?.name}
@@ -200,12 +195,12 @@ console.log(properties)
           <Stack
             justifyContent={"space-between"}
             alignItems={"center"}
-            sx={{ marginBottom: 2, flexDirection: { xs: "column", sm: "row" } }}
+            direction={"row"}
+            sx={{ alignItems: "center", marginTop: 2}}
           >
             <Typography
               variant="subtitle1"
               fontWeight={"bold"}
-              marginBottom={2}
             >
               Mis Propiedades
             </Typography>
@@ -214,8 +209,10 @@ console.log(properties)
               color="primary"
               component={RouterLink}
               to="/register-property"
+              sx={{width: "fit-content", padding: {xs: "4px 8px", sm: "8px 16px"}, minWidth: 0}}
             >
-              Agregar Propiedad
+              <Typography sx={{display: {xs: "flex", sm: "none"}}}><Add/></Typography>
+              <Typography sx={{display: {xs: "none", sm: "flex"}}}>Agregar Propiedad</Typography>
             </Button>
           </Stack>
           {properties && properties.length > 0 ? (
@@ -225,13 +222,13 @@ console.log(properties)
                 action={prevPosition}
                 sx={{
                   position: "absolute",
-                  left: { xs: -40, md: -30 },
+                  left: { xs: -16, md: -30 },
                   top: "50%",
                   bottom: 0,
                   height: "fit-content",
                 }}
               >
-                <ArrowBackIosNew sx={{ width: 48, height: 48 }} />
+                <ArrowBackIosNew sx={{ width: {xs:24, md:48}, height: {xs:24, md:48} }} />
               </ArrowButton>
 
               <Box
@@ -243,7 +240,7 @@ console.log(properties)
                 {visibleCards?.map((property, index) => (
                   <MyPropertyCard
                     property={property}
-                    key={property.title}
+                    key={property.id}
                     index={index}
                     handleDeleteProperty={handleDeleteProperty}
                   />
@@ -255,13 +252,13 @@ console.log(properties)
                 action={nextPosition}
                 sx={{
                   position: "absolute",
-                  right: { xs: -40, md: -30 },
+                  right: { xs: -16, md: -30 },
                   top: "50%",
                   bottom: 0,
                   height: "fit-content",
                 }}
               >
-                <ArrowForwardIos sx={{ width: 48, height: 48 }} />
+                <ArrowForwardIos sx={{ width: {xs:24, md:48}, height: {xs:24, md:48} }} />
               </ArrowButton>
             </>
           ) : 

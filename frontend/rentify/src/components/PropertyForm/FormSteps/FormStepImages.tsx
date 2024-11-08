@@ -68,6 +68,7 @@ export function FormStepImages({
           >
             <input
               type="file"
+              accept="image/*"
               style={{ visibility: "hidden", width: "1px" }}
               multiple
               onChange={handleInputFile}
@@ -75,7 +76,7 @@ export function FormStepImages({
             Añadir Foto <PhotoCamera />
           </Button>
           {errors.multimedia && (
-            <FormHelperText sx={{ color: "error.main" }}>
+            <FormHelperText sx={{ color: "error.main", marginTop: 2, textAlign: "center", fontSize: 14 }}>
               {errors.multimedia.message as string}
             </FormHelperText>
           )}
