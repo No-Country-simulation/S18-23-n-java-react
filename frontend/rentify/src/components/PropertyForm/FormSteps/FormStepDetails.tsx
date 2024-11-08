@@ -1,5 +1,5 @@
 import { FormControl } from "@mui/material";
-import FormInputText from "../FormInputs/InputText";
+import FormInputText from "../../FormInputs/InputText";
 import { Control, FieldValues } from "react-hook-form";
 
 interface Props {

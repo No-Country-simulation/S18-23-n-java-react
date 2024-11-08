@@ -1,17 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "./pages/Landing/LandingPage";
-import LoginPage from "./pages/Login/LoginPage";
-import Navbar from "./components/Navbar/Navbar";
-import { ThemeProvider } from "@emotion/react";
-import theme from "./theme/theme";
-import ExplorePage from "./pages/Explore/ExplorePage";
 import { AuthProvider, AlertProvider } from "./context";
+import { ThemeProvider } from "@emotion/react";
 import AlertElement from "./components/Alert/AlertElement";
-import PropertyInfoPage from "./pages/PropertyInfo/PropertyInfoPage";
-import RegisterPropertyPage from "./pages/Register-property/RegisterPropertyPage";
-import ProfilePage from "./pages/Profile/ProfilePage";
-import ModifyPropertyPage from "./pages/ModifyProperty/ModifyPropertyPage";
-import AuthPage from "./pages/Auth/AuthPage";
+import Navbar from "./components/Navbar/Navbar";
+import { LandingPage, LoginPage, ExplorePage, PropertyInfoPage, AuthPage, ProfilePage, RegisterPropertyPage, ModifyPropertyPage } from "./pages";
+import theme from "./theme/theme";
+
 
 function App() {
   return (

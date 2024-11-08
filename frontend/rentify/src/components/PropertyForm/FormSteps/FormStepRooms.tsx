@@ -1,5 +1,5 @@
 import { Box, FormControl, Typography } from "@mui/material";
-import CheckboxWithInput from "../FormInputs/CheckboxWithInput";
+import CheckboxWithInput from "../PropertyInputs/CheckboxWithInput";
 
 interface Props {
   setSelectedRooms: React.Dispatch<

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import FormLoader from '../../components/PropertyForm/FormLoader/FormLoader';
+import FormLoader from '../../components/PropertyForm/PropertyFormLoader';
 import PropertyForm from '../../components/PropertyForm/PropertyForm';
 
-const RegisterPropertyPage: React.FC = () => {
+export const RegisterPropertyPage: React.FC = () => {
   const [isLoadingForm, setisLoadingForm] = useState(false);
   if (isLoadingForm) return <FormLoader />;
   return (

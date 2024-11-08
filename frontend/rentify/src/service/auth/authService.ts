@@ -18,7 +18,6 @@ export const authLogin = async (email: string, password: string) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) return error.response?.data;
-    console.log(error);
   }
 };
 
@@ -32,7 +31,6 @@ export const authLogout = async () => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) return error.response?.data;
-    console.log(error);
   }
 };
 
@@ -42,7 +40,6 @@ export const authRecoveryPassword = async (email: string) => {
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) return error.response?.data;
-    console.log(error);
   }
 };
 

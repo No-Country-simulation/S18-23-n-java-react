@@ -1,5 +1,5 @@
 import { Box, FormControl, Typography } from "@mui/material";
-import CheckboxWithId from "../FormInputs/CheckboxWithId";
+import CheckboxWithId from "../PropertyInputs/CheckboxWithId";
 
 interface Props {
   selectedFeatures: number[]

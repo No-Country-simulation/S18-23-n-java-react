@@ -1,9 +1,9 @@
 import { Box, Typography, Stack, Button } from "@mui/material";
 import PropertyRoomSection from "./PropertyRoomSection";
 import { useForm, FieldValues } from "react-hook-form";
-import InputText from "./InputText";
-import InputSelect from "./InputSelect";
-import { Close} from "@mui/icons-material";
+import InputText from "../FormInputs/InputText";
+import InputSelect from "../FormInputs/InputSelect";
+import { Close } from "@mui/icons-material";
 
 interface Props {
   onSubmit: (data: FieldValues) => void;
@@ -138,14 +138,14 @@ function FilterForm({ onSubmit, closeFilter }: Props) {
           <Typography variant="body1" textAlign={"center"} fontWeight={"bold"}>
             Provincia
           </Typography>
-          <InputText name="province" label="Provincia" control={control} />
+          <InputText name="province" label="Provincia" control={control} rules={{ required: false }} />
         </Stack>
 
         <Stack gap={1}>
           <Typography variant="body1" textAlign={"center"} fontWeight={"bold"}>
             Ciudad
           </Typography>
-          <InputText name="city" label="Ciudad" control={control} />
+          <InputText name="city" label="Ciudad" control={control} rules={{ required: false }} />
         </Stack>
 
         <Stack gap={1}>

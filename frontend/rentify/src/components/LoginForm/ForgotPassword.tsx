@@ -11,7 +11,7 @@ import {
 import { FieldValues, useForm } from "react-hook-form";
 import { AlertContext } from "../../context";
 import { authRecoveryPassword } from "../../service/auth/authService";
-import FormInputText from "../LoginForm/FormComponents/FormInputText";
+import InputText from "../FormInputs/InputText";
 
 interface Props {
   open: boolean;
@@ -58,7 +58,7 @@ function ForgotPassword({ open, handleClose }: Props) {
           los pasos a seguir para recuperar tu contraseña
         </DialogContentText>
         <FormControl>
-          <FormInputText
+          <InputText
             name="email"
             type="email"
             label="Correo electrónico"

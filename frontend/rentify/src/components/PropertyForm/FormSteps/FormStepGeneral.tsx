@@ -1,7 +1,7 @@
 import { FormControl } from "@mui/material";
-import InputSelect from "../../AdvacedFilter/InputSelect";
-import FormInputText from "../FormInputs/InputText";
-import FormTextArea from "../FormInputs/InputTextArea";
+import InputSelect from "../../FormInputs/InputSelect";
+import FormInputText from "../../FormInputs/InputText";
+import FormTextArea from "../../FormInputs/InputTextArea";
 import { Control, FieldValues } from "react-hook-form";
 
 interface Props {

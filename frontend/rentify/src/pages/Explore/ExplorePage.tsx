@@ -10,7 +10,7 @@ import { Tune } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
 import LoadingCard from "../../components/PropertyCards/LoadingCard";
 
-function ExplorePage() {
+export function ExplorePage() {
   const { showAlert } = useContext(AlertContext);
   const [properties, setProperties] = useState([] as PropertyCard[]);
   const [waitForResponse, setWaitForResponse] = useState(<LoadingCard />);

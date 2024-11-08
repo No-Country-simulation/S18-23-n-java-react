@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 import { authHeaders, backend } from "../auth/authService";
 import { Property } from "../../interfaces/Property";
 
-export const getAllProperties = async (params: string) => {
+export const getAllProperties = async (params?: string) => {
   try {
     const response = await backend.get(`/properties?${params}`, {
       headers: authHeaders(),

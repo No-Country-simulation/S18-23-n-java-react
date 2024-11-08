@@ -25,7 +25,7 @@ import {
 } from "@mui/icons-material";
 import MyPropertyCard from "../../components/PropertyCards/MyPropertyCard";
 
-function ProfilePage() {
+export function ProfilePage() {
   const { user } = useContext(AuthContext);
   const { showAlert } = useContext(AlertContext);
   const [fullUser, setFullUser] = useState<User>();
