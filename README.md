@@ -327,6 +327,37 @@ Ofrecer a los inquilinos una plataforma de búsqueda rápida y personalizable, m
       </dd>
     </dl>
   </dd>
+  <dd>
+  <dt>♟️ Team Leader</dt>
+    <dl>
+      <dd>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Github</th>
+              <th>Linkedin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gonzalo Villegas</td>
+              <td>
+                <a href="">
+                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                </a>
+              </td>
+              <td>
+                <a href="">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </dd>
+    </dl>
+  </dd>
 </dl>
 <br>
 
