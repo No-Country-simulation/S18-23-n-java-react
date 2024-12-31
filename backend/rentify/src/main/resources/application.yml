@@ -41,10 +41,13 @@ token:
 
 api:
   base: api/v1
+  url: ${BACKEND_BASE_URL:http://localhost:8080}
+
+
 
 frontend:
   baseUrl: ${FRONT_BASE_URL:http://localhost:3000}
-  verifyEmailUrl: ${VERIFYEMAIL_URL:/auth/veryfy-email}
+  verifyEmailUrl: ${VERIFYEMAIL_URL:/auth/verify-email}
   resetPasswordUrl: ${RESETPASSWORD_URL:/auth/reset-password}
 
 
