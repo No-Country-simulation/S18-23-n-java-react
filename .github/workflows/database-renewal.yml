@@ -1,0 +1,131 @@
+name: database renewal
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 1-31/28 * *'
+jobs:
+  renew-db:
+    name: renew expired database
+    runs-on: ubuntu-latest
+    steps:
+      - name: install jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+      - name: delete expired database
+        run: |
+          dbid=$(curl --request GET \
+          --url https://api.render.com/v1/postgres \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}'| jq -r '.[].postgres.id')
+          
+          echo dbid: $dbid
+          
+          curl --request DELETE \
+          --url https://api.render.com/v1/postgres/${dbid} \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}'
+
+      - name: create new database
+        run: |
+          dbid=$(curl --request POST \
+          --url https://api.render.com/v1/postgres \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+          --data '
+          {
+            "databaseName": "rentify",
+            "databaseUser": "kenti",
+            "enableHighAvailability": false,
+            "plan": "free",
+            "version": "16",
+            "name": "healthtech",
+            "ownerId": "tea-ctgehiqlqhvc739jf640"
+          }'| jq -r '.id')
+          
+          echo dbid: $dbid
+          echo "dbid=$dbid" >> $GITHUB_ENV
+
+      - name: retrieve connection info
+        run: |
+          echo dbid:$dbid
+          max_retries=10
+          retries=0
+          body=""
+          while [ $retries -lt $max_retries ]; do
+          echo "Attempt $(($retries + 1)) to fetch connection info..."
+          body=$(curl --request GET \
+          --url "https://api.render.com/v1/postgres/${dbid}/connection-info" \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}')
+          echo curl --request GET \
+          --url https://api.render.com/v1/postgres/$dbid/connection-info \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}'
+          
+          if echo "$body" | jq -e '.externalConnectionString' >/dev/null; then
+          echo "Connection info retrieved successfully."
+          break
+          fi
+          
+          echo "Database not ready yet. Waiting for 10 seconds..."
+          sleep 10
+          retries=$(($retries + 1))
+          done
+          
+            if [ $retries -eq $max_retries ]; then
+            echo "Failed to fetch connection info after $max_retries attempts."
+            exit 1
+            fi
+          
+          
+          url=$(echo $body | jq -r '.internalConnectionString')
+          url=jdbc:"${url:0:13}${url:52}"
+          echo url: $url
+          echo "url=$url" >> $GITHUB_ENV   
+          
+          password=$(echo $body | jq -r '.password')
+          echo password: $password
+          echo "password=$password" >> $GITHUB_ENV
+          
+          user=kenti
+          echo "user=$user" >> $GITHUB_ENV
+
+      - name: change env variables
+        run: |
+          curl --request PUT \
+          --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/env-vars/DATABASE \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+          --data "{\"value\":\"$url\"}"
+          
+          curl --request PUT \
+          --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/env-vars/DB_USER \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+            --data "{\"value\":\"$user\"}"
+          
+          curl --request PUT \
+          --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/env-vars/DB_PASSWORD \
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+            --data "{\"value\":\"$password\"}"
+
+      - name: redeploy service
+        run: |
+          curl --request POST \
+          --url {{ secrets.BACKEND_DEPLOY_HOOK }}
+          --header 'accept: application/json' \
+          --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
+          --header 'content-type: application/json' \
+          --data '
+          {
+            "clearCache": "do_not_clear"
+          }
+          '
