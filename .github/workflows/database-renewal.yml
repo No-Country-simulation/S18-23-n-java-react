@@ -120,7 +120,7 @@ jobs:
       - name: redeploy service
         run: |
           curl --request POST \
-          --url {{ secrets.BACKEND_DEPLOY_HOOK }}
+          --url ${{ secrets.BACKEND_DEPLOY_HOOK }}
           --header 'accept: application/json' \
           --header 'authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
           --header 'content-type: application/json' \
